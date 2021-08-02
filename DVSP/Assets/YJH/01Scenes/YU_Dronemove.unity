@@ -332,13 +332,11 @@ MonoBehaviour:
   upPower: 3
   movePower: 1
   isHobering: 0
-  swing: 0.1
   pos:
   - {fileID: 88616396}
   - {fileID: 1151694156}
   - {fileID: 1402947152}
   - {fileID: 1131151716}
-  hoverY: 0
 --- !u!224 &519612433
 RectTransform:
   m_ObjectHideFlags: 0
