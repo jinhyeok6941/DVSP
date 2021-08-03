@@ -17,7 +17,7 @@ public class DroneControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //����� ���� 
+        //�����? ���� 
         droneWeight = rb.mass * Physics.gravity.magnitude; //  ������ ���� = ���� x �߷� ���ӵ�  / �� ũ��? 
     }
     void Update()
@@ -28,7 +28,7 @@ public class DroneControl : MonoBehaviour
 
         //ȣ���� 
         Hovering();
-        //�������
+        //�������?
         Balancing();
 
     }
@@ -97,7 +97,7 @@ public class DroneControl : MonoBehaviour
         {
             if (!isHobering)
             {
-                //ȣ���� ��� 
+                //ȣ���� ���? 
                 isHobering = !isHobering;
                 hoverY = transform.position.y;// ��ư���������� ����               
                 //StartCoroutine(Hover());
@@ -105,15 +105,15 @@ public class DroneControl : MonoBehaviour
             else
             {
                 isHobering = !isHobering;
-                //ȣ���� ��� ����
+                //ȣ���� ���? ����
                 //StopCoroutine(Hover());
             }
         }
 
-        //ȣ���� ��忡 ����
+        //ȣ���� ���? ����
         if (isHobering)
         {
-            //ȣ���� ����϶��� ��� ������Ʈ �ռ����� ���� 
+            //ȣ���� ����϶���? ���? ������Ʈ �ռ����� ���� 
             if (hoverY > transform.position.y) // hover���� ������, �������� �ö󰡱�
             {
                 print("up");
@@ -143,7 +143,6 @@ public class DroneControl : MonoBehaviour
                 {
                     rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  4���� ����
                 }
-
             }
             yield return new WaitForSeconds(swing);
 
@@ -153,7 +152,7 @@ public class DroneControl : MonoBehaviour
 
     void Balancing()
     {
-        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)//����� �������մٸ�
+        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)//�����? �������մٸ�
         {
             // �߽� ������ �����ִ� ���� �ش�.
             for (int i = 0; i < pos.Length; i++)
