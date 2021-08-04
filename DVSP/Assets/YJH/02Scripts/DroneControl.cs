@@ -14,82 +14,103 @@ public class DroneControl : MonoBehaviour
 
     float hoverY;
     float droneWeight;
+
+    int rotPointCnt;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //�����? ���� 
-        droneWeight = rb.mass * Physics.gravity.magnitude; //  ������ ���� = ���� x �߷� ���ӵ�  / �� ũ��? 
+        droneWeight = rb.mass * Physics.gravity.magnitude; 
     }
     void Update()
     {
         UpandDown();
         Ctrl4Way();
-        //�¿�ȸ��
 
-        //ȣ���� 
         Hovering();
-        //�������?
         Balancing();
 
     }
 
     void UpandDown()
     {
-        //�� �Ʒ�
         if (Input.GetKey(KeyCode.I))
         {
             for (int i = 0; i < pos.Length; i++)
             {
-                rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  4���� ����
+                rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); 
             }
         }
         else if (Input.GetKey(KeyCode.K))
         {
             for (int i = 0; i < pos.Length; i++)
             {
-                rb.AddForceAtPosition(-pos[i].up * upPower * 0.1f, pos[i].position); //  4���� ����
+                rb.AddForceAtPosition(-pos[i].up * upPower * 0.1f, pos[i].position); 
             }
         }
-    }//���Ʒ�
+    }
 
     void Ctrl4Way()
     {
         //�յ�
         if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
-            rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
+            for (int i = 0; i < rotPointCnt; i++)
+            {
+                rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
 
-            rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
-            rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
+                rb.AddForceAtPosition(pos[2].up * droneWeight * 0.25f, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * droneWeight * 0.25f, pos[3].position);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
-            rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
-
-            rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[0].position);
-            rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[1].position);
+            for (int i = 0; i < pos.Length; i++)
+            {
+                rb.AddForceAtPosition(pos[i].up * droneWeight * 0.11f, pos[i].position);
+            }
         }
-
-        //�¿�
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyUp(KeyCode.W))
         {
-            rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
-            rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
+            for (int i = 0; i < rotPointCnt; i++)
+            {
+                rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
 
-            rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
-            rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[0].position);
+                rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
-            rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
+    
 
-            rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[1].position);
-            rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
-        }
-    }//�յ��¿�
+        
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
+        //    rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
+
+        //    rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[0].position);
+        //    rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[1].position);
+        //}
+
+        ////�¿�
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
+        //    rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
+
+        //    rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
+        //    rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[0].position);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
+        //    rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
+
+        //    rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[1].position);
+        //    rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
+        //}
+    }
 
     void Hovering()
     {
@@ -97,29 +118,25 @@ public class DroneControl : MonoBehaviour
         {
             if (!isHobering)
             {
-                //ȣ���� ���? 
                 isHobering = !isHobering;
-                hoverY = transform.position.y;// ��ư���������� ����               
-                //StartCoroutine(Hover());
+                hoverY = transform.position.y;
             }
             else
             {
                 isHobering = !isHobering;
-                //ȣ���� ���? ����
-                //StopCoroutine(Hover());
             }
         }
 
         //ȣ���� ���? ����
         if (isHobering)
         {
-            //ȣ���� ����϶���? ���? ������Ʈ �ռ����� ���� 
-            if (hoverY > transform.position.y) // hover���� ������, �������� �ö󰡱�
+            //
+            if (hoverY > transform.position.y)
             {
                 print("up");
                 for (int i = 0; i < pos.Length; i++)
                 {
-                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position);// 4���� ������ �߷� 4���� 1���� ������ �ö󰡰� ��. 
+                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.2f, pos[i].position);// 
                 }
             }
         }
@@ -127,40 +144,20 @@ public class DroneControl : MonoBehaviour
         {
 
         }
-
-
-
-    }// ȣ���� ��ư 
-
-
-    IEnumerator Hover()
-    {
-        while (isHobering)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                for (int i = 0; i < pos.Length; i++)
-                {
-                    rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  4���� ����
-                }
-            }
-            yield return new WaitForSeconds(swing);
-
-        }
-        print("end");
     }
+
+
 
     void Balancing()
     {
-        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)//�����? �������մٸ�
+        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)//
         {
-            // �߽� ������ �����ִ� ���� �ش�.
+            //
             for (int i = 0; i < pos.Length; i++)
             {
-                if (pos[i].position.y < transform.position.y - 0.1f) // �߽� ������ ���� ���� y ���� ������
+                if (pos[i].position.y < transform.position.y - 0.1f) // 
                 {
-                    print("��������");
-                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position); //���� �������� 
+                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position); //
                 }
             }
         }
