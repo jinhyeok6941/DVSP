@@ -14,82 +14,115 @@ public class DroneControl : MonoBehaviour
 
     float hoverY;
     float droneWeight;
+
+    public int chack;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //����� ���� 
-        droneWeight = rb.mass * Physics.gravity.magnitude; //  ������ ���� = ���� x �߷� ���ӵ�  / �� ũ��? 
+        //
+        droneWeight = rb.mass * Physics.gravity.magnitude; //  
     }
     void Update()
     {
         UpandDown();
         Ctrl4Way();
-        //�¿�ȸ��
+        //
 
-        //ȣ���� 
+        
         Hovering();
-        //�������
-        Balancing();
+        
+        // Balancing();
 
     }
 
     void UpandDown()
     {
-        //�� �Ʒ�
+        //
         if (Input.GetKey(KeyCode.I))
         {
             for (int i = 0; i < pos.Length; i++)
             {
-                rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  4���� ����
+                rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  
             }
         }
-        else if (Input.GetKey(KeyCode.K))
-        {
-            for (int i = 0; i < pos.Length; i++)
-            {
-                rb.AddForceAtPosition(-pos[i].up * upPower * 0.1f, pos[i].position); //  4���� ����
-            }
-        }
-    }//���Ʒ�
+        //else if (Input.GetKey(KeyCode.K))
+        //{
+        //    for (int i = 0; i < pos.Length; i++)
+        //    {
+        //        rb.AddForceAtPosition(-pos[i].up * upPower * 0.1f, pos[i].position); //  
+        //    }
+        //}
+    }
 
     void Ctrl4Way()
     {
-        //�յ�
-        if (Input.GetKeyDown(KeyCode.W))
+        //forward 
+        if (Input.GetKeyDown(KeyCode.W))//갈 방향으로 기울어지기
         {
-            rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
-            rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
+            for (int i = 0; i < chack; i++)
+            {
+                rb.AddForceAtPosition(pos[0].up * movePower * 3, pos[0].position); //  big power
+                rb.AddForceAtPosition(pos[1].up * movePower * 3, pos[1].position); // big power
 
-            rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
-            rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
+                rb.AddForceAtPosition(pos[2].up * droneWeight * 0.2f, pos[2].position); // blance power
+                rb.AddForceAtPosition(pos[3].up * droneWeight * 0.2f, pos[3].position); // blance power
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.W))//수평으로으로 이동
         {
-            rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
-            rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
+            rb.AddForceAtPosition(pos[0].up * droneWeight * 0.15f, pos[0].position);
+            rb.AddForceAtPosition(pos[1].up * droneWeight * 0.15f, pos[1].position);
 
-            rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[0].position);
-            rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[1].position);
+            rb.AddForceAtPosition(pos[2].up * droneWeight * 0.15f, pos[2].position); // blance power
+            rb.AddForceAtPosition(pos[3].up * droneWeight * 0.15f, pos[3].position); // blance power
+
+            if(true)//너무 기울어지면 약한쪽이 힘을 좀 더써야할듯한데.. 45도 각도 유지행함. 
+            { 
+
+            }
         }
-
-        //�¿�
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyUp(KeyCode.W))// 균형잡기. 
         {
-            rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
-            rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
+            for (int i = 0; i < chack -1.5f; i++)
+            {
+                rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[1].position);
 
-            rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
-            rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[0].position);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
-            rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
+                rb.AddForceAtPosition(pos[2].up * movePower * 4, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * movePower * 4, pos[3].position);
 
-            rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[1].position);
-            rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
+            }
         }
-    }//�յ��¿�
+
+
+        ////  back
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);//  big power
+        //    rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);//  big power
+
+        //    rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[0].position);// blance power
+        //    rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[1].position);// blance power
+        //}
+
+        ////
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);//  big power
+        //    rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);//  big power
+
+        //    rb.AddForceAtPosition(pos[3].up * droneWeight * 0.25f, pos[3].position);// blance power
+        //    rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[0].position);// blance power
+        //}
+        //else if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);//  big power
+        //    rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);//  big power
+
+        //    rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[1].position);// blance power
+        //    rb.AddForceAtPosition(pos[2].up * droneWeight * 0.25f, pos[2].position);// blance power
+        //}
+    }//
 
     void Hovering()
     {
@@ -97,29 +130,26 @@ public class DroneControl : MonoBehaviour
         {
             if (!isHobering)
             {
-                //ȣ���� ��� 
+                //
                 isHobering = !isHobering;
-                hoverY = transform.position.y;// ��ư���������� ����               
-                //StartCoroutine(Hover());
+                hoverY = transform.position.y;// press butten timing . y            
             }
             else
             {
                 isHobering = !isHobering;
-                //ȣ���� ��� ����
-                //StopCoroutine(Hover());
             }
         }
 
-        //ȣ���� ��忡 ����
+        //
         if (isHobering)
         {
-            //ȣ���� ����϶��� ��� ������Ʈ �ռ����� ���� 
-            if (hoverY > transform.position.y) // hover���� ������, �������� �ö󰡱�
+            //
+            if (hoverY > transform.position.y) // now y , hover y 
             {
                 print("up");
                 for (int i = 0; i < pos.Length; i++)
                 {
-                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position);// 4���� ������ �߷� 4���� 1���� ������ �ö󰡰� ��. 
+                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position);// 4 pos add power  
                 }
             }
         }
@@ -130,38 +160,20 @@ public class DroneControl : MonoBehaviour
 
 
 
-    }// ȣ���� ��ư 
+    }//
 
 
-    IEnumerator Hover()
+    void Balancing()// yet
     {
-        while (isHobering)
+        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)// 
         {
-            for (int j = 0; j < 10; j++)
-            {
-                for (int i = 0; i < pos.Length; i++)
-                {
-                    rb.AddForceAtPosition(pos[i].up * upPower, pos[i].position); //  4���� ����
-                }
-
-            }
-            yield return new WaitForSeconds(swing);
-
-        }
-        print("end");
-    }
-
-    void Balancing()
-    {
-        if (transform.rotation.x >= 0 || transform.rotation.z >= 0)//����� �������մٸ�
-        {
-            // �߽� ������ �����ִ� ���� �ش�.
+            // 
             for (int i = 0; i < pos.Length; i++)
             {
-                if (pos[i].position.y < transform.position.y - 0.1f) // �߽� ������ ���� ���� y ���� ������
+                if (pos[i].position.y < transform.position.y - 0.1f) // 중심보다 작으면
                 {
-                    print("��������");
-                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position); //���� �������� 
+                    print("asda");
+                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.25f, pos[i].position); //
                 }
             }
         }
