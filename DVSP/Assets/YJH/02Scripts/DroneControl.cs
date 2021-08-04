@@ -15,7 +15,7 @@ public class DroneControl : MonoBehaviour
     float hoverY;
     float droneWeight;
 
-    int rotPointCnt;
+    int rotPointCnt = 10;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -56,29 +56,30 @@ public class DroneControl : MonoBehaviour
         {
             for (int i = 0; i < rotPointCnt; i++)
             {
-                rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
-                rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
+                rb.AddForceAtPosition(pos[0].up * movePower*3, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * movePower*3, pos[1].position);
 
-                rb.AddForceAtPosition(pos[2].up * droneWeight * 0.25f, pos[2].position);
-                rb.AddForceAtPosition(pos[3].up * droneWeight * 0.25f, pos[3].position);
+                rb.AddForceAtPosition(pos[2].up * droneWeight * 0.2f, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * droneWeight * 0.2f, pos[3].position);
             }
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            for (int i = 0; i < pos.Length; i++)
-            {
-                rb.AddForceAtPosition(pos[i].up * droneWeight * 0.11f, pos[i].position);
-            }
+            rb.AddForceAtPosition(pos[0].up * droneWeight * 0.15f, pos[0].position);
+            rb.AddForceAtPosition(pos[1].up * droneWeight * 0.15f, pos[1].position);
+            rb.AddForceAtPosition(pos[2].up * droneWeight * 0.15f, pos[2].position);
+            rb.AddForceAtPosition(pos[3].up * droneWeight * 0.15f, pos[3].position);
+
         }
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            for (int i = 0; i < rotPointCnt; i++)
+            for (int i = 0; i < rotPointCnt - 1; i++)
             {
-                rb.AddForceAtPosition(pos[0].up * movePower, pos[0].position);
-                rb.AddForceAtPosition(pos[1].up * movePower, pos[1].position);
+                rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[1].position); ;
 
-                rb.AddForceAtPosition(pos[2].up * (movePower - 0.1f), pos[2].position);
-                rb.AddForceAtPosition(pos[3].up * (movePower - 0.1f), pos[3].position);
+                rb.AddForceAtPosition(pos[2].up * movePower * 4, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * movePower * 4, pos[3].position);
             }
         }
     
