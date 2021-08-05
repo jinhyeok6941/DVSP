@@ -1701,6 +1701,7 @@ public class RobotConnector2 : MonoBehaviour
     {
         ﻿if (_opened == true)
         {
+            Debug.Log("opened");
             byte[] tempBytes = Read();
 
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
