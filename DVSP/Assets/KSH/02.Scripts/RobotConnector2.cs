@@ -1614,6 +1614,10 @@ public class RobotConnector2 : MonoBehaviour
 
         ResetData();
 
+        portNames.AddRange(SerialPort.GetPortNames());
+        portName = portNames[0];
+        Connect();
+
         Invoke("packetSendingHandler", 0.05f);
     }
 
@@ -1701,7 +1705,19 @@ public class RobotConnector2 : MonoBehaviour
     {
         ﻿if (_opened == true)
         {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //이륙
+                print("ss");
+                landingPressed++;
+
+            }
+
+
+
             byte[] tempBytes = Read();
+
+
 
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
