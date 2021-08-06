@@ -15,7 +15,7 @@ public class DroneControl : MonoBehaviour
     float hoverY;
     float droneWeight;
 
-    int rotPointCnt = 10;
+    int rotPointCnt = 11;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,7 +27,7 @@ public class DroneControl : MonoBehaviour
         Ctrl4Way();
 
         Hovering();
-        Balancing();
+        //Balancing();
 
     }
 
@@ -51,10 +51,10 @@ public class DroneControl : MonoBehaviour
 
     void Ctrl4Way()
     {
-        //�յ�
+        //Forward 0,1 more power
         if (Input.GetKeyDown(KeyCode.W))
         {
-            for (int i = 0; i < rotPointCnt; i++)
+            for (int i = 0; i < 20; i++)
             {
                 rb.AddForceAtPosition(pos[0].up * movePower*3, pos[0].position);
                 rb.AddForceAtPosition(pos[1].up * movePower*3, pos[1].position);
@@ -65,34 +65,61 @@ public class DroneControl : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.W))
         {
+            for (int j = 0; j < 5; j++)
+            {
+                for (int i = 0; i < pos.Length; i++)// 4  golgoru 
+                {
+                    rb.AddForceAtPosition(pos[i].up * droneWeight * 0.12f, pos[i].position);
+                }
+            }
+
+
+        }
+        //else if (Input.GetKeyUp(KeyCode.W))
+        //{
+        //    for (int i = 0; i < rotPointCnt - 1; i++)
+        //    {
+        //        rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[0].position);
+        //        rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[1].position); ;
+
+        //        rb.AddForceAtPosition(pos[2].up * movePower * 4, pos[2].position);
+        //        rb.AddForceAtPosition(pos[3].up * movePower * 4, pos[3].position);
+        //    }
+        //}
+
+
+
+        // Back 2,3  more power
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            for (int i = 0; i < rotPointCnt; i++)
+            {
+                rb.AddForceAtPosition(pos[2].up * movePower * 3, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * movePower * 3, pos[3].position);
+
+                rb.AddForceAtPosition(pos[0].up * droneWeight * 0.2f, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * droneWeight * 0.2f, pos[1].position);
+            }
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
             rb.AddForceAtPosition(pos[0].up * droneWeight * 0.15f, pos[0].position);
             rb.AddForceAtPosition(pos[1].up * droneWeight * 0.15f, pos[1].position);
             rb.AddForceAtPosition(pos[2].up * droneWeight * 0.15f, pos[2].position);
             rb.AddForceAtPosition(pos[3].up * droneWeight * 0.15f, pos[3].position);
 
         }
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if (Input.GetKeyUp(KeyCode.S))
         {
             for (int i = 0; i < rotPointCnt - 1; i++)
             {
-                rb.AddForceAtPosition(pos[0].up * droneWeight * 0.25f, pos[0].position);
-                rb.AddForceAtPosition(pos[1].up * droneWeight * 0.25f, pos[1].position); ;
+                rb.AddForceAtPosition(pos[2].up * droneWeight * 0.25f, pos[2].position);
+                rb.AddForceAtPosition(pos[3].up * droneWeight * 0.25f, pos[3].position); ;
 
-                rb.AddForceAtPosition(pos[2].up * movePower * 4, pos[2].position);
-                rb.AddForceAtPosition(pos[3].up * movePower * 4, pos[3].position);
+                rb.AddForceAtPosition(pos[0].up * movePower * 4, pos[0].position);
+                rb.AddForceAtPosition(pos[1].up * movePower * 4, pos[1].position);
             }
         }
-    
-
-        
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    rb.AddForceAtPosition(pos[2].up * movePower, pos[2].position);
-        //    rb.AddForceAtPosition(pos[3].up * movePower, pos[3].position);
-
-        //    rb.AddForceAtPosition(pos[1].up * (movePower - 0.1f), pos[0].position);
-        //    rb.AddForceAtPosition(pos[0].up * (movePower - 0.1f), pos[1].position);
-        //}
 
         ////�¿�
         //if (Input.GetKeyDown(KeyCode.A))
