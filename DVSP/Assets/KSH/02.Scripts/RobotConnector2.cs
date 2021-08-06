@@ -1704,29 +1704,29 @@ public class RobotConnector2 : MonoBehaviour
             //byte[] tempBytes = Read();
             if(Input.GetKey(KeyCode.W))             // 앞
             {
-                 quad8.pitch-=2;
+                 quad8.pitch = -100;
             }
             else if(Input.GetKey(KeyCode.S))        // 뒤
             {
-                 quad8.pitch+=2;
+                 quad8.pitch = 100;
             }
             else if(Input.GetKey(KeyCode.A))        // 좌
             {
-                 quad8.roll+=2;
+                 quad8.roll = 100;
             }
             else if(Input.GetKey(KeyCode.D))        // 우
             {
-                quad8.roll -=2;
+                quad8.roll  = -100;
             }
             else if(Input.GetKey(KeyCode.UpArrow))       // 위
             {
                 Debug.Log("Up");
-                quad8.throttle += 2;
+                quad8.throttle = 100;
             }
             else if(Input.GetKey(KeyCode.DownArrow))       // 아래
             {
                 Debug.Log("Down");
-                quad8.throttle -= 2;
+                quad8.throttle = -100;
             }
             else if(Input.GetKey(KeyCode.Space))    // take Off
             {
