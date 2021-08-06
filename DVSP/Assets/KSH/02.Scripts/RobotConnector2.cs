@@ -1703,9 +1703,7 @@ public class RobotConnector2 : MonoBehaviour
         {
             Debug.Log("opened");
             byte[] tempBytes = Read();
-
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
-
             if (tempBytes != null)
             {
                 //                for (int i = 0; i < tempBytes.Length; i++)
@@ -1720,11 +1718,35 @@ public class RobotConnector2 : MonoBehaviour
                 //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
                 //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
                 //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
-
-                
             }
         }
+        OnClickUp();
+        OnClickDown();
+        OnClickTakeOff();
+        OnClickLand();
     }
+
+    public void OnClickUp()
+    {
+
+    }
+    public void OnClickDown()
+    {
+
+    }
+    public void OnClickTakeOff()
+    {
+        //이륙할 때 byte값 
+        //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
+        //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+    }
+    public void OnClickLand()
+    {
+        //착륙할 때 byte값
+        //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x12, 0x18, 0x2E };
+        //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+    }
+
 
 
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
