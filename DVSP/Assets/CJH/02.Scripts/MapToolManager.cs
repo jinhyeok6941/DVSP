@@ -1,15 +1,17 @@
-Ôªøusing System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MapToolManager : MonoBehaviour
 {
-    // ÏÉùÏÑ± Îêú Î™®Îç∏ Í¥ÄÎ¶¨Ïö© Î¶¨Ïä§Ìä∏
+    // ª˝º∫ µ» ∏µ® ∞¸∏ÆøÎ ∏ÆΩ∫∆Æ
     private List<Transform> listOfModel = new List<Transform>();
     public Transform model;
-    // indicator ÏúÑÏπò Í∞í ÌôúÏö© Î≥ÄÏàò
+    // indicator ¿ßƒ° ∞™ »∞øÎ ∫Øºˆ
     private List<Vector3> listOfVector = new List<Vector3>();
-    // indicator Í¥ÄÎ†® Î≥ÄÏàò
+    // indicator ∞¸∑√ ∫Øºˆ
     private GameObject[] indicators = new GameObject[2500];
     public GameObject indicatorFactory;
     public Transform indicator;
@@ -18,6 +20,9 @@ public class MapToolManager : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     Vector3 pos1, pos2, dir;
+    int x, y, z;
+    Transform choice_Object;
+    public GameObject arrow;
 
     public enum Control
     {
@@ -36,48 +41,45 @@ public class MapToolManager : MonoBehaviour
             indicators[i].transform.SetParent(indicator);
             indicators[i].SetActive(false);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-
-        }
     }
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     listOfVector.Add(Vector3.zero);
-        //     listOfModel.Add(Instantiate(model));
-        // }
-        // else if (Input.GetMouseButton(0))
-        // {
-        //     ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        switch (state)
+        {
+            case Control.Dragg:
+                Dragg();
+                break;
+            case Control.Fixe:
+                Fixe();
+                break;
+            case Control.Line:
+                Line();
+                break;
+        }
+    }
+    // Vector3 ∞™ int «¸ ∫Ø»Ø
+    Vector3 Int_Vector3(Vector3 pos)
+    {
+        return new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
+    }
+    // ¿ßƒ° ∞™ ¡∂¡§
+    Vector3 Get_Pos(Vector3 pos1, Vector3 pos2, Vector3 dir)
+    {
+        return (pos1 + pos2) / 2 + dir * 0.5f;
+    }
 
-        //     if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        //     {
-        //         if (hit.collider.CompareTag("INDICATOR")) return;
-        //         Vector3 pos = new Vector3((int)hit.point.x, (int)hit.point.y, (int)hit.point.z);
-        //         int index = listOfVector.Count - 1;
-        //         if (listOfVector[index] != pos)
-        //         {
-        //             indicators[index].transform.position = pos + Vector3.up * 0.55f;
-        //             indicators[index].SetActive(true);
-        //             listOfVector.Add(pos);
-        //         }
-        //     }
-        // }
-        // else if (Input.GetMouseButtonUp(0))
-        // {
-        //     for (int i = 1; i < listOfVector.Count; i++)
-        //     {
-        //         indicators[i - 1].SetActive(false);
-        //         GameObject block = Instantiate(cube);
-        //         block.transform.position = listOfVector[i] + Vector3.up;
-        //         block.transform.SetParent(listOfModel[listOfModel.Count - 1]);
-        //     }
-        //     listOfVector.Clear();
-        // }
+    // √π ¡ˆ¡°∞˙ ≥° ¡ˆ¡°¿« x , y , z ¿« ∆Ì¬˜ ±∏«œ±‚ 
+    int Get_Distance(float xyz1, float xyz2)
+    {
+        if (xyz1 == xyz2)
+            return 1;
+        else
+            return Mathf.Abs((int)(xyz1 - xyz2));
+    }
 
+    void Dragg()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -85,10 +87,8 @@ public class MapToolManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 pos1 = Int_Vector3(hit.point);
-                //Debug.Log(pos1);
                 //listOfModel.Add(Instantiate(model));
                 indicators[0].SetActive(true);
-                //indicators[0].transform.position = pos1 + Vector3.up * 0.5f;
             }
         }
         else if (Input.GetMouseButton(0))
@@ -98,40 +98,117 @@ public class MapToolManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 pos2 = Int_Vector3(hit.point);
-                int x = Get_Distance(pos1.x, pos2.x);
-                int y = Get_Distance(pos1.y, pos2.y);
-                int z = Get_Distance(pos1.z, pos2.z);
+                x = Get_Distance(pos1.x, pos2.x);
+                y = Get_Distance(pos1.y, pos2.y);
+                z = Get_Distance(pos1.z, pos2.z);
 
                 indicators[0].transform.localScale = new Vector3(x, y, z);
-                indicators[0].transform.position = Get_Pos(pos1, pos2, hit.transform.up);
+                indicators[0].transform.position = Get_Pos(pos1, pos2, hit.normal);
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(hit.transform.up + "  ,  " + Get_Pos(pos1, pos2, hit.transform.up));
             GameObject go = Instantiate(cube, indicators[0].transform.position, Quaternion.identity);
             go.transform.localScale = indicators[0].transform.localScale;
             indicators[0].transform.localScale = Vector3.one;
             indicators[0].SetActive(false);
         }
     }
-    // Vector3 Í∞í int Ìòï Î≥ÄÌôò
-    Vector3 Int_Vector3(Vector3 pos)
+
+    void Line()
     {
-        return new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
+        if (Input.GetMouseButtonDown(0))
+        {
+            listOfVector.Add(Vector3.zero);
+            listOfModel.Add(Instantiate(model));
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("INDICATOR")) return;
+                Vector3 pos = new Vector3((int)hit.point.x, (int)hit.point.y, (int)hit.point.z);
+                int index = listOfVector.Count - 1;
+                if (listOfVector[index] != pos)
+                {
+                    indicators[index].transform.position = pos + Vector3.up * 0.55f;
+                    indicators[index].SetActive(true);
+                    listOfVector.Add(pos);
+                }
+            }
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            for (int i = 1; i < listOfVector.Count; i++)
+            {
+                indicators[i - 1].SetActive(false);
+                GameObject block = Instantiate(cube);
+                block.transform.position = listOfVector[i] + Vector3.up;
+                block.transform.SetParent(listOfModel[listOfModel.Count - 1]);
+            }
+            listOfVector.Clear();
+        }
     }
-    // ÏúÑÏπò Í∞í Ï°∞Ï†ï
-    Vector3 Get_Pos(Vector3 pos1, Vector3 pos2, Vector3 dir)
+
+    Vector3 Abs_Vector3(Vector3 dir)
     {
-        return (pos1 + pos2) / 2 + dir * 0.5f;
+        Debug.Log(dir);
+        dir.x = dir.x <= -1 ? 1 : dir.x;
+        dir.y = dir.y <= -1 ? 1 : dir.y;
+        dir.z = dir.z <= -1 ? 1 : dir.z;
+        return dir;
     }
-    // Ï≤´ ÏßÄÏ†êÍ≥º ÎÅù ÏßÄÏ†êÏùò x , y , z Ïùò Ìé∏Ï∞® Íµ¨ÌïòÍ∏∞ 
-    int Get_Distance(float xyz1, float xyz2)
+    void Fixe()
     {
-        if (xyz1 == xyz2)
-            return 1;
-        else
-            return Mathf.Abs((int)(xyz1 - xyz2));
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!hit.collider.CompareTag("ARROW"))
+                {
+                    hit.transform.GetComponent<BoxCollider>().enabled = false;
+                    choice_Object = hit.transform;
+                    arrow.transform.rotation = choice_Object.rotation;
+                    arrow.transform.position = choice_Object.position;
+                }
+                dir = Abs_Vector3(hit.transform.up);
+
+                Debug.Log(hit.transform.name + "  ,  " + dir);
+            }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            choice_Object.position += dir * (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y"));
+            arrow.transform.position = choice_Object.position;
+            //Debug.Log(choice_Object.transform.up * (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            //choice_Object.transform.GetComponent<BoxCollider>().enabled = true;
+        }
     }
-    
+
+    public void Change_state()
+    {
+        GameObject btnParent = EventSystem.current.currentSelectedGameObject;
+        string state_text = btnParent.transform.Find("Text").GetComponent<Text>().text;
+
+        switch (state_text)
+        {
+            case "Dragg":
+                state = Control.Dragg;
+                break;
+            case "Fixe":
+                state = Control.Fixe;
+                break;
+            case "Line":
+                state = Control.Line;
+                break;
+        }
+        arrow.SetActive(state_text.Equals("Fixe"));
+    }
 }
