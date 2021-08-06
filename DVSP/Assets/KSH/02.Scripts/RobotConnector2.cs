@@ -1601,7 +1601,6 @@ public class RobotConnector2 : MonoBehaviour
     // Awake ----------------------------------------------------------------------------------------------
     void Awake()
     {
-        Debug.Log(0x80);
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
         _serialPort.RtsEnable = false;
@@ -1704,7 +1703,7 @@ public class RobotConnector2 : MonoBehaviour
             //byte[] tempBytes = Read();
             if(Input.GetKey(KeyCode.W))             // 앞
             {
-                 quad8.pitch = -100;
+                 quad8.pitch = 100;
             }
             else if(Input.GetKey(KeyCode.S))        // 뒤
             {
@@ -1720,22 +1719,26 @@ public class RobotConnector2 : MonoBehaviour
             }
             else if(Input.GetKey(KeyCode.UpArrow))       // 위
             {
-                Debug.Log("Up");
                 quad8.throttle = 100;
             }
             else if(Input.GetKey(KeyCode.DownArrow))       // 아래
             {
-                Debug.Log("Down");
                 quad8.throttle = -100;
             }
-            else if(Input.GetKey(KeyCode.Space))    // take Off
+            else if(Input.GetKeyDown(KeyCode.RightArrow))    // 우 회전
             {
-                Debug.Log("take Off");
+                quad8.yaw = 100;
+            }
+            else if(Input.GetKeyDown(KeyCode.LeftArrow))         // 좌 회전
+            {
+                quad8.yaw = -100;
+            }
+            else if(Input.GetKeyDown(KeyCode.Space))    // take Off
+            {
                 takeoffPressed++;
             }
-            else if(Input.GetKey(KeyCode.L))
+            else if(Input.GetKeyDown(KeyCode.L))         // 랜딩
             {
-                Debug.Log("Landing");
                 landingPressed++;
             }
             else
@@ -1743,9 +1746,8 @@ public class RobotConnector2 : MonoBehaviour
                 quad8.roll = 0;
                 quad8.pitch = 0;
                 quad8.throttle = 0;
-                trimPressed++;
+                //trimPressed++;
             }
-            packetSendingHandler();
 
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
@@ -1773,8 +1775,6 @@ public class RobotConnector2 : MonoBehaviour
     {
         if (_opened == true)
         {
-
-
             _sendCounter++;
             //if (_sendCounter > 12)
                 _sendCounter %= 12;
@@ -1989,7 +1989,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
-                    Debug.Log("takeoff");
+                    Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
