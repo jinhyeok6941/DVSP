@@ -441,7 +441,7 @@ namespace Protocol
         public byte  headless;           // 헤드리스 모드
         public byte  controlSpeed;       // 조종 속도
         public byte  sensorOrientation;  // 센서 방향
-        public byte  battery;            // 배터리량(0 ~ 100%)
+        public byte  battery;            // 배터리량(0 ~ 10%)
     };
 
     public struct Attitude
@@ -632,7 +632,7 @@ namespace Protocol
         public sbyte  speedX;                 // meter x 10
         public sbyte  speedY;                 // meter x 10
 
-        public byte   rangeHeight;            // meter x 100
+        public byte   rangeHeight;            // meter x 10
 
         public sbyte  rssi;                   // RSSI
     };
@@ -1381,7 +1381,7 @@ namespace Button_2
                 MidUp               = 0x0040,
                 MidLeft             = 0x0080,
                 MidRight            = 0x0100,
-                MidDown             = 0x0200,
+                Miy             = 0x0200,
 
                 BottomLeft          = 0x0400,
                 BottomRight         = 0x0800,
@@ -1395,7 +1395,7 @@ namespace Button_2
         {
             None,
 
-            Down,               // 누르기 시작
+        y,               // 누르기 시작
             Press,              // 누르는 중
             Up,                 // 뗌
 
@@ -1598,8 +1598,26 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-    // Awake ----------------------------------------------------------------------------------------------
-    void Awake()
+    // // Awake ----------------------------------------------------------------------------------------------
+    // void Awake()
+    // {
+    //     _serialPort = new SerialPort();
+    //     _serialPort.DtrEnable = false;
+    //     _serialPort.RtsEnable = false;
+    //     _serialPort.DataBits = 8;
+    //     _serialPort.ReadTimeout = 1;
+    //     _serialPort.WriteTimeout = 1000;
+    //     _serialPort.Parity = Parity.None;
+    //     _serialPort.StopBits = StopBits.One;
+    //     PortSearch();
+    //     Connect();
+    //     ResetData();
+
+    //     Invoke("packetSendingHandler", 0.05f);
+    // }
+
+
+    public void Connect_Manager()
     {
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
@@ -1698,57 +1716,6 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
-        ﻿if (_opened == true)
-        {
-            //byte[] tempBytes = Read();
-            if(Input.GetKey(KeyCode.W))             // 앞
-            {
-                 quad8.pitch = 100;
-            }
-            else if(Input.GetKey(KeyCode.S))        // 뒤
-            {
-                 quad8.pitch = 100;
-            }
-            else if(Input.GetKey(KeyCode.A))        // 좌
-            {
-                 quad8.roll = 100;
-            }
-            else if(Input.GetKey(KeyCode.D))        // 우
-            {
-                quad8.roll  = -100;
-            }
-            else if(Input.GetKey(KeyCode.UpArrow))       // 위
-            {
-                quad8.throttle = 100;
-            }
-            else if(Input.GetKey(KeyCode.DownArrow))       // 아래
-            {
-                quad8.throttle = -100;
-            }
-            else if(Input.GetKeyDown(KeyCode.RightArrow))    // 우 회전
-            {
-                quad8.yaw = 100;
-            }
-            else if(Input.GetKeyDown(KeyCode.LeftArrow))         // 좌 회전
-            {
-                quad8.yaw = -100;
-            }
-            else if(Input.GetKeyDown(KeyCode.Space))    // take Off
-            {
-                takeoffPressed++;
-            }
-            else if(Input.GetKeyDown(KeyCode.L))         // 랜딩
-            {
-                landingPressed++;
-            }
-            else
-            {
-                quad8.roll = 0;
-                quad8.pitch = 0;
-                quad8.throttle = 0;
-                //trimPressed++;
-            }
-
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
@@ -1766,7 +1733,7 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
             //}
-        }
+        //}
     }
 
 
@@ -2188,7 +2155,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else // 실 조종신호 전송 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
-                    Debug.Log("control");
+                    //Debug.Log("control");
                     byte[] tempBuff = { 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle };
                     byte crcL, crcH;
                     ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
@@ -2197,6 +2164,7 @@ public class RobotConnector2 : MonoBehaviour
 
                     try
                     {
+                        Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
                         byte[] packetBuffer = { 0x0A, 0x55, 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle, crcL, crcH };  //control::quad8 struct
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
                         //Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
@@ -2204,7 +2172,6 @@ public class RobotConnector2 : MonoBehaviour
                     catch (Exception)
                     {
                         Console.WriteLine("exceptipn : failed to sending control Packet");
-
                     }
                 }
             }
