@@ -1598,8 +1598,6 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-
-
     // Awake ----------------------------------------------------------------------------------------------
     void Awake()
     {
@@ -1747,7 +1745,6 @@ public class RobotConnector2 : MonoBehaviour
                 quad8.throttle = 0;
                 trimPressed++;
             }
-
             packetSendingHandler();
 
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
