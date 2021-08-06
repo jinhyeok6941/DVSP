@@ -1603,6 +1603,7 @@ public class RobotConnector2 : MonoBehaviour
     // Awake ----------------------------------------------------------------------------------------------
     void Awake()
     {
+        Debug.Log(0x80);
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
         _serialPort.RtsEnable = false;
@@ -1611,7 +1612,8 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.WriteTimeout = 1000;
         _serialPort.Parity = Parity.None;
         _serialPort.StopBits = StopBits.One;
-
+        PortSearch();
+        Connect();
         ResetData();
 
         Invoke("packetSendingHandler", 0.05f);
@@ -1701,28 +1703,70 @@ public class RobotConnector2 : MonoBehaviour
     {
         ﻿if (_opened == true)
         {
-            Debug.Log("opened");
-            byte[] tempBytes = Read();
+            //byte[] tempBytes = Read();
+            if(Input.GetKey(KeyCode.W))             // 앞
+            {
+                 quad8.pitch-=2;
+            }
+            else if(Input.GetKey(KeyCode.S))        // 뒤
+            {
+                 quad8.pitch+=2;
+            }
+            else if(Input.GetKey(KeyCode.A))        // 좌
+            {
+                 quad8.roll+=2;
+            }
+            else if(Input.GetKey(KeyCode.D))        // 우
+            {
+                quad8.roll -=2;
+            }
+            else if(Input.GetKey(KeyCode.UpArrow))       // 위
+            {
+                Debug.Log("Up");
+                quad8.throttle += 2;
+            }
+            else if(Input.GetKey(KeyCode.DownArrow))       // 아래
+            {
+                Debug.Log("Down");
+                quad8.throttle -= 2;
+            }
+            else if(Input.GetKey(KeyCode.Space))    // take Off
+            {
+                Debug.Log("take Off");
+                takeoffPressed++;
+            }
+            else if(Input.GetKey(KeyCode.L))
+            {
+                Debug.Log("Landing");
+                landingPressed++;
+            }
+            else
+            {
+                quad8.roll = 0;
+                quad8.pitch = 0;
+                quad8.throttle = 0;
+                trimPressed++;
+            }
+
+            packetSendingHandler();
 
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
-            if (tempBytes != null)
-            {
-                //                for (int i = 0; i < tempBytes.Length; i++)
-                //                {
-                //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                //                }
+            // if (tempBytes != null)
+            // {
+                            //    for (int i = 0; i < tempBytes.Length; i++)
+                            //    {
+                            //        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                            //    }
 
 
-                //                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                //                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                //                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
-
-                
-            }
+                            //    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                            //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                            //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                            //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                            //        " [5]: " + Convert.ToString(tempBytes[5], 16));
+            //}
         }
     }
 
@@ -1735,8 +1779,8 @@ public class RobotConnector2 : MonoBehaviour
 
 
             _sendCounter++;
-            if (_sendCounter > 12)
-                _sendCounter = 0;
+            //if (_sendCounter > 12)
+                _sendCounter %= 12;
 
 
             if (_sendCounter == 0) // state -------------------------------------------------------------------
@@ -1948,7 +1992,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("takeoff");
+                    Debug.Log("takeoff");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
@@ -2147,7 +2191,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else // 실 조종신호 전송 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
-                    //Debug.Log("control");
+                    Debug.Log("control");
                     byte[] tempBuff = { 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle };
                     byte crcL, crcH;
                     ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
@@ -2254,6 +2298,7 @@ public class RobotConnector2 : MonoBehaviour
 
             default: // ---------------------------------------------- 윈도우 --------------------------------
                 portNames.AddRange(SerialPort.GetPortNames());
+                portName = portNames[0];
                 break;
         }
 

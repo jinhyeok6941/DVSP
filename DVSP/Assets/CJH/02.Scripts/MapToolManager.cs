@@ -36,6 +36,10 @@ public class MapToolManager : MonoBehaviour
             indicators[i].transform.SetParent(indicator);
             indicators[i].SetActive(false);
         }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
     }
     // Update is called once per frame
     void Update()
@@ -129,4 +133,5 @@ public class MapToolManager : MonoBehaviour
         else
             return Mathf.Abs((int)(xyz1 - xyz2));
     }
+    
 }
