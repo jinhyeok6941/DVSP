@@ -1616,7 +1616,7 @@ public class RobotConnector2 : MonoBehaviour
 
         PortSearch();
         ResetData();
-        //Connect();
+        Connect();
         Invoke("packetSendingHandler", 0.05f);
     }
 
@@ -2399,6 +2399,7 @@ public class RobotConnector2 : MonoBehaviour
 
             default: // ---------------------------------------------- 윈도우 --------------------------------
                 portNames.AddRange(SerialPort.GetPortNames());
+                portName = portNames[0];
                 break;
         }
 
