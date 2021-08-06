@@ -1614,9 +1614,9 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.Parity = Parity.None;
         _serialPort.StopBits = StopBits.One;
 
+        PortSearch();
         ResetData();
-        Connect();
-
+        //Connect();
         Invoke("packetSendingHandler", 0.05f);
     }
 

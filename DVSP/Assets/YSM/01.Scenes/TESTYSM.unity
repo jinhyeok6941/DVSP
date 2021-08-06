@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baudrate: 57600
   portNames: []
-  portName: COM5
+  portName: 
   takeoffPressed: 0
   landingPressed: 0
   stopPressed: 0
