@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class DroneManager_CJH : RobotConnector2
 {
@@ -16,7 +15,6 @@ public class DroneManager_CJH : RobotConnector2
     {
         if (_opened == true)
         {
-            //byte[] tempBytes = Read();
             if(Input.GetKey(KeyCode.W))             // ¾Õ
             {
                  quad8.pitch = 0x46;
