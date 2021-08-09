@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DroneManager_CJH : RobotConnector2
 {
@@ -18,35 +19,35 @@ public class DroneManager_CJH : RobotConnector2
             //byte[] tempBytes = Read();
             if(Input.GetKey(KeyCode.W))             // 앞
             {
-                 quad8.pitch = 10;
+                 quad8.pitch = 0x46;
             }
             else if(Input.GetKey(KeyCode.S))        // 뒤
             {
-                 quad8.pitch = -10;
+                 quad8.pitch = -128;
             }
             else if(Input.GetKey(KeyCode.D))        // 좌
             {
-                 quad8.roll = 10;
+                 quad8.roll = 0x46;
             }
             else if(Input.GetKey(KeyCode.A))        // 우
             {
-                quad8.roll  = -10;
+                quad8.roll  = -128;
             }
             else if(Input.GetKey(KeyCode.UpArrow))       // 위
             {
-                quad8.throttle = 10;
+                quad8.throttle = 0x46;
             }
             else if(Input.GetKey(KeyCode.DownArrow))       // 아래
             {
-                quad8.throttle = -10;
+                quad8.throttle = -128;
             }
             else if(Input.GetKey(KeyCode.RightArrow))    // 우 회전
             {
-                quad8.yaw = 10;
+                quad8.yaw = 0x46;
             }
             else if(Input.GetKey(KeyCode.LeftArrow))         // 좌 회전
             {
-                quad8.yaw = -10;
+                quad8.yaw = -128;
             }
             else if(Input.GetKeyDown(KeyCode.Space))    // take Off
             {
