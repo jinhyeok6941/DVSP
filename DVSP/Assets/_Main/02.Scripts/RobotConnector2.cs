@@ -1706,23 +1706,17 @@ public class RobotConnector2 : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-    // Update ------------------------------------------------------------------------------------------------------------
-    void Update()
+    public void Debug_tempBytes()
     {
+        byte[] tempBytes = Read();
+
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
             // {
                             //    for (int i = 0; i < tempBytes.Length; i++)
                             //    {
-                            //        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                            //        //Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
                             //    }
                 
                 
@@ -1732,14 +1726,90 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
-            //}
+                             //byte[] tempBytes = Read();
+
+            if (tempBytes != null)
+            {
+                //                for (int i = 0; i < tempBytes.Length; i++)
+                //                {
+                //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                //                }
+
+
+                               Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                                   " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                                   " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                                   " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                                   " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                                   " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                                   " [6]: " + Convert.ToString(tempBytes[6], 16) +
+                                   " [7]: " + Convert.ToString(tempBytes[7], 16) +
+                                   " [8]: " + Convert.ToString(tempBytes[8], 16) +
+                                   " [9]: " + Convert.ToString(tempBytes[9], 16) +
+                                   " [10]: " + Convert.ToString(tempBytes[10], 16));
+
+                    if ((tempBytes[0] == 0x0A)&&(tempBytes[1] == 0x55))
+                    {
+                        int packetLength = tempBytes[3] + 8;
+                        byte[] readBytes = new byte[packetLength];
+                        Array.Copy(tempBytes, 0, readBytes, 0, packetLength);
+
+
+                        byte crcL, crcH;
+                        //byte[] testBytes = {0x0A, 0x55, 0x04, 0x01, 0xA0, 0x10, 0x40, 0x99, 0x09};
+                        ushort crc = crc16_ccitt(readBytes, 2, readBytes.Length - 4);    //0A 55 crc crc 는 제외함
+                        crcL = (byte)(crc & 0xFF);
+                        crcH = (byte)((crc & 0xFF00) >> 8);
+
+                        //Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
+
+                        if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
+                        {
+                            switch (readBytes[2])
+                            {
+                                 case (byte)Protocol.DataType.Type.Joystick:
+                                   Debug.Log("명령");
+                                   break;
+                            }
+                        }
+                    }
+                }
+    }
+
+       string str;
+
+
+
+
+
+
+    // Update ------------------------------------------------------------------------------------------------------------
+    void Update()
+    {
+            // Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+
+            // if (tempBytes != null)
+            // {
+            //                    for (int i = 0; i < tempBytes.Length; i++)
+            //                    {
+            //                        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //                    }
+                
+                
+            //                    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            //                        " [1]: " + Convert.ToString(tempBytes[1], 16) +
+            //                        " [2]: " + Convert.ToString(tempBytes[2], 16) +
+            //                        " [3]: " + Convert.ToString(tempBytes[3], 16) +
+            //                        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+            //                        " [5]: " + Convert.ToString(tempBytes[5], 16));
+            // }
     }
 
 
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
     private void packetSendingHandler()
     {
-        print("packetSendingHandle");
+        //print("packetSendingHandle");
         if (_opened == true)
         {
             _sendCounter++;
@@ -2164,7 +2234,7 @@ public class RobotConnector2 : MonoBehaviour
 
                     try
                     {
-                        Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
+                        //Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
                         byte[] packetBuffer = { 0x0A, 0x55, 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle, crcL, crcH };  //control::quad8 struct
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
                         //Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
