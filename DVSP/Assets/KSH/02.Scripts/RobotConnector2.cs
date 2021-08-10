@@ -1631,7 +1631,7 @@ public class RobotConnector2 : MonoBehaviour
         Connect();
         ResetData();
 
-        Invoke("packetSendingHandler", 0.05f);
+        Invoke("packetSendingHandler", 0.01f);
     }
 
 
