@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DroneManager_CJH : RobotConnector2
 {
-    // Awake ----------------------------------------------------------------------------------------------
+    public Transform[] pos;
+    public Rigidbody rigid;
+    float upPower = 10;
+    //Awake ----------------------------------------------------------------------------------------------
     void Awake()
     {
         Connect_Manager();
@@ -14,9 +17,15 @@ public class DroneManager_CJH : RobotConnector2
     void Update()
     {
         if (_opened == true)
-        {
+        { 
             if(Input.GetKey(KeyCode.W))             // ¾Õ
             {
+                 rigid.AddForceAtPosition(pos[3].up * upPower, pos[3].position);
+                 rigid.AddForceAtPosition(pos[4].up * upPower, pos[4].position);
+                 for(int i = 0 ; i < pos.Length ; i++)
+                 {
+                    rigid.AddForceAtPosition(pos[i].up * upPower * (i % 2), pos[i].position);
+                 }
                  quad8.pitch = 0x46;
             }
             else if(Input.GetKey(KeyCode.S))        // µÚ
@@ -57,12 +66,17 @@ public class DroneManager_CJH : RobotConnector2
             }
             else
             {
+                for(int i = 0 ;i < pos.Length ; i++)
+                {
+                    rigid.AddForceAtPosition(pos[i].up * upPower, pos[i].position);
+                }
                 quad8.roll = 0;
                 quad8.pitch = 0;
                 quad8.throttle = 0;
                 quad8.yaw = 0;
                 //trimPressed++;
             }
+            Debug_tempBytes();
         }
     }
 }
