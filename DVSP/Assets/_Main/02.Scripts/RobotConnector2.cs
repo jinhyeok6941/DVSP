@@ -1582,7 +1582,7 @@ public class RobotConnector2 : MonoBehaviour
     private int _sendCounter = 0;
     //private ulong _gCounter = 0;
 
-    private float _fSendInterval = 0.005f; // packetSendingHandler() 함수 인보크 재실행 간격
+    float _fSendInterval = 0.005f; // packetSendingHandler() 함수 인보크 재실행 간격
 
 
 
@@ -1716,7 +1716,6 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
-
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
@@ -1734,7 +1733,6 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
             //}
-
     }
 
 
@@ -2199,28 +2197,23 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-//    void Start ()
-//    {
-//        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
-//        byte crcL, crcH;
-//        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
-//        crcL = (byte)(crc & 0xFF);
-//        crcH = (byte)((crc & 0xFF00) >> 8);
-//
-//        Debug.Log(crcL + "     " + crcH);
-//    }
+    //    void Start ()
+    //    {
+    //        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
+    //        byte crcL, crcH;
+    //        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
+    //        crcL = (byte)(crc & 0xFF);
+    //        crcH = (byte)((crc & 0xFF00) >> 8);
+    //
+    //        Debug.Log(crcL + "     " + crcH);
+    //    }
 
+    //지혜 
 
-
-
-
-
-
-
-
-
-
-
+    public void Change_fSendInterval(float fSendInterval)
+    {
+        _fSendInterval = fSendInterval;
+    }
 
 
 
