@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/YSM/01.Scenes/TESTYSM.unity
+    guid: ff22764b0d717304797940beca8eaeb6
   m_configObjects: {}
