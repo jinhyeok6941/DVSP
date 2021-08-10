@@ -1630,6 +1630,9 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
+        //portNames.AddRange(SerialPort.GetPortNames());
+        //portName = portNames[0];
+        //Connect();
 
         Invoke("packetSendingHandler", 0.02f);
     }
@@ -1716,6 +1719,45 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
+        ﻿if (_opened == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //이륙
+                print("ss");
+                _sendCounter++;
+                landingPressed++;
+                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };  // 이륙
+                //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+
+            }
+            // packetSendingHandler();
+
+
+            //byte[] tempBytes = Read();
+
+
+
+            ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+
+            //if (tempBytes != null)
+            //{
+            //    //                for (int i = 0; i < tempBytes.Length; i++)
+            //    //                {
+            //    //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //    //                }
+
+
+            //    //                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            //    //                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
+            //    //                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
+            //    //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
+            //    //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
+            //    //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
+
+
+            //}
+        }
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
@@ -1956,6 +1998,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
+                    Debug.Log("takeoff");
                     Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
@@ -2197,23 +2240,28 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-    //    void Start ()
-    //    {
-    //        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
-    //        byte crcL, crcH;
-    //        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
-    //        crcL = (byte)(crc & 0xFF);
-    //        crcH = (byte)((crc & 0xFF00) >> 8);
-    //
-    //        Debug.Log(crcL + "     " + crcH);
-    //    }
+//    void Start ()
+//    {
+//        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
+//        byte crcL, crcH;
+//        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
+//        crcL = (byte)(crc & 0xFF);
+//        crcH = (byte)((crc & 0xFF00) >> 8);
+//
+//        Debug.Log(crcL + "     " + crcH);
+//    }
 
-    //지혜 
 
-    public void Change_fSendInterval(float fSendInterval)
-    {
-        _fSendInterval = fSendInterval;
-    }
+
+
+
+
+
+
+
+
+
+
 
 
 
