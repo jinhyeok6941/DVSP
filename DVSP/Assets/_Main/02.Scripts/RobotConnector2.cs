@@ -1627,13 +1627,8 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.WriteTimeout = 1000;
         _serialPort.Parity = Parity.None;
         _serialPort.StopBits = StopBits.One;
-<<<<<<< HEAD
-
-
-=======
         PortSearch();
         Connect();
->>>>>>> main
         ResetData();
         //portNames.AddRange(SerialPort.GetPortNames());
         //portName = portNames[0];
@@ -1724,7 +1719,6 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
-<<<<<<< HEAD
         ﻿if (_opened == true)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -1764,7 +1758,6 @@ public class RobotConnector2 : MonoBehaviour
 
             //}
         }
-=======
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
@@ -1782,7 +1775,6 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
             //}
->>>>>>> main
     }
 
 
@@ -2006,11 +1998,8 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
-<<<<<<< HEAD
                     Debug.Log("takeoff");
-=======
                     Debug.Log("takeoff  , " + _sendCounter);
->>>>>>> main
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
