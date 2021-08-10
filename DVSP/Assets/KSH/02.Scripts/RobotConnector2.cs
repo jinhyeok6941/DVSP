@@ -441,7 +441,7 @@ namespace Protocol
         public byte  headless;           // 헤드리스 모드
         public byte  controlSpeed;       // 조종 속도
         public byte  sensorOrientation;  // 센서 방향
-        public byte  battery;            // 배터리량(0 ~ 100%)
+        public byte  battery;            // 배터리량(0 ~ 10%)
     };
 
     public struct Attitude
@@ -632,7 +632,7 @@ namespace Protocol
         public sbyte  speedX;                 // meter x 10
         public sbyte  speedY;                 // meter x 10
 
-        public byte   rangeHeight;            // meter x 100
+        public byte   rangeHeight;            // meter x 10
 
         public sbyte  rssi;                   // RSSI
     };
@@ -1381,7 +1381,7 @@ namespace Button_2
                 MidUp               = 0x0040,
                 MidLeft             = 0x0080,
                 MidRight            = 0x0100,
-                MidDown             = 0x0200,
+                Miy             = 0x0200,
 
                 BottomLeft          = 0x0400,
                 BottomRight         = 0x0800,
@@ -1395,7 +1395,7 @@ namespace Button_2
         {
             None,
 
-            Down,               // 누르기 시작
+        y,               // 누르기 시작
             Press,              // 누르는 중
             Up,                 // 뗌
 
@@ -1598,10 +1598,26 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
+    // // Awake ----------------------------------------------------------------------------------------------
+    // void Awake()
+    // {
+    //     _serialPort = new SerialPort();
+    //     _serialPort.DtrEnable = false;
+    //     _serialPort.RtsEnable = false;
+    //     _serialPort.DataBits = 8;
+    //     _serialPort.ReadTimeout = 1;
+    //     _serialPort.WriteTimeout = 1000;
+    //     _serialPort.Parity = Parity.None;
+    //     _serialPort.StopBits = StopBits.One;
+    //     PortSearch();
+    //     Connect();
+    //     ResetData();
+
+    //     Invoke("packetSendingHandler", 0.05f);
+    // }
 
 
-    // Awake ----------------------------------------------------------------------------------------------
-    void Awake()
+    public void Connect_Manager()
     {
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
@@ -1611,7 +1627,8 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.WriteTimeout = 1000;
         _serialPort.Parity = Parity.None;
         _serialPort.StopBits = StopBits.One;
-
+        PortSearch();
+        Connect();
         ResetData();
 
         Invoke("packetSendingHandler", 0.05f);
@@ -1699,54 +1716,24 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
-        ﻿if (_opened == true)
-        {
-            Debug.Log("opened");
-            byte[] tempBytes = Read();
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
-            if (tempBytes != null)
-            {
-                //                for (int i = 0; i < tempBytes.Length; i++)
-                //                {
-                //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                //                }
 
-
-                //                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                //                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                //                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
-            }
-        }
-        OnClickUp();
-        OnClickDown();
-        OnClickTakeOff();
-        OnClickLand();
+            // if (tempBytes != null)
+            // {
+                            //    for (int i = 0; i < tempBytes.Length; i++)
+                            //    {
+                            //        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                            //    }
+                
+                
+                            //    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                            //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                            //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                            //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                            //        " [5]: " + Convert.ToString(tempBytes[5], 16));
+            //}
     }
-
-    public void OnClickUp()
-    {
-
-    }
-    public void OnClickDown()
-    {
-
-    }
-    public void OnClickTakeOff()
-    {
-        //이륙할 때 byte값 
-        //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
-        //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-    }
-    public void OnClickLand()
-    {
-        //착륙할 때 byte값
-        //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x12, 0x18, 0x2E };
-        //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-    }
-
 
 
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
@@ -1754,11 +1741,9 @@ public class RobotConnector2 : MonoBehaviour
     {
         if (_opened == true)
         {
-
-
             _sendCounter++;
-            if (_sendCounter > 12)
-                _sendCounter = 0;
+            //if (_sendCounter > 12)
+                _sendCounter %= 12;
 
 
             if (_sendCounter == 0) // state -------------------------------------------------------------------
@@ -1970,7 +1955,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("takeoff");
+                    Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
@@ -2178,6 +2163,7 @@ public class RobotConnector2 : MonoBehaviour
 
                     try
                     {
+                        Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
                         byte[] packetBuffer = { 0x0A, 0x55, 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle, crcL, crcH };  //control::quad8 struct
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
                         //Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
@@ -2185,7 +2171,6 @@ public class RobotConnector2 : MonoBehaviour
                     catch (Exception)
                     {
                         Console.WriteLine("exceptipn : failed to sending control Packet");
-
                     }
                 }
             }
@@ -2276,6 +2261,7 @@ public class RobotConnector2 : MonoBehaviour
 
             default: // ---------------------------------------------- 윈도우 --------------------------------
                 portNames.AddRange(SerialPort.GetPortNames());
+                portName = portNames[0];
                 break;
         }
 
