@@ -1261,7 +1261,7 @@ namespace Rotation
 
 // Rotation #########################################################################################################################################
 namespace Rotation
-{
+{   
     namespace Part
     {
         enum Type
@@ -1495,7 +1495,7 @@ public class RobotConnector2 : MonoBehaviour
     
 
     public int baudrate = 57600;
-    private SerialPort _serialPort;
+    public SerialPort _serialPort;
     public List<string> portNames = new List<string>(); // 탐색한 포트들
     public string portName; // 연결할 포트명
 
@@ -1582,7 +1582,7 @@ public class RobotConnector2 : MonoBehaviour
     private int _sendCounter = 0;
     //private ulong _gCounter = 0;
 
-    float _fSendInterval = 0.01f; // packetSendingHandler() 함수 인보크 재실행 간격
+    float _fSendInterval = 0.005f; // packetSendingHandler() 함수 인보크 재실행 간격
 
 
 
@@ -1627,11 +1627,19 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.WriteTimeout = 1000;
         _serialPort.Parity = Parity.None;
         _serialPort.StopBits = StopBits.One;
+<<<<<<< HEAD
+
+
+=======
         PortSearch();
         Connect();
+>>>>>>> main
         ResetData();
+        //portNames.AddRange(SerialPort.GetPortNames());
+        //portName = portNames[0];
+        //Connect();
 
-        Invoke("packetSendingHandler", 0.05f);
+        Invoke("packetSendingHandler", 0.02f);
     }
 
 
@@ -1716,6 +1724,47 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
+<<<<<<< HEAD
+        ﻿if (_opened == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //이륙
+                print("ss");
+                _sendCounter++;
+                landingPressed++;
+                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };  // 이륙
+                //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+
+            }
+            // packetSendingHandler();
+
+
+            //byte[] tempBytes = Read();
+
+
+
+            ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+
+            //if (tempBytes != null)
+            //{
+            //    //                for (int i = 0; i < tempBytes.Length; i++)
+            //    //                {
+            //    //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //    //                }
+
+
+            //    //                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            //    //                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
+            //    //                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
+            //    //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
+            //    //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
+            //    //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
+
+
+            //}
+        }
+=======
             //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
@@ -1733,12 +1782,14 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
             //}
+>>>>>>> main
     }
 
 
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
     private void packetSendingHandler()
     {
+        print("packetSendingHandle");
         if (_opened == true)
         {
             _sendCounter++;
@@ -1955,7 +2006,11 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
+<<<<<<< HEAD
+                    Debug.Log("takeoff");
+=======
                     Debug.Log("takeoff  , " + _sendCounter);
+>>>>>>> main
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };

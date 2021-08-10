@@ -41,11 +41,11 @@ public class DroneManager_CJH : RobotConnector2
             }
             else if(Input.GetKey(KeyCode.RightArrow))    // 우 회전
             {
-                quad8.yaw = 0x46;
+                quad8.yaw = -128;
             }
             else if(Input.GetKey(KeyCode.LeftArrow))         // 좌 회전
             {
-                quad8.yaw = -128;
+                quad8.yaw = 0x46;
             }
             else if(Input.GetKeyDown(KeyCode.Space))    // take Off
             {
