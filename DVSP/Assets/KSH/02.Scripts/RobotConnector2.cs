@@ -1495,7 +1495,7 @@ public class RobotConnector2 : MonoBehaviour
     
 
     public int baudrate = 57600;
-    private SerialPort _serialPort;
+    public SerialPort _serialPort;
     public List<string> portNames = new List<string>(); // 탐색한 포트들
     public string portName; // 연결할 포트명
 
@@ -1613,10 +1613,10 @@ public class RobotConnector2 : MonoBehaviour
         _serialPort.StopBits = StopBits.One;
 
 
-        portNames.AddRange(SerialPort.GetPortNames());
-        portName = portNames[0];
-        Connect();
         ResetData();
+        //portNames.AddRange(SerialPort.GetPortNames());
+        //portName = portNames[0];
+        //Connect();
 
         Invoke("packetSendingHandler", 0.05f);
     }
@@ -1709,12 +1709,13 @@ public class RobotConnector2 : MonoBehaviour
             {
                 //이륙
                 print("ss");
-                //landingPressed++;
-                byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };  // 이륙
-                _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+                _sendCounter++;
+                landingPressed++;
+                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };  // 이륙
+                //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
 
             }
-           // packetSendingHandler();
+            // packetSendingHandler();
 
 
             //byte[] tempBytes = Read();
@@ -1747,6 +1748,7 @@ public class RobotConnector2 : MonoBehaviour
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
     private void packetSendingHandler()
     {
+        print("packetSendingHandle");
         if (_opened == true)
         {
 
