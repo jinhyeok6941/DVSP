@@ -1582,7 +1582,7 @@ public class RobotConnector2 : MonoBehaviour
     private int _sendCounter = 0;
     //private ulong _gCounter = 0;
 
-    float _fSendInterval = 0.005f; // packetSendingHandler() 함수 인보크 재실행 간격
+    private float _fSendInterval = 0.005f; // packetSendingHandler() 함수 인보크 재실행 간격
 
 
 
