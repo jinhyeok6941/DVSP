@@ -1765,10 +1765,10 @@ public class RobotConnector2 : MonoBehaviour
 
                         if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
                         {
-                            switch (readBytes[2])
+                            switch (readBytes[8])
                             {
-                                 case (byte)Protocol.DataType.Type.Joystick:
-                                   Debug.Log("명령");
+                                 case (byte)Protocol.DataType.Type.Joystick.direction.Type.BL:
+                                   Debug.Log("좌측 하단");
                                    break;
                             }
                         }
