@@ -1746,7 +1746,11 @@ public class RobotConnector2 : MonoBehaviour
                                    " [7]: " + Convert.ToString(tempBytes[7], 16) +
                                    " [8]: " + Convert.ToString(tempBytes[8], 16) +
                                    " [9]: " + Convert.ToString(tempBytes[9], 16) +
-                                   " [10]: " + Convert.ToString(tempBytes[10], 16));
+                                   " [10]: " + Convert.ToString(tempBytes[10], 16) +
+                                   " [11]: " + Convert.ToString(tempBytes[11], 16) +
+                                   " [12]: " + Convert.ToString(tempBytes[12], 16) +
+                                   " [13]: " + Convert.ToString(tempBytes[13], 16) +
+                                   " [14]: " + Convert.ToString(tempBytes[14], 16));
 
                     if ((tempBytes[0] == 0x0A)&&(tempBytes[1] == 0x55))
                     {
