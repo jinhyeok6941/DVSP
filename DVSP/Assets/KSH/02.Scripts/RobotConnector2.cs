@@ -1724,8 +1724,8 @@ public class RobotConnector2 : MonoBehaviour
                             //    {
                             //        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
                             //    }
-
-
+                
+                
                             //    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
                             //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
                             //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
@@ -1733,7 +1733,6 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
                             //        " [5]: " + Convert.ToString(tempBytes[5], 16));
             //}
-        //}
     }
 
 
