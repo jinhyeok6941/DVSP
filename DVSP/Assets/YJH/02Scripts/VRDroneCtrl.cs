@@ -5,7 +5,7 @@ using UnityEngine;
 public class VRDroneCtrl : RobotConnector2
 {
     //드론 움직임 
-    public float speed = 10; //  기본 드론 움직임
+    public float speed; //  기본 드론 움직임
     
     public Space flymode = Space.World; //  드론 비행모드를 HeadLess OnOff ctrl
     int countMode = 0; // flymode 컨트롤 값 bool 값 이용가능 하지만 일단 int로 
@@ -201,8 +201,7 @@ public class VRDroneCtrl : RobotConnector2
         }
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
-        transform.Translate(dir.normalized * speed * R_Sen * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
-
+        transform.Translate(dir.normalized * speed * R_Sense * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
     }
 
     void Start_Stop()

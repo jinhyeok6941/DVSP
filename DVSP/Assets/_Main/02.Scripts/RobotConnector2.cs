@@ -1712,39 +1712,17 @@ public class RobotConnector2 : MonoBehaviour
     public void Debug_tempBytes()
     {
         byte[] tempBytes = Read();
-
-            //////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
-
-            // if (tempBytes != null)
-            // {
-                            //    for (int i = 0; i < tempBytes.Length; i++)
-                            //    {
-                            //        //////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                            //    }
-                
-                
-                            //    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                            //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                            //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                            //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                            //        " [5]: " + Convert.ToString(tempBytes[5], 16));
-                             //byte[] tempBytes = Read();
-     
+        
             if (tempBytes != null)
             {
-                //                for (int i = 0; i < tempBytes.Length; i++)
-                //                {
-                //                    ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                //                }
                             if(tempBytes[2] == 0x42)
                             {
                                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
                                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                                    " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                                   " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                                   " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                                   " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                                   " [5]: " + Convert.ToString(tempBytes[5], 16) +
                                    " [6]: " + Convert.ToString(tempBytes[6], 16) +
                                    " [7]: " + Convert.ToString(tempBytes[7], 16) +
                                    " [8]: " + Convert.ToString(tempBytes[8], 16) +
@@ -1769,7 +1747,7 @@ public class RobotConnector2 : MonoBehaviour
                         crcL = (byte)(crc & 0xFF);
                         crcH = (byte)((crc & 0xFF00) >> 8);
 
-                        //////Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
+                        //Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
 
                         if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
                         {
@@ -1854,9 +1832,7 @@ public class RobotConnector2 : MonoBehaviour
                                    R_Joy = "BR";
                                    break;
                                }
-
                                
-
                             L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
                             R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
 

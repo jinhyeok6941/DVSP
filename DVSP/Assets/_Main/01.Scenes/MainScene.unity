@@ -419,7 +419,9 @@ MonoBehaviour:
   _bIsAllSensor: 1
   L_Joy: CN
   R_Joy: CN
-  speed: 10
+  L_Sense: 0
+  R_Sense: 0
+  speed: 0.1
   flymode: 0
 --- !u!1 &538189510
 GameObject:
@@ -1124,6 +1126,8 @@ MonoBehaviour:
   _bIsAllSensor: 1
   L_Joy: CN
   R_Joy: CN
+  L_Sense: 0
+  R_Sense: 0
   pos: []
   rigid: {fileID: 0}
 --- !u!4 &1361618144
@@ -1211,6 +1215,8 @@ MonoBehaviour:
   _bIsAllSensor: 1
   L_Joy: CN
   R_Joy: CN
+  L_Sense: 0
+  R_Sense: 0
 --- !u!4 &1845080093
 Transform:
   m_ObjectHideFlags: 0
