@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneManager_CJH : RobotConnector2
+public class DroneManager_KSH: RobotConnector2
 {
     // Awake ----------------------------------------------------------------------------------------------
     void Awake()
