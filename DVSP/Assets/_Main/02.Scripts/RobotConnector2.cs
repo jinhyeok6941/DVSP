@@ -1148,7 +1148,7 @@ namespace Mode
 
             Faild,              // 업데이트 실패(업데이트 완료까지 갔으나 body의 CRC16이 일치하지 않는 경우 등)
 
-            NotAvailable,       // 업데이트 불가능 상태(Debug 모드 등)
+            NotAvailable,       // 업데이트 불가능 상태(//Debug 모드 등)
             RunApplication,     // 어플리케이션 동작 중
             NotRegistered,      // 등록되지 않은 장치
 
@@ -1652,7 +1652,7 @@ public class RobotConnector2 : MonoBehaviour
 
         if ((_nC_Version_major != 0) && (_nD_Version_major != 0)) // 조종기, 드론 버전을 모두 받았다면
         {
-            Debug.Log("Got Version");
+            ////Debug.Log("Got Version");
             CancelInvoke("GetVersion_Start");
         }
         else
@@ -1706,23 +1706,24 @@ public class RobotConnector2 : MonoBehaviour
     }
 
     public string L_Joy = "CN" , R_Joy = "CN";
+    public float L_Sense = 0 , R_Sense = 0;
 
 
     public void Debug_tempBytes()
     {
         byte[] tempBytes = Read();
 
-            //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+            //////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
             // {
                             //    for (int i = 0; i < tempBytes.Length; i++)
                             //    {
-                            //        //Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                            //        //////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
                             //    }
                 
                 
-                            //    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                            //    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
                             //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
                             //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
                             //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
@@ -1734,23 +1735,26 @@ public class RobotConnector2 : MonoBehaviour
             {
                 //                for (int i = 0; i < tempBytes.Length; i++)
                 //                {
-                //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+                //                    ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
                 //                }
-
-
+                            if(tempBytes[2] == 0x42)
+                            {
                                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
                                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                                   " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                                   " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                                   " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                                   " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                                    " [5]: " + Convert.ToString(tempBytes[5], 16) +
                                    " [6]: " + Convert.ToString(tempBytes[6], 16) +
                                    " [7]: " + Convert.ToString(tempBytes[7], 16) +
                                    " [8]: " + Convert.ToString(tempBytes[8], 16) +
                                    " [9]: " + Convert.ToString(tempBytes[9], 16) +
                                    " [10]: " + Convert.ToString(tempBytes[10], 16) +
                                    " [11]: " + Convert.ToString(tempBytes[11], 16) +
-                                   " [12]: " + Convert.ToString(tempBytes[12], 16));
+                                   " [12]: " + Convert.ToString(tempBytes[12], 16) +
+                                   " [13]: " + Convert.ToString(tempBytes[13], 16));
+                            }
+            
 
                     if ((tempBytes[0] == 0x0A)&&(tempBytes[1] == 0x55))
                     {
@@ -1765,97 +1769,111 @@ public class RobotConnector2 : MonoBehaviour
                         crcL = (byte)(crc & 0xFF);
                         crcH = (byte)((crc & 0xFF00) >> 8);
 
-                        //Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
+                        //////Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
 
-                        // if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
-                        // {
-                        //     // Joystcik 입력값
-                        //     // L_JOY 입력값 
-                        //     switch (readBytes[8])
-                        //     {
-                        //         case (byte)Joystick.Direction.Type.TL:
-                        //            Debug.Log("L 좌측 상단");
-                        //            L_Joy = "TL";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.TM:
-                        //            Debug.Log("L 상단");
-                        //            L_Joy = "TM";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.TR:
-                        //            Debug.Log("L 우측 상단");
-                        //            L_Joy = "TR";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.ML:
-                        //            Debug.Log("L 좌측");
-                        //            L_Joy = "ML";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.CN:
-                        //            Debug.Log("L 중앙");
-                        //            L_Joy = "CN";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.MR:
-                        //            Debug.Log("L 우측");
-                        //            L_Joy = "MR";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BL:
-                        //            Debug.Log("L 좌측 하단");
-                        //            L_Joy = "BL";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BM:
-                        //            Debug.Log("L 하단");
-                        //            L_Joy = "BM";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BR:
-                        //            Debug.Log("L 우측 하단");
-                        //            L_Joy = "BR";
-                        //            break;
-                        //        }
+                        if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
+                        {
+                            // Joystcik 입력값
+                            // L_JOY 입력값 
+                            switch (readBytes[8])
+                            {
+                                case (byte)Joystick.Direction.Type.TL:
+                                   //Debug.Log("L 좌측 상단");
+                                   L_Joy = "TL";
+                                   break;
+                                case (byte)Joystick.Direction.Type.TM:
+                                   //Debug.Log("L 상단");
+                                   L_Joy = "TM";
+                                   break;
+                                case (byte)Joystick.Direction.Type.TR:
+                                   //Debug.Log("L 우측 상단");
+                                   L_Joy = "TR";
+                                   break;
+                                case (byte)Joystick.Direction.Type.ML:
+                                   //Debug.Log("L 좌측");
+                                   L_Joy = "ML";
+                                   break;
+                                case (byte)Joystick.Direction.Type.CN:
+                                   //Debug.Log("L 중앙");
+                                   L_Joy = "CN";
+                                   break;
+                                case (byte)Joystick.Direction.Type.MR:
+                                   //Debug.Log("L 우측");
+                                   L_Joy = "MR";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BL:
+                                   //Debug.Log("L 좌측 하단");
+                                   L_Joy = "BL";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BM:
+                                   //Debug.Log("L 하단");
+                                   L_Joy = "BM";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BR:
+                                   //Debug.Log("L 우측 하단");
+                                   L_Joy = "BR";
+                                   break;
+                               }
 
-                        //     // R_Joy 입력값
-                        //         switch (readBytes[12])
-                        //     {
-                        //         case (byte)Joystick.Direction.Type.TL:
-                        //            Debug.Log("R 좌측 상단");
-                        //            R_Joy = "TL";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.TM:
-                        //            Debug.Log("R 상단");
-                        //            R_Joy = "TM";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.TR:
-                        //            Debug.Log("R 우측 상단");
-                        //            R_Joy = "TR";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.ML:
-                        //            Debug.Log("R 좌측");
-                        //            R_Joy = "ML";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.CN:
-                        //            Debug.Log("R 중앙");
-                        //            R_Joy = "CN";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.MR:
-                        //            Debug.Log("R 우측");
-                        //            R_Joy = "MR";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BL:
-                        //            Debug.Log("R 좌측 하단");
-                        //            R_Joy = "BL";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BM:
-                        //            Debug.Log("R 하단");
-                        //            R_Joy = "BM";
-                        //            break;
-                        //         case (byte)Joystick.Direction.Type.BR:
-                        //            Debug.Log("R 우측 하단");
-                        //            R_Joy = "BR";
-                        //            break;
-                        //     }
-                        //     // _______ JOY
-                        // }
+                            switch (readBytes[12])
+                            {
+                                case (byte)Joystick.Direction.Type.TL:
+                                   //Debug.Log("L 좌측 상단");
+                                   R_Joy = "TL";
+                                   break;
+                                case (byte)Joystick.Direction.Type.TM:
+                                   //Debug.Log("L 상단");
+                                   R_Joy = "TM";
+                                   break;
+                                case (byte)Joystick.Direction.Type.TR:
+                                   //Debug.Log("L 우측 상단");
+                                   R_Joy = "TR";
+                                   break;
+                                case (byte)Joystick.Direction.Type.ML:
+                                   //Debug.Log("L 좌측");
+                                   R_Joy = "ML";
+                                   break;
+                                case (byte)Joystick.Direction.Type.CN:
+                                   //Debug.Log("L 중앙");
+                                   R_Joy = "CN";
+                                   break;
+                                case (byte)Joystick.Direction.Type.MR:
+                                   //Debug.Log("L 우측");
+                                   R_Joy = "MR";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BL:
+                                   //Debug.Log("L 좌측 하단");
+                                   R_Joy = "BL";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BM:
+                                   //Debug.Log("L 하단");
+                                   R_Joy = "BM";
+                                   break;
+                                case (byte)Joystick.Direction.Type.BR:
+                                   //Debug.Log("L 우측 하단");
+                                   R_Joy = "BR";
+                                   break;
+                               }
+
+                               
+
+                            L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
+                            R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
+
+                            //Debug.Log(L_Sense + "  ,  " + R_Sense);
+                        }
                     }
                 }
     }
+
+    int Get_Sense(byte readbyte)
+    {
+        if(readbyte > 100)
+           return 100 - readbyte % 156;
+        else
+           return readbyte;
+    }
+
 
 
 
@@ -1864,17 +1882,17 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
-            // Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+            // ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
             // {
             //                    for (int i = 0; i < tempBytes.Length; i++)
             //                    {
-            //                        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //                        ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
             //                    }
                 
                 
-            //                    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            //                    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
             //                        " [1]: " + Convert.ToString(tempBytes[1], 16) +
             //                        " [2]: " + Convert.ToString(tempBytes[2], 16) +
             //                        " [3]: " + Convert.ToString(tempBytes[3], 16) +
@@ -1897,12 +1915,12 @@ public class RobotConnector2 : MonoBehaviour
 
             if (_sendCounter == 0) // state -------------------------------------------------------------------
             {
-                //Debug.Log("state");
+                //////Debug.Log("state");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x40, 0x5F, 0x8F };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.state"); 
+                    //////Debug.Log("---------- Type.state"); 
                     //term.state = 0;
                 }
                 catch (Exception)
@@ -1913,12 +1931,12 @@ public class RobotConnector2 : MonoBehaviour
             // position ---------------------------------------------------------------------------------------------------------------
             else if (_sendCounter == 1)
             {
-                //Debug.Log("position");
+                //////Debug.Log("position");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x42, 0x1D, 0xAF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.position"); 
+                    //////Debug.Log("---------- Type.position"); 
                 }
                 catch (Exception)
                 {
@@ -1927,12 +1945,12 @@ public class RobotConnector2 : MonoBehaviour
             }
 //            else if (_sendCounter == 1) // attitude -----------------------------------------------------------
 //            {
-//                //Debug.Log("attitude");
+//                //////Debug.Log("attitude");
 //                try
 //                {
 //                    byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x41, 0x7E, 0x9F };
 //                    _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                    //Debug.Log("---------- Type.attitude");
+//                    //////Debug.Log("---------- Type.attitude");
 //                    //term.attitude = 0;
 //                }
 //                catch (Exception)
@@ -1944,13 +1962,13 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 3)) ||
                        ((!_bIsAllSensor) && (_bIsDetailSensor) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("altitude");
+                //////Debug.Log("altitude");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x43, 0x3C, 0xBF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
                     //term.altitude = 0;
-                    //Debug.Log("---------- Type.altitude");
+                    //////Debug.Log("---------- Type.altitude");
                 }
                 catch (Exception)
                 {
@@ -1961,12 +1979,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 5)) ||
                        ((!_bIsAllSensor) && (_bIsDetailAxis) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("motion");
+                //////Debug.Log("motion");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x44, 0xDB, 0xCF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.motion"); 
+                    //////Debug.Log("---------- Type.motion"); 
                 }
                 catch (Exception)
                 {
@@ -1977,12 +1995,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 7)) ||
                        ((!_bIsAllSensor) && (_bIsDetailImageFlow) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("flow");
+                //////Debug.Log("flow");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x31, 0xE9, 0xE1 };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.flow"); 
+                    //////Debug.Log("---------- Type.flow"); 
                 }
                 catch (Exception)
                 {
@@ -1993,12 +2011,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 9)) ||
                        ((!_bIsAllSensor) && (_bIsDetailRange) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("range");
+                //////Debug.Log("range");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x45, 0xFA, 0xDF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.range"); 
+                    //////Debug.Log("---------- Type.range"); 
                 }
                 catch (Exception)
                 {
@@ -2008,12 +2026,12 @@ public class RobotConnector2 : MonoBehaviour
             // trim ---------------------------------------------------------------------------------------------------------------
             else if (_sendCounter == 11)
             {
-                //Debug.Log("trim");
+                //////Debug.Log("trim");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x52, 0x2C, 0xBD };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.trim"); 
+                    //////Debug.Log("---------- Type.trim"); 
                 }
                 catch (Exception)
                 {
@@ -2025,12 +2043,12 @@ public class RobotConnector2 : MonoBehaviour
                 // 조종기 버전 요청 연속 전송-----------------------------
                 if (_nSendCount_VerRC > 0)
                 {
-                    //Debug.Log("VerRC");
+                    //////Debug.Log("VerRC");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x20, 0x07, 0xE9, 0xB2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerRC"); 
+                        //////Debug.Log("---------- Type.VerRC"); 
                         _nSendCount_VerRC--;
                     }
                     catch (Exception)
@@ -2042,12 +2060,12 @@ public class RobotConnector2 : MonoBehaviour
                 // RF모듈 버전 요청 연속 전송-----------------------------
                 else if (_nSendCount_VerRFModule > 0)
                 {
-                    //Debug.Log("VerRFModule");
+                    //////Debug.Log("VerRFModule");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x70, 0x30, 0x07, 0xC8, 0x52 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerRFModule"); 
+                        //////Debug.Log("---------- Type.VerRFModule"); 
                         _nSendCount_VerRFModule--;
                     }
                     catch (Exception)
@@ -2059,12 +2077,12 @@ public class RobotConnector2 : MonoBehaviour
                 // 드론 버전 요청 연속 전송-----------------------------
                 else if (_nSendCount_VerDrone > 0)
                 {
-                    //Debug.Log("VerDrone");
+                    //////Debug.Log("VerDrone");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x07, 0x7C, 0xB7 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerDrone"); 
+                        //////Debug.Log("---------- Type.VerDrone"); 
                         _nSendCount_VerDrone--;
                     }
                     catch (Exception)
@@ -2074,12 +2092,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (stopPressed > 0) // 강제정지신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("stop");
+                    //////Debug.Log("stop");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x01, 0x00, 0xCD, 0xB6 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.stop"); 
+                        //////Debug.Log("---------- Type.stop"); 
                         stopPressed--;
                     }
                     catch (Exception)
@@ -2089,12 +2107,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (landingPressed > 0) // 착륙신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("landing");
+                    //////Debug.Log("landing");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x12, 0x18, 0x2E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.landing"); 
+                        // ////Debug.Log("---------- Type.landing"); 
                         landingPressed--;
                     }
                     catch (Exception)
@@ -2104,12 +2122,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // 이륙신호 ---------------------------------------------------------------------------
                 {
-                    Debug.Log("takeoff  , " + _sendCounter);
+                    ////Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.takeoff");
+                        // ////Debug.Log("---------- Type.takeoff");
                         takeoffPressed--;
                     }
                     catch (Exception)
@@ -2119,7 +2137,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (trimPressed > 0) // 트림신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("trim");
+                    //////Debug.Log("trim");
                     byte[] Roll = BitConverter.GetBytes(trimRoll);
                     byte[] Pitch = BitConverter.GetBytes(trimPitch);
                     byte[] Yaw = BitConverter.GetBytes(trimYaw);
@@ -2135,7 +2153,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x52, 0x08, 0x80, 0x10, Roll[0], Roll[1], Pitch[0], Pitch[1], Yaw[0], Yaw[1], Throttle[0], Throttle[1], crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.trim");
+                        //////Debug.Log("---------- Type.trim");
                         trimPressed--;
                     }
                     catch (Exception)
@@ -2149,7 +2167,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x05, 0x00, 0x09, 0x7A };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- clear bias");
+                        // ////Debug.Log("---------- clear bias");
                         clearbiasPressed--;
                     }
                     catch (Exception)
@@ -2169,7 +2187,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x04, (byte)_nSpeed, crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.Speed");
+                        //////Debug.Log("---------- Type.Speed");
                         SpeedPressed--;
                     }
                     catch (Exception)
@@ -2183,7 +2201,7 @@ public class RobotConnector2 : MonoBehaviour
 //                    {
 //                        byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x70, 0x20, 0x0A, 0x80, 0x57, 0xA1, 0xFF };
 //                        _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                        // Debug.Log("---------- mode link");
+//                        // ////Debug.Log("---------- mode link");
 //                        mode_linkPressed--;
 //                    }
 //                    catch (Exception)
@@ -2197,7 +2215,7 @@ public class RobotConnector2 : MonoBehaviour
 //                    {
 //                        byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x70, 0x20, 0x0A, 0x10, 0xEE, 0x22, 0xFF };
 //                        _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                        // Debug.Log("---------- mode control");
+//                        // ////Debug.Log("---------- mode control");
 //                        mode_controlPressed--;
 //                    }
 //                    catch (Exception)
@@ -2207,7 +2225,7 @@ public class RobotConnector2 : MonoBehaviour
 //                }
                 else if (lightSend > 0) // LED신호 ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("light"); //0x21 -> 0x23
+                    //////Debug.Log("light"); //0x21 -> 0x23
                     byte[] tempBuff2 = { 0x23, 0x06, 0x80, 0x10, 0x22, 0xFF, 0x00, lightRed, lightGreen, lightBlue };
                     byte crcL2, crcH2;
                     ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc 는 제외함
@@ -2218,7 +2236,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x23, 0x06, 0x80, 0x10, 0x22, 0xFF, 0x00, lightRed, lightGreen, lightBlue, crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.Light");
+                        //////Debug.Log("---------- Type.Light");
                         lightSend--;
                     }
                     catch (Exception)
@@ -2228,12 +2246,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (Flip_Front > 0) // 플립 앞 ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_front");
+                    //////Debug.Log("flip_front");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x14, 0xDE, 0x4E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.Flip_Front"); 
+                        // ////Debug.Log("---------- Type.Flip_Front"); 
                         Flip_Front--;
                     }
                     catch (Exception)
@@ -2243,12 +2261,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (Flip_Back > 0) // 플립 뒤 ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_back");
+                    //////Debug.Log("flip_back");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x15, 0xFF, 0x5E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_back"); 
+                        // ////Debug.Log("---------- Type.flip_back"); 
                         Flip_Back--;
                     }
                     catch (Exception)
@@ -2258,12 +2276,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (Flip_Left > 0) // 플립 좌 ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_left");
+                    //////Debug.Log("flip_left");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x16, 0x9C, 0x6E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_left"); 
+                        // ////Debug.Log("---------- Type.flip_left"); 
                         Flip_Left--;
                     }
                     catch (Exception)
@@ -2273,12 +2291,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (Flip_Right > 0) // 플립 우 ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_right");
+                    //////Debug.Log("flip_right");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x17, 0xBD, 0x7E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_right"); 
+                        // ////Debug.Log("---------- Type.flip_right"); 
                         Flip_Right--;
                     }
                     catch (Exception)
@@ -2288,12 +2306,12 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (Count > 0) // 비행 관련 데이터 카운트 -------------------------------------------------------------------------
                 {
-                    //Debug.Log("Count");
+                    //////Debug.Log("Count");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x50, 0x6E, 0x9D };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.Count"); 
+                        // ////Debug.Log("---------- Type.Count"); 
                         Count--;
                     }
                     catch (Exception)
@@ -2303,7 +2321,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else // 실 조종신호 전송 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
-                    //Debug.Log("control");
+                    //////Debug.Log("control");
                     byte[] tempBuff = { 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle };
                     byte crcL, crcH;
                     ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc 는 제외함
@@ -2312,10 +2330,10 @@ public class RobotConnector2 : MonoBehaviour
 
                     try
                     {
-                        //Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
+                        //////Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
                         byte[] packetBuffer = { 0x0A, 0x55, 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle, crcL, crcH };  //control::quad8 struct
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
+                        //////Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
                     }
                     catch (Exception)
                     {
@@ -2353,7 +2371,7 @@ public class RobotConnector2 : MonoBehaviour
     //        crcL = (byte)(crc & 0xFF);
     //        crcH = (byte)((crc & 0xFF00) >> 8);
     //
-    //        Debug.Log(crcL + "     " + crcH);
+    //        ////Debug.Log(crcL + "     " + crcH);
     //    }
 
     //지혜 
@@ -2370,7 +2388,7 @@ public class RobotConnector2 : MonoBehaviour
     // 포트 서치 ----------------------------------------------------------------------------------------------------------
     public void PortSearch()
     {
-        Debug.Log("PortSearch()");
+        ////Debug.Log("PortSearch()");
 
         portNames.Clear();
 
@@ -2417,11 +2435,11 @@ public class RobotConnector2 : MonoBehaviour
     // 선택한 포트로 연결 --------------------------------------------------------------------------------------------------------------
     public void Connect()
     {
-        Debug.Log("Connect() " + portName);
+        ////Debug.Log("Connect() " + portName);
 
         _opened = false; // 포트 열림 초기화
         _connected = false; // 실제 드론 접속 초기화
-        //Debug.Log("_opened = false");
+        //////Debug.Log("_opened = false");
 
         try
         {
@@ -2431,7 +2449,7 @@ public class RobotConnector2 : MonoBehaviour
             if (_serialPort.IsOpen == true)
             {
                 _opened = true;
-                //Debug.Log("_opened = True");
+                //////Debug.Log("_opened = True");
                 GetVersion_Start(); // 버전 받기 시작
 
                 if (OnConnected != null)
@@ -2486,7 +2504,7 @@ public class RobotConnector2 : MonoBehaviour
         bool state = _connected;
         _connected = false;
         _opened = false;
-        Debug.Log("_opened = false");
+        ////Debug.Log("_opened = false");
 
         try
         {
