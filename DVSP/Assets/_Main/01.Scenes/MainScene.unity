@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 76897449}
   m_Layer: 0
-  m_Name: ViewBody
+  m_Name: ViewBOdy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
