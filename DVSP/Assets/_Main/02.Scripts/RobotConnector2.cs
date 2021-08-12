@@ -1849,13 +1849,13 @@ public class RobotConnector2 : MonoBehaviour
                             // L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
                             // R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
 
-                            // //Debug.Log(L_Sense + "  ,  " + R_Sense);
-                            // Debug.Log(" [10]: " + readBytes[10] +
-                            //        " [11]: " + readBytes[11] +
-                            //        " [12]: " + readBytes[12] +
-                            //        " [13]: " + readBytes[13] +
-                            //        "  x  : " + R_x +
-                            //        "  y  : " + R_y);
+                            //Debug.Log(L_Sense + "  ,  " + R_Sense);
+                            Debug.Log(" [10]: " + readBytes[10] +
+                                   " [11]: " + readBytes[11] +
+                                   " [12]: " + readBytes[12] +
+                                   " [13]: " + readBytes[13] +
+                                   "  x  : " + R_x +
+                                   "  y  : " + R_y);
                         }
                     }
                 }
