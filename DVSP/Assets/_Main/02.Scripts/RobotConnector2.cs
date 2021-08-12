@@ -1707,8 +1707,8 @@ public class RobotConnector2 : MonoBehaviour
 
     public string L_Joy = "CN" , R_Joy = "CN";
     public float L_Sense = 0 , R_Sense = 0;
-    public float R_x , R_y , R_z;
-    public float L_x , L_y , L_z;
+    public float R_x , R_y;
+    public float L_x , L_y;
     Vector3 R_dir;
 
     public void Debug_tempBytes()
@@ -1841,19 +1841,21 @@ public class RobotConnector2 : MonoBehaviour
                             // y = Get_Sense(readBytes[11]);
                             //Debug.Log(x + "  ,  " + y);
                             R_x = Get_Sense(readBytes[10]) * Check_Value(readBytes[10]);
-                            R_z = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
+                            R_y = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
+                            L_x = Get_Sense(readBytes[6]) * Check_Value(readBytes[6]);
+                            L_y = Get_Sense(readBytes[7]) * Check_Value(readBytes[7]);
                                
                                
-                            L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
-                            R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
+                            // L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
+                            // R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
 
-                            //Debug.Log(L_Sense + "  ,  " + R_Sense);
-                            Debug.Log(" [10]: " + readBytes[10] +
-                                   " [11]: " + readBytes[11] +
-                                   " [12]: " + readBytes[12] +
-                                   " [13]: " + readBytes[13] +
-                                   "  x  : " + R_x +
-                                   "  y  : " + R_y);
+                            // //Debug.Log(L_Sense + "  ,  " + R_Sense);
+                            // Debug.Log(" [10]: " + readBytes[10] +
+                            //        " [11]: " + readBytes[11] +
+                            //        " [12]: " + readBytes[12] +
+                            //        " [13]: " + readBytes[13] +
+                            //        "  x  : " + R_x +
+                            //        "  y  : " + R_y);
                         }
                     }
                 }
