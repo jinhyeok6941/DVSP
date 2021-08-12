@@ -201,7 +201,7 @@ public class VRDroneCtrl : RobotConnector2
         }
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
-        transform.Translate(dir.normalized * speed * R_Sense * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        transform.Translate(dir * speed * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
     }
 
     void Start_Stop()
