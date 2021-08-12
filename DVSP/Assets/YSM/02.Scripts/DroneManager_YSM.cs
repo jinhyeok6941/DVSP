@@ -69,7 +69,9 @@ public class DroneManager_YSM : RobotConnector2
                 //trimPressed++;
             }
         }
+        Debug_tempBytes();
     }
+
 
     IEnumerator UPandDown()
     {

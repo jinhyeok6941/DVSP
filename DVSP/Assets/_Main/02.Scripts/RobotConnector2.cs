@@ -1730,13 +1730,13 @@ public class RobotConnector2 : MonoBehaviour
 
             if (tempBytes != null)
             {
-                //                for (int i = 0; i < tempBytes.Length; i++)
-                //                {
-                //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                //                }
+            //                for (int i = 0; i < tempBytes.Length; i++)
+            //                {
+            //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //                }
 
 
-                               Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
                                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
                                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
                                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
