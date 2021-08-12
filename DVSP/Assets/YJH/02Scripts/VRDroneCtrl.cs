@@ -15,7 +15,9 @@ public class VRDroneCtrl : RobotConnector2
 
     Transform ViewBody;
 
-    Vector3 droneDir;
+    Vector3 rotate_aix;
+    Vector3 rotate_value;
+
 
     public enum VISUAL_STATE
     {
@@ -67,7 +69,7 @@ public class VRDroneCtrl : RobotConnector2
         L_JoyStick();
         R_JoyStick();
 
-        ViewingState();
+        //ViewingState();
 
     }
 
@@ -165,7 +167,7 @@ public class VRDroneCtrl : RobotConnector2
     {
         Vector3 dir = new Vector3();
 
-        switch (R_Joy)//joy 방향을 입력하고//상태 정의 
+       /* switch (R_Joy)//joy 방향을 입력하고//상태 정의 
         {
             case "TL": //  전좌
                 dir = Vector3.forward + Vector3.left;
@@ -205,10 +207,17 @@ public class VRDroneCtrl : RobotConnector2
                 break;
             default:
                 break;
-        }
+        }*/
+
+        dir = new Vector3(R_x,0,R_z) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
+
+        rotate_aix = Vector3.Cross(dir,Vector3.up);
+
+        ViewBody.rotation = Quaternion.Euler(rotate_aix);  //ViewBody.Rotate(rotate_aix);
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
-        transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        transform.Translate(dir * speed * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
         //R_Sense 는 0부터 100 사이의 값으로 받아오기 때문에 미리 0.01 값을 곱해 놓는다. 
     }
 
