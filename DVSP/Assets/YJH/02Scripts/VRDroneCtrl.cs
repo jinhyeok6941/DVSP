@@ -69,7 +69,7 @@ public class VRDroneCtrl : RobotConnector2
         L_JoyStick();
         R_JoyStick();
 
-        //ViewingState();
+        ViewingState();
 
     }
 
@@ -123,45 +123,51 @@ public class VRDroneCtrl : RobotConnector2
                 
                 break;
         }
+
+       //ViewBody.rotation = Quaternion.Euler(20 * R_y * 0.01f, 0 , 20 * R_x * 0.01f);
+       //Debug.Log(20 * R_y * 0.01f + "  ,  " + 20 * R_x * 0.01f);
     }//문제점 기체는 회전해서 앞으로 가면 기체의 앞으로 기울어지는데 회전으로 인해 옆으로날라가서 그림이상 
 
     void L_JoyStick() // TL, TM, TR, ML, CN, MR, BL, BM, BR
     {
-        switch (L_Joy)
-        {
-            case "TL": //상좌 
-                transform.Translate(Vector3.up * speed * L_Sense * 0.01f * Time.deltaTime);// 상승
-                transform.Rotate(Vector3.up, -3f); // 반시계 방향 회전
-                break;
-            case "TM": // 상 = 상승 
-                transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
-                break;
-            case "TR": // 상우 
-                transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
-                transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-                break;
-            case "ML": // 좌회전 = 반시계 회전 
-                transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
-                break;
-            case "CN": // 중심움직이지 않음
-                break;
-            case "MR": // 우회전 = 시계 회전 
-                transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-                break;
-            case "BL": // 하좌
-                transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-                transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
-                break;
-            case "BM": // 하 = 하강
-                transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-                break;
-            case "BR": // 하우
-                transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-                transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-                break;
-            default:
-                break;
-        }
+        // switch (L_Joy)
+        // {
+        //     case "TL": //상좌 
+        //         transform.Translate(Vector3.up * speed * L_Sense * 0.01f * Time.deltaTime);// 상승
+        //         transform.Rotate(Vector3.up, -3f); // 반시계 방향 회전
+        //         break;
+        //     case "TM": // 상 = 상승 
+        //         transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
+        //         break;
+        //     case "TR": // 상우 
+        //         transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
+        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
+        //         break;
+        //     case "ML": // 좌회전 = 반시계 회전 
+        //         transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
+        //         break;
+        //     case "CN": // 중심움직이지 않음
+        //         break;
+        //     case "MR": // 우회전 = 시계 회전 
+        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
+        //         break;
+        //     case "BL": // 하좌
+        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
+        //         transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
+        //         break;
+        //     case "BM": // 하 = 하강
+        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
+        //         break;
+        //     case "BR": // 하우
+        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
+        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
+        //         break;
+        //     default:
+        //         break;
+        // }
+        transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
+        transform.Rotate((Vector3.up * L_x).normalized , 0.03f * L_x);
+        Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
     }
     void R_JoyStick()
     {
@@ -209,7 +215,7 @@ public class VRDroneCtrl : RobotConnector2
                 break;
         }*/
 
-        dir = new Vector3(R_x,0,R_z) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
+        dir = new Vector3(R_x,0,R_y) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
 
         rotate_aix = Vector3.Cross(dir,Vector3.up);
 
