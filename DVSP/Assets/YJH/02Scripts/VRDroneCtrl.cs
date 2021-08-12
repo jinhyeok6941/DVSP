@@ -69,7 +69,7 @@ public class VRDroneCtrl : RobotConnector2
         L_JoyStick();
         R_JoyStick();
 
-        ViewingState();
+        //ViewingState();
 
     }
 
@@ -165,14 +165,15 @@ public class VRDroneCtrl : RobotConnector2
         //     default:
         //         break;
         // }
-        //transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
-        transform.Rotate(Vector3.up , 0.03f * L_x);
+        transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
+        transform.Rotate((Vector3.up * L_x).normalized , 0.03f * L_x);
+        Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
     }
     void R_JoyStick()
     {
         Vector3 dir = new Vector3();
 
-       /* switch (R_Joy)//joy 방향을 입력하고//상태 정의 
+        switch (R_Joy)//joy 방향을 입력하고//상태 정의 
         {
             case "TL": //  전좌
                 dir = Vector3.forward + Vector3.left;
@@ -212,13 +213,24 @@ public class VRDroneCtrl : RobotConnector2
                 break;
             default:
                 break;
-        }*/
+        }
 
         dir = new Vector3(R_x,0,R_y) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
 
         rotate_aix = Vector3.Cross(dir,Vector3.up);
+        print(rotate_aix.x+","+ rotate_aix.y +","+ rotate_aix.z);
 
-        //ViewBody.rotation = Quaternion.Euler(rotate_aix);  //ViewBody.Rotate(rotate_aix);
+        
+        if (flymode == Space.Self) 
+        {
+            ViewBody.eulerAngles = new Vector3(rotate_aix.x * -30, ViewBody.eulerAngles.y, rotate_aix.z * -30);  //rotate_aix * -50;  //ViewBody.Rotate(rotate_aix);
+        }
+        else if (flymode == Space.World) 
+        { 
+            ViewBody.eulerAngles = new Vector3(rotate_aix.x * -30, -transform.rotation.y, rotate_aix.z * -30);  //rotate_aix * -50;  //ViewBody.Rotate(rotate_aix);
+        }
+
+        float yy = ViewBody.eulerAngles.y;
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
         //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
