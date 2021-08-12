@@ -91,7 +91,7 @@ public class VRDroneCtrl : RobotConnector2
                 break;
 
             case VISUAL_STATE.FORWARD:
-                ViewBody.localEulerAngles = new Vector3(20, rot_y, 0);
+                ViewBody.localEulerAngles = new Vector3(20 , rot_y, 20);
                 break;
             case VISUAL_STATE.BACK:
                 ViewBody.localEulerAngles = new Vector3(-20, rot_y, 0);
@@ -118,6 +118,7 @@ public class VRDroneCtrl : RobotConnector2
 
             default:
                 ViewBody.localEulerAngles = new Vector3(0, 0, 0);
+                
                 break;
         }
     }//문제점 기체는 회전해서 앞으로 가면 기체의 앞으로 기울어지는데 회전으로 인해 옆으로날라가서 그림이상 
