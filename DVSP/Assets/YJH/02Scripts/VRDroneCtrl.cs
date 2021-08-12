@@ -5,7 +5,7 @@ using UnityEngine;
 public class VRDroneCtrl : RobotConnector2
 {
     //드론 움직임 
-    public float speed; //  기본 드론 움직임
+    public float speed = 10; //  기본 드론 움직임
     
     public Space flymode = Space.World; //  드론 비행모드를 HeadLess OnOff ctrl
     int countMode = 0; // flymode 컨트롤 값 bool 값 이용가능 하지만 일단 int로 
@@ -14,6 +14,10 @@ public class VRDroneCtrl : RobotConnector2
     float pushTime = 0.0f;
 
     Transform ViewBody;
+
+    Vector3 rotate_aix;
+    Vector3 rotate_value;
+
 
     public enum VISUAL_STATE
     {
@@ -65,7 +69,7 @@ public class VRDroneCtrl : RobotConnector2
         L_JoyStick();
         R_JoyStick();
 
-        ViewingState();
+        //ViewingState();
 
     }
 
@@ -74,6 +78,10 @@ public class VRDroneCtrl : RobotConnector2
 
     void ViewingState()
     {
+        float rot_y = 0;
+        if (flymode == Space.Self) { rot_y = 0; }// 머리 있는 모드 
+        else if (flymode == Space.World) { rot_y = -transform.rotation.y; }//헤드리스 모드.
+
         switch (view)
         {
             case VISUAL_STATE.NORMAL:
@@ -85,33 +93,34 @@ public class VRDroneCtrl : RobotConnector2
                 break;
 
             case VISUAL_STATE.FORWARD:
-                ViewBody.localEulerAngles = new Vector3(20, 0, 0);
+                ViewBody.localEulerAngles = new Vector3(20 , rot_y, 20);
                 break;
             case VISUAL_STATE.BACK:
-                ViewBody.localEulerAngles = new Vector3(-20, 0, 0);
+                ViewBody.localEulerAngles = new Vector3(-20, rot_y, 0);
                 break;
             case VISUAL_STATE.LEFT:
-                ViewBody.localEulerAngles = new Vector3(0, 0, 20);
+                ViewBody.localEulerAngles = new Vector3(0, rot_y, 20);
                 break;
             case VISUAL_STATE.RIGHT:
-                ViewBody.localEulerAngles = new Vector3(0, 0, -20);
+                ViewBody.localEulerAngles = new Vector3(0, rot_y, -20);
                 break;
 
             case VISUAL_STATE.FL:
-                ViewBody.localEulerAngles = new Vector3(15, 0, 15);
+                ViewBody.localEulerAngles = new Vector3(15, rot_y, 15);
                 break;
             case VISUAL_STATE.FR:
-                ViewBody.localEulerAngles = new Vector3(15, 0, -15);
+                ViewBody.localEulerAngles = new Vector3(15, rot_y, -15);
                 break;
             case VISUAL_STATE.BL:
-                ViewBody.localEulerAngles = new Vector3(-15, 0, 15);
+                ViewBody.localEulerAngles = new Vector3(-15, rot_y, 15);
                 break;
             case VISUAL_STATE.BR:
-                ViewBody.localEulerAngles = new Vector3(-15, 0, -15);
+                ViewBody.localEulerAngles = new Vector3(-15, rot_y, -15);
                 break;
 
             default:
                 ViewBody.localEulerAngles = new Vector3(0, 0, 0);
+                
                 break;
         }
     }//문제점 기체는 회전해서 앞으로 가면 기체의 앞으로 기울어지는데 회전으로 인해 옆으로날라가서 그림이상 
@@ -121,7 +130,7 @@ public class VRDroneCtrl : RobotConnector2
         switch (L_Joy)
         {
             case "TL": //상좌 
-                transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
+                transform.Translate(Vector3.up * speed * L_Sense * 0.01f * Time.deltaTime);// 상승
                 transform.Rotate(Vector3.up, -3f); // 반시계 방향 회전
                 break;
             case "TM": // 상 = 상승 
@@ -158,7 +167,7 @@ public class VRDroneCtrl : RobotConnector2
     {
         Vector3 dir = new Vector3();
 
-        switch (R_Joy)//joy 방향을 입력하고//상태 정의 
+       /* switch (R_Joy)//joy 방향을 입력하고//상태 정의 
         {
             case "TL": //  전좌
                 dir = Vector3.forward + Vector3.left;
@@ -198,10 +207,18 @@ public class VRDroneCtrl : RobotConnector2
                 break;
             default:
                 break;
-        }
+        }*/
+
+        dir = new Vector3(R_x,0,R_z) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
+
+        rotate_aix = Vector3.Cross(dir,Vector3.up);
+
+        ViewBody.rotation = Quaternion.Euler(rotate_aix);  //ViewBody.Rotate(rotate_aix);
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
+        //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
         transform.Translate(dir * speed * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        //R_Sense 는 0부터 100 사이의 값으로 받아오기 때문에 미리 0.01 값을 곱해 놓는다. 
     }
 
     void Start_Stop()
