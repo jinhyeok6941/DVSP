@@ -5,7 +5,7 @@ using UnityEngine;
 public class VRDroneCtrl : RobotConnector2
 {
     //드론 움직임 
-    public float speed; //  기본 드론 움직임
+    public float speed = 10; //  기본 드론 움직임
     
     public Space flymode = Space.World; //  드론 비행모드를 HeadLess OnOff ctrl
     int countMode = 0; // flymode 컨트롤 값 bool 값 이용가능 하지만 일단 int로 
@@ -14,6 +14,8 @@ public class VRDroneCtrl : RobotConnector2
     float pushTime = 0.0f;
 
     Transform ViewBody;
+
+    Vector3 droneDir;
 
     public enum VISUAL_STATE
     {
@@ -74,6 +76,10 @@ public class VRDroneCtrl : RobotConnector2
 
     void ViewingState()
     {
+        float rot_y = 0;
+        if (flymode == Space.Self) { rot_y = 0; }// 머리 있는 모드 
+        else if (flymode == Space.World) { rot_y = -transform.rotation.y; }//헤드리스 모드.
+
         switch (view)
         {
             case VISUAL_STATE.NORMAL:
@@ -85,29 +91,29 @@ public class VRDroneCtrl : RobotConnector2
                 break;
 
             case VISUAL_STATE.FORWARD:
-                ViewBody.localEulerAngles = new Vector3(20, 0, 0);
+                ViewBody.localEulerAngles = new Vector3(20, rot_y, 0);
                 break;
             case VISUAL_STATE.BACK:
-                ViewBody.localEulerAngles = new Vector3(-20, 0, 0);
+                ViewBody.localEulerAngles = new Vector3(-20, rot_y, 0);
                 break;
             case VISUAL_STATE.LEFT:
-                ViewBody.localEulerAngles = new Vector3(0, 0, 20);
+                ViewBody.localEulerAngles = new Vector3(0, rot_y, 20);
                 break;
             case VISUAL_STATE.RIGHT:
-                ViewBody.localEulerAngles = new Vector3(0, 0, -20);
+                ViewBody.localEulerAngles = new Vector3(0, rot_y, -20);
                 break;
 
             case VISUAL_STATE.FL:
-                ViewBody.localEulerAngles = new Vector3(15, 0, 15);
+                ViewBody.localEulerAngles = new Vector3(15, rot_y, 15);
                 break;
             case VISUAL_STATE.FR:
-                ViewBody.localEulerAngles = new Vector3(15, 0, -15);
+                ViewBody.localEulerAngles = new Vector3(15, rot_y, -15);
                 break;
             case VISUAL_STATE.BL:
-                ViewBody.localEulerAngles = new Vector3(-15, 0, 15);
+                ViewBody.localEulerAngles = new Vector3(-15, rot_y, 15);
                 break;
             case VISUAL_STATE.BR:
-                ViewBody.localEulerAngles = new Vector3(-15, 0, -15);
+                ViewBody.localEulerAngles = new Vector3(-15, rot_y, -15);
                 break;
 
             default:
@@ -121,7 +127,7 @@ public class VRDroneCtrl : RobotConnector2
         switch (L_Joy)
         {
             case "TL": //상좌 
-                transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
+                transform.Translate(Vector3.up * speed * L_Sense * 0.01f * Time.deltaTime);// 상승
                 transform.Rotate(Vector3.up, -3f); // 반시계 방향 회전
                 break;
             case "TM": // 상 = 상승 
@@ -201,7 +207,8 @@ public class VRDroneCtrl : RobotConnector2
         }
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
-        transform.Translate(dir.normalized * speed * R_Sense * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
+        //R_Sense 는 0부터 100 사이의 값으로 받아오기 때문에 미리 0.01 값을 곱해 놓는다. 
     }
 
     void Start_Stop()
