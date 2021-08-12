@@ -90,7 +90,7 @@ public class VRDroneCtrl_CJH : RobotConnector2
 
     void L_JoyStick() // TL, TM, TR, ML, CN, MR, BL, BM, BR
     {
-        transform.Rotate(Vector3.up , 0.03f * L_x);
+        ViewBody.Rotate(Vector3.up , 0.03f * L_x);
     }
      Vector3 dir = new Vector3();
     void R_JoyStick()
