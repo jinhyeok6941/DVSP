@@ -165,9 +165,8 @@ public class VRDroneCtrl : RobotConnector2
         //     default:
         //         break;
         // }
-        transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
-        transform.Rotate((Vector3.up * L_x).normalized , 0.03f * L_x);
-        Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
+        //transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
+        transform.Rotate(Vector3.up , 0.03f * L_x);
     }
     void R_JoyStick()
     {
@@ -219,7 +218,7 @@ public class VRDroneCtrl : RobotConnector2
 
         rotate_aix = Vector3.Cross(dir,Vector3.up);
 
-        ViewBody.rotation = Quaternion.Euler(rotate_aix);  //ViewBody.Rotate(rotate_aix);
+        //ViewBody.rotation = Quaternion.Euler(rotate_aix);  //ViewBody.Rotate(rotate_aix);
 
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
         //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
