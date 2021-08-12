@@ -176,7 +176,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76897448}
-  m_LocalRotation: {x: 0.3287018, y: 0, z: 0, w: 0.94443375}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -212,7 +212,7 @@ Transform:
   - {fileID: 8568440119632223707}
   m_Father: {fileID: 543450653632637032}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 38.38, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315628506
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,10 +423,8 @@ MonoBehaviour:
   R_Sense: 0
   R_x: 0
   R_y: 0
-  R_z: 0
   L_x: 0
   L_y: 0
-  L_z: 0
   speed: 10
   flymode: 0
 --- !u!1 &538189510
@@ -1136,10 +1134,8 @@ MonoBehaviour:
   R_Sense: 0
   R_x: 0
   R_y: 0
-  R_z: 0
   L_x: 0
   L_y: 0
-  L_z: 0
   pos: []
   rigid: {fileID: 0}
 --- !u!4 &1361618144
@@ -1231,10 +1227,8 @@ MonoBehaviour:
   R_Sense: 0
   R_x: 0
   R_y: 0
-  R_z: 0
   L_x: 0
   L_y: 0
-  L_z: 0
 --- !u!4 &1845080093
 Transform:
   m_ObjectHideFlags: 0
@@ -1462,14 +1456,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149088154322}
-  m_LocalRotation: {x: 0, y: 0.26488292, z: 0, w: 0.9642806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 76897449}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 30.72, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &568525672535106477
 GameObject:
   m_ObjectHideFlags: 0
