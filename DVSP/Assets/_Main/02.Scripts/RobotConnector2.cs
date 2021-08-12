@@ -1840,14 +1840,6 @@ public class RobotConnector2 : MonoBehaviour
                             // x = Get_Sense(readBytes[10]);
                             // y = Get_Sense(readBytes[11]);
                             //Debug.Log(x + "  ,  " + y);
-                            if(readBytes[2] == (byte)Protocol.DataType.Type.Joystick){
-                            R_x = Get_Sense(readBytes[10]) * Check_Value(readBytes[10]);
-                            R_y = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
-                            L_x = Get_Sense(readBytes[6]) * Check_Value(readBytes[6]);
-                            L_y = Get_Sense(readBytes[7]) * Check_Value(readBytes[7]);
-                            }
-                               
-                               
                             // L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
                             // R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
 
@@ -1858,6 +1850,14 @@ public class RobotConnector2 : MonoBehaviour
                             //        " [13]: " + readBytes[13] +
                             //        "  x  : " + R_x +
                             //        "  y  : " + R_y);
+                            if(readBytes[2] == (byte)Protocol.DataType.Type.Joystick){
+                            R_x = Get_Sense(readBytes[10]) * Check_Value(readBytes[10]);
+                            R_y = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
+                            L_x = Get_Sense(readBytes[6]) * Check_Value(readBytes[6]);
+                            L_y = Get_Sense(readBytes[7]) * Check_Value(readBytes[7]);
+                            }
+                               
+                               
                         }
                     }
                 }
