@@ -51,11 +51,6 @@ public class VRDroneCtrl_CJH : RobotConnector2
         ViewBody = transform.GetChild(0); // °¡½ÃÀû È¿°ú¸¦ ÁÙ ¸ö ¼³Á¤ 
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         Start_Stop();//ÀÌ·ú Âø·ú 
