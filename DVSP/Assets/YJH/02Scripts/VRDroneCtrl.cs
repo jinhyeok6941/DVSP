@@ -18,31 +18,9 @@ public class VRDroneCtrl : RobotConnector2
     Vector3 rotate_aix;
     Vector3 rotate_value;
 
+    public Transform joystickL;
+    public Transform joystickR;
 
-    public enum VISUAL_STATE
-    {
-        NORMAL,// 가만히 있는 정지 상태
-
-
-        HOVERING,
-
-        FORWARD,
-        BACK,
-        LEFT,
-        RIGHT,
-        //UP,
-        //DOWN,
-
-        FL,
-        FR,
-        BL,
-        BR,
-
-        EndOfType
-
-    }
-
-    VISUAL_STATE view = VISUAL_STATE.NORMAL;
 
 
     private void Awake()
@@ -65,162 +43,32 @@ public class VRDroneCtrl : RobotConnector2
             SeletMode();
         }
 
-        Debug_tempBytes();
+        Debug_tempBytes();//실시간 정보 받는 함수 업데이트문에 필수 
+
         L_JoyStick();
         R_JoyStick();
 
-        //ViewingState();
+        Hovering();//호버링 애니매이션
 
+        joystickL.localPosition = new Vector3(L_x * 0.003f, L_y * 0.003f, -1);
+        joystickR.localPosition = new Vector3(R_x * 0.003f, R_y * 0.003f, -1);
     }
 
-    //string _L_, _R_ = "";
-    float L_Sen, R_Sen = 1; // 일단 전달받은 감도 변수를 넣을 자리만 지정해둠 .
 
-    void ViewingState()
-    {
-        float rot_y = 0;
-        if (flymode == Space.Self) { rot_y = 0; }// 머리 있는 모드 
-        else if (flymode == Space.World) { rot_y = -transform.rotation.y; }//헤드리스 모드.
-
-        switch (view)
-        {
-            case VISUAL_STATE.NORMAL:
-                ViewBody.localEulerAngles = new Vector3(0, 0, 0);
-                break;
-            case VISUAL_STATE.HOVERING:
-                print("hover");
-                ViewBody.localEulerAngles = new Vector3(0, 0, 0);
-                break;
-
-            case VISUAL_STATE.FORWARD:
-                ViewBody.localEulerAngles = new Vector3(20 , rot_y, 20);
-                break;
-            case VISUAL_STATE.BACK:
-                ViewBody.localEulerAngles = new Vector3(-20, rot_y, 0);
-                break;
-            case VISUAL_STATE.LEFT:
-                ViewBody.localEulerAngles = new Vector3(0, rot_y, 20);
-                break;
-            case VISUAL_STATE.RIGHT:
-                ViewBody.localEulerAngles = new Vector3(0, rot_y, -20);
-                break;
-
-            case VISUAL_STATE.FL:
-                ViewBody.localEulerAngles = new Vector3(15, rot_y, 15);
-                break;
-            case VISUAL_STATE.FR:
-                ViewBody.localEulerAngles = new Vector3(15, rot_y, -15);
-                break;
-            case VISUAL_STATE.BL:
-                ViewBody.localEulerAngles = new Vector3(-15, rot_y, 15);
-                break;
-            case VISUAL_STATE.BR:
-                ViewBody.localEulerAngles = new Vector3(-15, rot_y, -15);
-                break;
-
-            default:
-                ViewBody.localEulerAngles = new Vector3(0, 0, 0);
-                
-                break;
-        }
-
-       //ViewBody.rotation = Quaternion.Euler(20 * R_y * 0.01f, 0 , 20 * R_x * 0.01f);
-       //Debug.Log(20 * R_y * 0.01f + "  ,  " + 20 * R_x * 0.01f);
-    }//문제점 기체는 회전해서 앞으로 가면 기체의 앞으로 기울어지는데 회전으로 인해 옆으로날라가서 그림이상 
 
     void L_JoyStick() // TL, TM, TR, ML, CN, MR, BL, BM, BR
     {
-        // switch (L_Joy)
-        // {
-        //     case "TL": //상좌 
-        //         transform.Translate(Vector3.up * speed * L_Sense * 0.01f * Time.deltaTime);// 상승
-        //         transform.Rotate(Vector3.up, -3f); // 반시계 방향 회전
-        //         break;
-        //     case "TM": // 상 = 상승 
-        //         transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
-        //         break;
-        //     case "TR": // 상우 
-        //         transform.Translate(Vector3.up * speed  * Time.deltaTime);// 상승
-        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-        //         break;
-        //     case "ML": // 좌회전 = 반시계 회전 
-        //         transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
-        //         break;
-        //     case "CN": // 중심움직이지 않음
-        //         break;
-        //     case "MR": // 우회전 = 시계 회전 
-        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-        //         break;
-        //     case "BL": // 하좌
-        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-        //         transform.Rotate(Vector3.up, -3f ); // 반시계 방향 회전
-        //         break;
-        //     case "BM": // 하 = 하강
-        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-        //         break;
-        //     case "BR": // 하우
-        //         transform.Translate(Vector3.down * speed  * Time.deltaTime); //하강 
-        //         transform.Rotate(Vector3.up, 3f ); // 시계 방향 회전 
-        //         break;
-        //     default:
-        //         break;
-        // }
         transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
         transform.Rotate((Vector3.up * L_x).normalized , 0.03f * L_x);
         Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
     }
     void R_JoyStick()
     {
-        Vector3 dir = new Vector3();
+        Vector3 dir = new Vector3(R_x,0,R_y) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
 
-        switch (R_Joy)//joy 방향을 입력하고//상태 정의 
-        {
-            case "TL": //  전좌
-                dir = Vector3.forward + Vector3.left;
-                view = VISUAL_STATE.FL;
-                break;
-            case "TM": // 전 = 전진
-                dir = Vector3.forward;
-                view = VISUAL_STATE.FORWARD;
-                break;
-            case "TR": //  전우
-                dir = Vector3.forward + Vector3.right;
-                view = VISUAL_STATE.FR;
-                break;
-            case "ML": // 좌 = 좌이동
-                dir = Vector3.left;
-                view = VISUAL_STATE.LEFT;
-                break;
-            case "CN": // 중심움직이지 않음
-                dir = Vector3.zero;
-                view = VISUAL_STATE.NORMAL;
-                break;
-            case "MR": // 우 = 우이동
-                dir = Vector3.right;
-                view = VISUAL_STATE.RIGHT;
-                break;
-            case "BL": //  후좌
-                dir = Vector3.back + Vector3.left;
-                view = VISUAL_STATE.BL;
-                break;
-            case "BM": // 후 = 후진
-                dir = Vector3.back;
-                view = VISUAL_STATE.BACK;
-                break;
-            case "BR": //  후우
-                dir = Vector3.back + Vector3.right;
-                view = VISUAL_STATE.BR;
-                break;
-            default:
-                break;
-        }
+        rotate_aix = Vector3.Cross(dir,Vector3.up); // 회전 축 구하는 함수
+        //print(rotate_aix.x+","+ rotate_aix.y +","+ rotate_aix.z);
 
-        dir = new Vector3(R_x,0,R_y) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
-
-        rotate_aix = Vector3.Cross(dir,Vector3.up);
-        print(rotate_aix.x+","+ rotate_aix.y +","+ rotate_aix.z);
-
-        
         if (flymode == Space.Self) 
         {
             ViewBody.eulerAngles = new Vector3(rotate_aix.x * -30, ViewBody.eulerAngles.y, rotate_aix.z * -30);  //rotate_aix * -50;  //ViewBody.Rotate(rotate_aix);
@@ -230,12 +78,9 @@ public class VRDroneCtrl : RobotConnector2
             ViewBody.eulerAngles = new Vector3(rotate_aix.x * -30, -transform.rotation.y, rotate_aix.z * -30);  //rotate_aix * -50;  //ViewBody.Rotate(rotate_aix);
         }
 
-        float yy = ViewBody.eulerAngles.y;
-
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
         //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
         transform.Translate(dir * speed * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
-        //R_Sense 는 0부터 100 사이의 값으로 받아오기 때문에 미리 0.01 값을 곱해 놓는다. 
     }
 
     void Start_Stop()
@@ -278,7 +123,8 @@ public class VRDroneCtrl : RobotConnector2
         }
         else if (countMode % 2 == 1)
         {
-            flymode = Space.Self;            
+            flymode = Space.Self;
+            ViewBody.rotation = transform.rotation;
         }
 
 
@@ -311,5 +157,27 @@ public class VRDroneCtrl : RobotConnector2
         // 흠 룰루 랄라 Updata 에서 이용 되는게 아니라 구간에 계속 진행 하기 
         yield return new WaitForSeconds(0.1f);
 
+    }
+    bool up;
+
+    public void Hovering()
+    {
+        if (up)
+        {
+            ViewBody.localPosition += new Vector3(0,0.001f,0);
+        }
+        else
+        {
+            ViewBody.localPosition -= new Vector3(0,0.001f,0);
+        }
+
+        if (ViewBody.localPosition.y >= 0.3f)
+        {
+            up = false;
+        }
+        else if(ViewBody.localPosition.y <= 0)
+        {
+            up = true;
+        }
     }
 }
