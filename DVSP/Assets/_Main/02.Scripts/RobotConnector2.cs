@@ -1755,88 +1755,88 @@ public class RobotConnector2 : MonoBehaviour
                         {
                             // Joystcik 입력값
                             // L_JOY 입력값 
-                            switch (readBytes[8])
-                            {
-                                case (byte)Joystick.Direction.Type.TL:
-                                   //Debug.Log("L 좌측 상단");
-                                   L_Joy = "TL";
-                                   break;
-                                case (byte)Joystick.Direction.Type.TM:
-                                   //Debug.Log("L 상단");
-                                   L_Joy = "TM";
-                                   break;
-                                case (byte)Joystick.Direction.Type.TR:
-                                   //Debug.Log("L 우측 상단");
-                                   L_Joy = "TR";
-                                   break;
-                                case (byte)Joystick.Direction.Type.ML:
-                                   //Debug.Log("L 좌측");
-                                   L_Joy = "ML";
-                                   break;
-                                case (byte)Joystick.Direction.Type.CN:
-                                   //Debug.Log("L 중앙");
-                                   L_Joy = "CN";
-                                   break;
-                                case (byte)Joystick.Direction.Type.MR:
-                                   //Debug.Log("L 우측");
-                                   L_Joy = "MR";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BL:
-                                   //Debug.Log("L 좌측 하단");
-                                   L_Joy = "BL";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BM:
-                                   //Debug.Log("L 하단");
-                                   L_Joy = "BM";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BR:
-                                   //Debug.Log("L 우측 하단");
-                                   L_Joy = "BR";
-                                   break;
-                               }
+                            // switch (readBytes[8])
+                            // {
+                            //     case (byte)Joystick.Direction.Type.TL:
+                            //        //Debug.Log("L 좌측 상단");
+                            //        L_Joy = "TL";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.TM:
+                            //        //Debug.Log("L 상단");
+                            //        L_Joy = "TM";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.TR:
+                            //        //Debug.Log("L 우측 상단");
+                            //        L_Joy = "TR";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.ML:
+                            //        //Debug.Log("L 좌측");
+                            //        L_Joy = "ML";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.CN:
+                            //        //Debug.Log("L 중앙");
+                            //        L_Joy = "CN";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.MR:
+                            //        //Debug.Log("L 우측");
+                            //        L_Joy = "MR";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BL:
+                            //        //Debug.Log("L 좌측 하단");
+                            //        L_Joy = "BL";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BM:
+                            //        //Debug.Log("L 하단");
+                            //        L_Joy = "BM";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BR:
+                            //        //Debug.Log("L 우측 하단");
+                            //        L_Joy = "BR";
+                            //        break;
+                            //    }
 
-                            switch (readBytes[12])
-                            {
-                                case (byte)Joystick.Direction.Type.TL:
-                                   //Debug.Log("L 좌측 상단");
-                                   R_Joy = "TL";
-                                   break;
-                                case (byte)Joystick.Direction.Type.TM:
-                                   //Debug.Log("L 상단");
-                                   R_Joy = "TM";
-                                   break;
-                                case (byte)Joystick.Direction.Type.TR:
-                                   //Debug.Log("L 우측 상단");
-                                   R_Joy = "TR";
-                                   break;
-                                case (byte)Joystick.Direction.Type.ML:
-                                   //Debug.Log("L 좌측");
-                                   R_Joy = "ML";
-                                   break;
-                                case (byte)Joystick.Direction.Type.CN:
-                                   //Debug.Log("L 중앙");
-                                   R_Joy = "CN";
-                                   break;
-                                case (byte)Joystick.Direction.Type.MR:
-                                   //Debug.Log("L 우측");
-                                   R_Joy = "MR";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BL:
-                                   //Debug.Log("L 좌측 하단");
-                                   R_Joy = "BL";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BM:
-                                   //Debug.Log("L 하단");
-                                   R_Joy = "BM";
-                                   break;
-                                case (byte)Joystick.Direction.Type.BR:
-                                   //Debug.Log("L 우측 하단");
-                                   R_Joy = "BR";
-                                   break;
-                                default:
-                                   //Debug.Log(readBytes[12]);
-                                   break;
-                               }
+                            // switch (readBytes[12])
+                            // {
+                            //     case (byte)Joystick.Direction.Type.TL:
+                            //        //Debug.Log("L 좌측 상단");
+                            //        R_Joy = "TL";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.TM:
+                            //        //Debug.Log("L 상단");
+                            //        R_Joy = "TM";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.TR:
+                            //        //Debug.Log("L 우측 상단");
+                            //        R_Joy = "TR";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.ML:
+                            //        //Debug.Log("L 좌측");
+                            //        R_Joy = "ML";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.CN:
+                            //        //Debug.Log("L 중앙");
+                            //        R_Joy = "CN";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.MR:
+                            //        //Debug.Log("L 우측");
+                            //        R_Joy = "MR";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BL:
+                            //        //Debug.Log("L 좌측 하단");
+                            //        R_Joy = "BL";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BM:
+                            //        //Debug.Log("L 하단");
+                            //        R_Joy = "BM";
+                            //        break;
+                            //     case (byte)Joystick.Direction.Type.BR:
+                            //        //Debug.Log("L 우측 하단");
+                            //        R_Joy = "BR";
+                            //        break;
+                            //     default:
+                            //        //Debug.Log(readBytes[12]);
+                            //        break;
+                            //    }
                             // x = Get_Sense(readBytes[10]);
                             // y = Get_Sense(readBytes[11]);
                             //Debug.Log(x + "  ,  " + y);
@@ -1855,9 +1855,7 @@ public class RobotConnector2 : MonoBehaviour
                             R_y = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
                             L_x = Get_Sense(readBytes[6]) * Check_Value(readBytes[6]);
                             L_y = Get_Sense(readBytes[7]) * Check_Value(readBytes[7]);
-                            }
-                               
-                               
+                            }    
                         }
                     }
                 }
