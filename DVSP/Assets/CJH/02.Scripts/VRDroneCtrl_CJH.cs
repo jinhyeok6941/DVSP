@@ -64,7 +64,7 @@ public class VRDroneCtrl_CJH : RobotConnector2
         R_JoyStick();
         ViewingState();
         L_JoyStick();
-
+        transform.position = Set_Pos();
     }
 
     //string _L_, _R_ = "";

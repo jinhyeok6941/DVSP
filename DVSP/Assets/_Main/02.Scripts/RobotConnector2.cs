@@ -1810,7 +1810,8 @@ public class RobotConnector2 : MonoBehaviour
                                          motion.anglePitch = BitConverter.ToInt16(readBytes, 20);
                                          motion.angleYaw = BitConverter.ToInt16(readBytes, 22);
                                          Debug.Log("x : " + motion.accX + "  y : " + motion.accY + "  z : " + motion.accZ +
-                                            "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw);
+                                            "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw +
+                                            "  angleRoll : " + motion.angleRoll + "  anglePitch : " + motion.anglePitch + "  angleYaw : " + motion.angleYaw);
                                         break;                                             
                             } 
                         }
