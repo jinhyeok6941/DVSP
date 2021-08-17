@@ -1066,10 +1066,6 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
@@ -1159,10 +1155,6 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
@@ -1632,7 +1624,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149088154322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19601e03f726d50428418eec6ca0dd9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a9f53879c76c044ca4cf3cd6a702c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baudrate: 57600
@@ -1675,16 +1667,14 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
   L_y: 0
   speed: 10
   flymode: 0
+  joystickL: {fileID: 0}
+  joystickR: {fileID: 0}
 --- !u!1 &925564063377416869
 GameObject:
   m_ObjectHideFlags: 0
