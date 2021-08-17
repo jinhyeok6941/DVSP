@@ -80,7 +80,7 @@ namespace Protocol
             Position,
             Altitude,                               // 고도
             Motion,                                 // Motion 센서 데이터(IMU)
-            Range,                                   // 위치
+            Range,                                  // 위치
 
             // 설정
             Count                       = 0x50,     // 카운트
@@ -1486,9 +1486,6 @@ namespace Vibrator
 
 
 
-
-
-
 // RobotConnector =============================================================================================================================================================
 public class RobotConnector2 : MonoBehaviour
 {
@@ -1619,6 +1616,7 @@ public class RobotConnector2 : MonoBehaviour
 
     public void Connect_Manager()
     {
+        vr = new VRDroneCtrl();
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
         _serialPort.RtsEnable = false;
@@ -1630,6 +1628,7 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
+        vr.Debug_VR();
 
         Invoke("packetSendingHandler", 0.02f);
     }
@@ -1704,12 +1703,17 @@ public class RobotConnector2 : MonoBehaviour
 
         }
     }
-
-    public string L_Joy = "CN" , R_Joy = "CN";
-    public float L_Sense = 0 , R_Sense = 0;
+    
+    // 자식 클래스명
+    VRDroneCtrl vr;
+    // 조이스틱 감도 측정 변수
     public float R_x , R_y;
     public float L_x , L_y;
-    Vector3 R_dir;
+    // 신호 체크용
+    bool takeoff_Check;
+    bool stop_Check;
+
+    int speed_Level;
 
     public void Debug_tempBytes()
     {
@@ -1717,22 +1721,22 @@ public class RobotConnector2 : MonoBehaviour
         
             if (tempBytes != null)
             {
-                            // if(tempBytes[2] == 0x70)
+                            // if(tempBytes[2] != 0x71)
                             // {
-                            //    Debug.Log(//" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                            //     //    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                            //     //    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                            //     //   " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                            //     //    " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                            //     //    " [5]: " + Convert.ToString(tempBytes[5], 16) +
-                            //     //   " [6]: " + Convert.ToString(tempBytes[6], 16) +
-                            //     //   " [7]: " + Convert.ToString(tempBytes[7], 16) +
-                            //     //   " [8]: " + Convert.ToString(tempBytes[8], 16)); //+
-                            //        //" [9]: " + Convert.ToString(tempBytes[9], 16));// +
-                            //     //    " [10]: " + Convert.ToString(tempBytes[10], 16) +
-                            //     //    " [11]: " + Convert.ToString(tempBytes[11], 16) +
-                            //     //    " [12]: " + Convert.ToString(tempBytes[12], 16) +
-                            //     //    " [13]: " + Convert.ToString(tempBytes[13], 16));
+                               //Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                                //    " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                                //    " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                            //       " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                            //        " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                            //       " [6]: " + Convert.ToString(tempBytes[6], 16) +
+                            //       " [7]: " + Convert.ToString(tempBytes[7], 16) +
+                            //       " [8]: " + Convert.ToString(tempBytes[8], 16) +
+                            //        " [9]: " + Convert.ToString(tempBytes[9], 16) +
+                            //        " [10]: " + Convert.ToString(tempBytes[10], 16) +
+                            //        " [11]: " + Convert.ToString(tempBytes[11], 16) +
+                            //        " [12]: " + Convert.ToString(tempBytes[12], 16) +
+                            //        " [13]: " + Convert.ToString(tempBytes[13], 16));
                             // }
             
 
@@ -1752,141 +1756,64 @@ public class RobotConnector2 : MonoBehaviour
                         //Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
 
                         if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
-                        {
-                            // Joystcik 입력값
-                            // L_JOY 입력값 
-                            // switch (readBytes[8])
-                            // {
-                            //     case (byte)Joystick.Direction.Type.TL:
-                            //        //Debug.Log("L 좌측 상단");
-                            //        L_Joy = "TL";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.TM:
-                            //        //Debug.Log("L 상단");
-                            //        L_Joy = "TM";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.TR:
-                            //        //Debug.Log("L 우측 상단");
-                            //        L_Joy = "TR";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.ML:
-                            //        //Debug.Log("L 좌측");
-                            //        L_Joy = "ML";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.CN:
-                            //        //Debug.Log("L 중앙");
-                            //        L_Joy = "CN";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.MR:
-                            //        //Debug.Log("L 우측");
-                            //        L_Joy = "MR";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BL:
-                            //        //Debug.Log("L 좌측 하단");
-                            //        L_Joy = "BL";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BM:
-                            //        //Debug.Log("L 하단");
-                            //        L_Joy = "BM";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BR:
-                            //        //Debug.Log("L 우측 하단");
-                            //        L_Joy = "BR";
-                            //        break;
-                            //    }
-
-                            // switch (readBytes[12])
-                            // {
-                            //     case (byte)Joystick.Direction.Type.TL:
-                            //        //Debug.Log("L 좌측 상단");
-                            //        R_Joy = "TL";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.TM:
-                            //        //Debug.Log("L 상단");
-                            //        R_Joy = "TM";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.TR:
-                            //        //Debug.Log("L 우측 상단");
-                            //        R_Joy = "TR";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.ML:
-                            //        //Debug.Log("L 좌측");
-                            //        R_Joy = "ML";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.CN:
-                            //        //Debug.Log("L 중앙");
-                            //        R_Joy = "CN";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.MR:
-                            //        //Debug.Log("L 우측");
-                            //        R_Joy = "MR";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BL:
-                            //        //Debug.Log("L 좌측 하단");
-                            //        R_Joy = "BL";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BM:
-                            //        //Debug.Log("L 하단");
-                            //        R_Joy = "BM";
-                            //        break;
-                            //     case (byte)Joystick.Direction.Type.BR:
-                            //        //Debug.Log("L 우측 하단");
-                            //        R_Joy = "BR";
-                            //        break;
-                            //     default:
-                            //        //Debug.Log(readBytes[12]);
-                            //        break;
-                            //    }
-                            // x = Get_Sense(readBytes[10]);
-                            // y = Get_Sense(readBytes[11]);
-                            //Debug.Log(x + "  ,  " + y);
-                            // L_Sense = Get_Sense(readBytes[6]) > Get_Sense(readBytes[7]) ? Get_Sense(readBytes[6]) : Get_Sense(readBytes[7]);
-                            // R_Sense = Get_Sense(readBytes[10]) > Get_Sense(readBytes[11]) ? Get_Sense(readBytes[10]) : Get_Sense(readBytes[11]);
-
-                            //Debug.Log(L_Sense + "  ,  " + R_Sense);
-                            // Debug.Log(" [10]: " + readBytes[10] +
-                            //        " [11]: " + readBytes[11] +
-                            //        " [12]: " + readBytes[12] +
-                            //        " [13]: " + readBytes[13] +
-                            //        "  x  : " + R_x +
-                            //        "  y  : " + R_y);
-                            
-                            if(readBytes[2] == 0x70)
+                        {   
+                            // DataType
+                            switch(readBytes[2])  
                             {
-                                switch(readBytes[6] + readBytes[7])
-                                {
-                                    // HEADLESS OFF
-                                    case -1:
-                                      break;
-                                    // HEADLESS ON
-                                    case 16:
-                                      break;
-                                    // M1
-                                    case 32:
-                                      break;
-                                    // M2
-                                    case 128:
-                                      break;
-                                    // LED , FLIP
-                                    case 2:
-                                      break;
-                                    // Speed , Start
-                                    case 1:
-                                      break;
-                                }
-                                // Debug.Log(" [6]: " + readBytes[6] +
-                                //    " [7]: " + readBytes[7] +
-                                //    " [8]: " + readBytes[8]);
-                            }  
-                            
-
-                            if(readBytes[2] == (byte)Protocol.DataType.Type.Joystick)
-                            {
-                               R_x = Get_Sense(readBytes[10]) * Check_Value(readBytes[10]);
-                               R_y = Get_Sense(readBytes[11]) * Check_Value(readBytes[11]);
-                               L_x = Get_Sense(readBytes[6]) * Check_Value(readBytes[6]);
-                               L_y = Get_Sense(readBytes[7]) * Check_Value(readBytes[7]);
-                            }    
+                                case (byte)Protocol.DataType.Type.Joystick:
+                                         R_x = Get_Sense(readBytes[10]);
+                                         R_y = Get_Sense(readBytes[11]);
+                                         L_x = Get_Sense(readBytes[6]);                                        
+                                         L_y = Get_Sense(readBytes[7]);
+                                         takeoff_Check = L_x > 0 && L_y < 0;
+                                         stop_Check = L_x == 0 && L_y < 0;
+                                         //Debug.Log(takeoff_Check + "  ,  " + stop_Check);
+                                         break;    
+                                case (byte)Protocol.DataType.Type.Button:         
+                                        switch(readBytes[6] - readBytes[7])
+                                        {
+                                            case -1:  // HEADLESS OFF
+                                              vr.flymode = Space.World;
+                                              break;
+                                            case 16:  // HEADLESS ON
+                                              Override_Test();
+                                              break;
+                                            case 32:  // M1
+                                              break;
+                                            case 128: // M2
+                                              break;
+                                            case 2:   // LED , FLIP
+                                              break;
+                                            case 1:   // Speed , Start
+                                                if(takeoff_Check)
+                                                    Debug.Log("takeoff");
+                                                else if(readBytes[8] == 1)
+                                                {
+                                                    vr.speed = 10 * ++speed_Level;
+                                                    Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
+                                                    speed_Level %= 3;
+                                                }
+                                                break;
+                                        }
+                                        break;
+                                case (byte)Protocol.DataType.Type.Altitude:
+                                        //Debug_Log_readBytes(6 , 13 , readBytes);
+                                        break;
+                                case (byte)Protocol.DataType.Type.Motion:
+                                         //Debug_Log_readBytes(6 , 18 , readBytes);
+                                         motion.accX = BitConverter.ToInt16(readBytes, 6);
+                                         motion.accY = BitConverter.ToInt16(readBytes, 8);
+                                         motion.accZ = BitConverter.ToInt16(readBytes, 10);
+                                         motion.gyroRoll = BitConverter.ToInt16(readBytes, 12);
+                                         motion.gyroPitch = BitConverter.ToInt16(readBytes, 14);
+                                         motion.gyroYaw = BitConverter.ToInt16(readBytes, 16);
+                                         motion.angleRoll = BitConverter.ToInt16(readBytes, 18);
+                                         motion.anglePitch = BitConverter.ToInt16(readBytes, 20);
+                                         motion.angleYaw = BitConverter.ToInt16(readBytes, 22);
+                                         Debug.Log("x : " + motion.accX + "  y : " + motion.accY + "  z : " + motion.accZ +
+                                            "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw);
+                                        break;                                             
+                            } 
                         }
                     }
                 }
@@ -1894,25 +1821,27 @@ public class RobotConnector2 : MonoBehaviour
 
     int Get_Sense(byte readbyte)
     {
-        // if(readbyte > 100)
-        //    return 100 - readbyte % 156;
-        // else
-        //    return readbyte;
-        
-        return readbyte > 100 ? 100 - readbyte % 156 : readbyte;
+        return readbyte > 100 ? -(100 - readbyte % 156) : readbyte;
+    }
+
+    string str;
+    void Debug_Log_readBytes(int i , int n , byte [] readBytes)
+    {
+        str = "";
+        for(int k = i ; k < i + n ; k++)
+        {
+            str += k + "  :  " + readBytes[k] + "    ";
+        }
+        Debug.Log(str);
+    }
+
+    public Vector3 Set_Pos()
+    {
+        return new Vector3(motion.accX, motion.accY, motion.accZ);
     }
     
-    int Check_Value(byte readbyte)
-    {
-    //     if(readbyte > 100)
-    //       return -1;
-    //     else
-    //       return 1;
-          return readbyte > 100 ? -1 : 1;
-    }
-
-
-
+    // override 용 함수들 
+    public virtual void Override_Test(){}
 
 
 
