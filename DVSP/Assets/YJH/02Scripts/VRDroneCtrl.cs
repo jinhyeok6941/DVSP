@@ -180,9 +180,4 @@ public class VRDroneCtrl : RobotConnector2
             up = true;
         }
     }
-
-    public void Debug_VR()
-    {
-        Debug.Log("VR");
-    }
 }

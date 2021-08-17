@@ -1628,7 +1628,6 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
-        vr.Debug_VR();
 
         Invoke("packetSendingHandler", 0.02f);
     }
