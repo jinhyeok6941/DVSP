@@ -72,6 +72,13 @@ public class DroneManager_CJH : RobotConnector2
                 quad8.yaw = 0;
             }
             Debug_tempBytes();
+
+            transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
         }
+    }
+
+    public override void Override_Test()
+    {
+        Debug.Log("sss");
     }
 }
