@@ -214,7 +214,8 @@ public class VRDroneCtrl : RobotConnector2
     }
 
     public void Co_StopFly()
-    { 
+    {
+        StartCoroutine(StopFly());
     }
 
     IEnumerator StopFly()
