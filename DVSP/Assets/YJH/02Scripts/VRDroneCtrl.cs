@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VRDroneCtrl : RobotConnector2
 {
+    public static VRDroneCtrl instance;
+
     //드론 움직임 
     public float speed = 10; //  기본 드론 움직임
     
@@ -21,10 +23,14 @@ public class VRDroneCtrl : RobotConnector2
     public Transform joystickL;
     public Transform joystickR;
 
+    bool up;//호버링 와리가리 기준 bool값
 
+    bool collSenser = false;
 
     private void Awake()
     {
+
+        if (this != null) instance = this;
         Connect_Manager();
         ViewBody = transform.GetChild(0); // 가시적 효과를 줄 몸 설정 
     }
@@ -52,6 +58,18 @@ public class VRDroneCtrl : RobotConnector2
 
         joystickL.localPosition = new Vector3(L_x * 0.003f, L_y * 0.003f, -1);
         joystickR.localPosition = new Vector3(R_x * 0.003f, R_y * 0.003f, -1);
+
+        //TEST
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StopAllCoroutines();
+            StartCoroutine(StartFly());
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            StopAllCoroutines();
+            StartCoroutine(StopFly());
+        }
     }
 
 
@@ -158,7 +176,6 @@ public class VRDroneCtrl : RobotConnector2
         yield return new WaitForSeconds(0.1f);
 
     }
-    bool up;
 
     public void Hovering()
     {
@@ -179,5 +196,47 @@ public class VRDroneCtrl : RobotConnector2
         {
             up = true;
         }
+    }
+
+    public void Co_StartFly()
+    {
+        StartCoroutine(StartFly());
+    }
+
+    IEnumerator StartFly()
+    {
+        float now_Y = transform.position.y;
+        while (now_Y + 3.0f >=transform.position.y)
+        {
+            transform.position += Vector3.up * 0.01f;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void Co_StopFly()
+    { 
+    }
+
+    IEnumerator StopFly()
+    {
+            print("akdjasdjkasdjk");
+        while (!collSenser)
+        {
+            transform.position -= Vector3.up * 0.01f;
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collSenser = true;
+        print(collision.gameObject.name);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        collSenser = false;
+        print("bye"+ collision.gameObject.name);
     }
 }

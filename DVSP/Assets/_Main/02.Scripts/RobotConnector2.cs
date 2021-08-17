@@ -1888,23 +1888,25 @@ public class RobotConnector2 : MonoBehaviour
     // Update ------------------------------------------------------------------------------------------------------------
     void Update()
     {
+        
+
             // ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
-            // if (tempBytes != null)
-            // {
-            //                    for (int i = 0; i < tempBytes.Length; i++)
-            //                    {
-            //                        ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-            //                    }
-                
-                
-            //                    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-            //                        " [1]: " + Convert.ToString(tempBytes[1], 16) +
-            //                        " [2]: " + Convert.ToString(tempBytes[2], 16) +
-            //                        " [3]: " + Convert.ToString(tempBytes[3], 16) +
-            //                        " [4]: " + Convert.ToString(tempBytes[4], 16) +
-            //                        " [5]: " + Convert.ToString(tempBytes[5], 16));
-            // }
+        // if (tempBytes != null)
+        // {
+        //                    for (int i = 0; i < tempBytes.Length; i++)
+        //                    {
+        //                        ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+        //                    }
+
+
+        //                    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+        //                        " [1]: " + Convert.ToString(tempBytes[1], 16) +
+        //                        " [2]: " + Convert.ToString(tempBytes[2], 16) +
+        //                        " [3]: " + Convert.ToString(tempBytes[3], 16) +
+        //                        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+        //                        " [5]: " + Convert.ToString(tempBytes[5], 16));
+        // }
     }
 
 
