@@ -14,22 +14,28 @@ namespace DelegateTest
         class Move
         {
             public Vector3 Pos { get; set; }
-            public float curr { get; set; }
-            public Quaternion Rot { get; set; }
+            public float Check { get; set; }
+            public float Rot { get; set; }
 
-            public Move(Vector3 pos , float currtime , Quaternion rot)
+            public Move(Vector3 pos , float check , float rot)
             {
                 Pos = pos;
-                curr = currtime;
+                Check = check;
                 Rot = rot;
             }
 
             public Move(Vector3 pos, float currtime)
             {
                 Pos = pos;
-                curr = currtime;
+                Check = currtime;
             }
+
             public Move() { }
+
+            public void Debug_Log()
+            {
+                Debug.Log("Pos : " + Pos + " Curr : " + Check + " Rot : " + Rot);
+            }
         }
 
         class ExeMove
@@ -61,9 +67,10 @@ namespace DelegateTest
             {
                 //무한 반복
                 i %= listOfMove.Count;
-                if (i == listOfMove.Count) return;
+                Debug.Log(i + "  ,  " + listOfMove.Count);
+                //if (i == listOfMove.Count) return;
                 var item = listOfMove[i];
-                Debug.Log(listOfMove[i].Pos);
+                //listOfMove[i].Debug_Log();
                 process(item);
                 i++;
             }
@@ -77,8 +84,10 @@ namespace DelegateTest
         }
 
         float currtime = 0;
-        float checktime = 0.5f;
+        float checktime = 0;
+        float rot;
         Vector3 dir;
+        public InputField curr;
 
         private void Update()
         {
@@ -87,41 +96,84 @@ namespace DelegateTest
                 currtime += Time.deltaTime;
                 if (currtime >= checktime)
                 {
+                    //Debug.Log(currtime + "  ,  "  + checktime + "  ,  " + transform.position);
                     MoveExplorer();
                     currtime = 0;
                 }
                 transform.Translate(dir * 10 * Time.deltaTime, Space.Self);
+                transform.Rotate(0, rot, 0);
             }
             //좌측 이동
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                moveExe.Add(new Move(Vector3.left , 1.5f));
-            }
-            //우측 이동
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                moveExe.Add(new Move(Vector3.right , 3f));
-            }
-            //상측 이동
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                moveExe.Add(new Move(Vector3.up , 0.5f));
-            }
-            //하측 이동
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                moveExe.Add(new Move(Vector3.down , 0.2f));
-            }
+            //if (Input.GetKeyDown(KeyCode.A))
+            //{
+            //    moveExe.Add(new Move(Vector3.left , 1.5f));
+            //}
+            ////우측 이동
+            //else if (Input.GetKeyDown(KeyCode.D))
+            //{
+            //    moveExe.Add(new Move(Vector3.right , 3f));
+            //}
+            ////상측 이동
+            //else if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    moveExe.Add(new Move(Vector3.up , 0.5f));
+            //}
+            ////하측 이동
+            //else if (Input.GetKeyDown(KeyCode.S))
+            //{
+            //    moveExe.Add(new Move(Vector3.down , 0.2f));
+            //}
             //함수 실행 키 Space bar
             else if (Input.GetKeyDown(KeyCode.X))
             {
                 moveExe.Reset_list();
                 exe = false;
             }
-            else if(Input.GetKeyDown(KeyCode.Space))
+            else if(Input.GetKeyDown(KeyCode.Z))
             {
                 exe = !exe;
+                //Debug.Log(moveExe.listCnt());
             }
+        }
+
+        public void OnClickUp()
+        {
+            moveExe.Add(new Move(Vector3.up, float.Parse(curr.text) , rot));
+            Debug.Log(moveExe.listCnt());
+        }
+
+        public void OnClickDown()
+        {
+            moveExe.Add(new Move(Vector3.down, float.Parse(curr.text), rot));
+            Debug.Log(moveExe.listCnt());
+        }
+
+        public void OnClickFront()
+        {
+            moveExe.Add(new Move(Vector3.forward, float.Parse(curr.text), rot));
+        }
+
+        public void OnClickBack()
+        {
+            moveExe.Add(new Move(Vector3.back, float.Parse(curr.text), rot));
+        }
+        public void OnClickLeft()
+        {
+            moveExe.Add(new Move(Vector3.left, float.Parse(curr.text), rot));
+        }
+        public void OnClickRight()
+        {
+            moveExe.Add(new Move(Vector3.right, float.Parse(curr.text), rot));
+        }
+
+        public void OnClickTurnLeft()
+        {
+            rot = -1;
+        }
+
+        public void OnClickTurnRight()
+        {
+            rot = 1;
         }
 
         void MoveExplorer()
@@ -130,7 +182,7 @@ namespace DelegateTest
                 {
                     //transform.position += move.Pos;
                     dir = move.Pos;
-                    currtime = move.curr;
+                    checktime = move.Check;
                 });
         }
         bool clickfor = true;
