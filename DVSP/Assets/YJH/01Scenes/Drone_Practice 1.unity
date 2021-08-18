@@ -513,10 +513,6 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
@@ -1417,10 +1413,6 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
@@ -1798,10 +1790,6 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
-  L_Joy: CN
-  R_Joy: CN
-  L_Sense: 0
-  R_Sense: 0
   R_x: 0
   R_y: 0
   L_x: 0
@@ -2275,7 +2263,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.6, z: 1}
+  m_Size: {x: 1, y: 0.45, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!54 &919132149088154324
 Rigidbody:
