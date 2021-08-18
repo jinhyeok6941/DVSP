@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/YSM/01.Scenes/TESTYSM.unity
-    guid: ff22764b0d717304797940beca8eaeb6
+    path: Assets/KSH/01.Scenes/Examples/01.Start_Scene_KSH.unity
+    guid: 053f0ef4d37ab3348850c97aba1ed4b2
+  - enabled: 1
+    path: Assets/KSH/01.Scenes/Examples/02.Game Scene.unity
+    guid: cd4bd6b71bc751d448454c0b60a200a2
+  - enabled: 1
+    path: Assets/KSH/01.Scenes/Examples/03.Practice__Place_Scene_KSH.unity
+    guid: 94005a2fb341a4e4385f0bfc8ec617e2
+  - enabled: 1
+    path: Assets/KSH/01.Scenes/Examples/04.Tutorial_Scene_KSH.unity
+    guid: e0f5e1a65e9f3ba4781e4ffb5e657619
   m_configObjects: {}

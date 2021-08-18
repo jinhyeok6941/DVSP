@@ -13,9 +13,16 @@ public class VRDroneCtrl : RobotConnector2
     int countMode = 0; // flymode 컨트롤 값 bool 값 이용가능 하지만 일단 int로 
 
     bool isFlying = false; // 이*착륙을 위한 확인용 bool 값 
-    float pushTime = 0.0f;
+    
+    bool isFlip = false; // 플립 입력중에는 안 움직임 확인 용 
+    bool isFliping = false; 
+    
+    float flipTime;
 
     Transform ViewBody;
+    Rigidbody rb;
+
+    Vector3 xz_Dir;
 
     Vector3 rotate_aix;
     Vector3 rotate_value;
@@ -33,6 +40,7 @@ public class VRDroneCtrl : RobotConnector2
         if (this != null) instance = this;
         Connect_Manager();
         ViewBody = transform.GetChild(0); // 가시적 효과를 줄 몸 설정 
+        rb = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -42,37 +50,58 @@ public class VRDroneCtrl : RobotConnector2
 
     void Update()
     {
-        Start_Stop();//이륙 착륙 
+        Debug_tempBytes();//실시간 정보 받는 함수 업데이트문에 필수 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //TEST
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    StopAllCoroutines();
+        //    StartCoroutine(StartFly());
+        //}
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    StopAllCoroutines();
+        //    StartCoroutine(StopFly());
+        //}
+
+        //fliptest
+        if (Input.GetKey(KeyCode.G) && !isFliping)
+        {
+            flipTime += Time.deltaTime;
+            isFlip = true;
+            
+            if (flipTime >= 3.0f)
+            { 
+                StartCoroutine(Flip_H());
+                StartCoroutine(Flip_V());
+                isFliping = true;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            isFlip = false;
+            isFliping = false;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Space)) // 해드리스 보드 조정 테스트
         {
             SeletMode();
         }
 
-        Debug_tempBytes();//실시간 정보 받는 함수 업데이트문에 필수 
+        //--------------------------------//
+        if (isFlying == false) return; // 비행중일떄만 아래 조정 가능 
 
         L_JoyStick();
         R_JoyStick();
 
         Hovering();//호버링 애니매이션
 
+        //---조이패드 움직임 따로 뺼수 있으면  뺴고 싶음. 아휴. ----//
         joystickL.localPosition = new Vector3(L_x * 0.003f, L_y * 0.003f, -1);
         joystickR.localPosition = new Vector3(R_x * 0.003f, R_y * 0.003f, -1);
-
-        //TEST
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StopAllCoroutines();
-            StartCoroutine(StartFly());
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            StopAllCoroutines();
-            StartCoroutine(StopFly());
-        }
     }
-
-
 
     void L_JoyStick() // TL, TM, TR, ML, CN, MR, BL, BM, BR
     {
@@ -82,8 +111,12 @@ public class VRDroneCtrl : RobotConnector2
     }
     void R_JoyStick()
     {
+        //플립중이면 움직이지 않음 
+        if (isFlip) return;
+
         Vector3 dir = new Vector3(R_x,0,R_y) * 0.01f ; // 패드 xz 값을 받아서 그래도 드론움직임에 적용 
 
+        xz_Dir = dir;
         rotate_aix = Vector3.Cross(dir,Vector3.up); // 회전 축 구하는 함수
         //print(rotate_aix.x+","+ rotate_aix.y +","+ rotate_aix.z);
 
@@ -99,36 +132,6 @@ public class VRDroneCtrl : RobotConnector2
         //방향은 평준화 하고 감도에 따라서 움직임 크기 조정 
         //transform.Translate(dir.normalized * speed * (R_Sense * 0.01f) * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
         transform.Translate(dir * speed * Time.deltaTime, flymode); // 비행모드는 headless모드인지아닌지 구분 
-    }
-
-    void Start_Stop()
-    {
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            pushTime += Time.deltaTime;
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            pushTime = 0;
-        }
-
-        if (pushTime <= 3.0f) return; // 누르는 시간이 3초 이하이면 작동 안하게 리턴 ! 
-
-
-        //비행모드가 아니면 이륙 하고
-        if (isFlying == false)
-        {
-            Take_Off(); //1m위 까지 올라가기
-            //isFlying = !isFlying; //반대로! 이제 비행중 ! 
-        }
-        //비행중이면 착륙하고 
-        else if(isFlying == true)
-        {
-            // 접촉이 있을 때 까지 하강
-            
-            //isFlying = !isFlying; // 반대로! 이제 비행중 아님! 
-        }
- 
     }
 
     //control 모드 변경으로 해드리스 모드 or 드론 기체 앞의 움직임모드 !
@@ -153,30 +156,6 @@ public class VRDroneCtrl : RobotConnector2
     }
 
 
-    void Take_Off()
-    {
-        isFlying = true;
-        float goal_Y = transform.position.y;
-        //for (Vector3 pos = transform.position ; pos == flyLine; pos += Vector3.up * speed * Time.deltaTime)
-        //{
-        //    transform.position += Vector3.up * speed * Time.deltaTime;
-        //    pos = transform.position;
-
-        //}
-    }
-    void Landing()
-    { 
-        isFlying = false;
-    }
-
-    IEnumerator HoveringAction(bool stop)
-    {
-        // 실제 드론처럼 미세하게 위아래로 움직이는 모습 
-        // 흠 룰루 랄라 Updata 에서 이용 되는게 아니라 구간에 계속 진행 하기 
-        yield return new WaitForSeconds(0.1f);
-
-    }
-
     public void Hovering()
     {
         if (up)
@@ -187,7 +166,7 @@ public class VRDroneCtrl : RobotConnector2
         {
             ViewBody.localPosition -= new Vector3(0,0.001f,0);
         }
-
+        //==========
         if (ViewBody.localPosition.y >= 0.3f)
         {
             up = false;
@@ -198,9 +177,19 @@ public class VRDroneCtrl : RobotConnector2
         }
     }
 
-    public void Co_StartFly()
+    public void Co_START_STOP()
     {
-        StartCoroutine(StartFly());
+        print("작동!");
+        StopAllCoroutines();
+        if (!isFlying)
+        {
+            isFlying = true;
+            StartCoroutine(StartFly());
+        }
+        else
+        {
+            StartCoroutine(StopFly());
+        }
     }
 
     IEnumerator StartFly()
@@ -211,26 +200,80 @@ public class VRDroneCtrl : RobotConnector2
             transform.position += Vector3.up * 0.01f;
             yield return new WaitForEndOfFrame();
         }
-    }
-
-    public void Co_StopFly()
-    {
-        StartCoroutine(StopFly());
+        print("stst");
+        isFlying = true;
     }
 
     IEnumerator StopFly()
     {
-            print("akdjasdjkasdjk");
+        isFlying = false;
+        ViewBody.localPosition = Vector3.zero;
         while (!collSenser)
         {
             transform.position -= Vector3.up * 0.01f;
             yield return new WaitForEndOfFrame();
         }
+    }
 
+    IEnumerator Flip_V()
+    {
+        float currtime = 0;
+
+        while (currtime <=2.0f)
+        {
+            currtime += Time.deltaTime;
+            if (currtime <= 1.0f)//1초 전에는 올라가구 
+            {
+                transform.position += Vector3.up * 0.02f;
+            }
+            else// 후 에는 내려가고 
+            {
+                transform.position -= Vector3.up * 0.02f;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator Flip_H()// 수평방향 움직임 
+    {
+        //isFlip = true;
+        float currtime = 0;
+        Vector3 flip_dir = new Vector3(R_x, 0, R_y);
+        flip_dir.Normalize();
+
+        Vector3 rotaix = Vector3.Cross( flip_dir,Vector3.up);
+        while (currtime <=2.0f)
+        {
+            currtime += Time.deltaTime;
+
+            if (currtime <= 0.5f) // 0 ~ 0.5초 사이
+            {
+                // dir 방향으로 이동
+                transform.position += flip_dir * 0.01f;
+            }
+            else if (currtime > 0.5f && currtime <= 1.5f)
+            { 
+                // - dir 방향으로 이동 
+                transform.position -= flip_dir * 0.01f;
+            }
+            else // 1.5 초 이후  
+            { 
+                //dir 방향으로 이동 
+                transform.position += flip_dir * 0.01f;
+            }
+
+            ViewBody.Rotate(rotaix, 180 * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+            //yield return new WaitForSeconds(0.3f);
+        }
+
+        //isFlip = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        rb.isKinematic = true;
         collSenser = true;
         print(collision.gameObject.name);
     }
@@ -238,6 +281,6 @@ public class VRDroneCtrl : RobotConnector2
     private void OnCollisionExit(Collision collision)
     {
         collSenser = false;
-        print("bye"+ collision.gameObject.name);
+        print("bye" + collision.gameObject.name);
     }
 }
