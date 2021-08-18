@@ -20,12 +20,6 @@ public class DroneManager_CJH : RobotConnector2
         { 
             if(Input.GetKey(KeyCode.W))             // ¾Õ
             {
-                 rigid.AddForceAtPosition(pos[3].up * upPower, pos[3].position);
-                 rigid.AddForceAtPosition(pos[4].up * upPower, pos[4].position);
-                 for(int i = 0 ; i < pos.Length ; i++)
-                 {
-                    rigid.AddForceAtPosition(pos[i].up * upPower * (i % 2), pos[i].position);
-                 }
                  quad8.pitch = 0x46;
             }
             else if(Input.GetKey(KeyCode.S))        // µÚ
@@ -64,19 +58,27 @@ public class DroneManager_CJH : RobotConnector2
             {
                 landingPressed++;
             }
+            else if(Input.GetKey(KeyCode.P))
+            {
+                byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x10, 0x80, 0x42, 0x1D, 0xAF };
+                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x01, 0x00, 0xCD, 0xB6 };
+                _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+            }
             else
             {
-                for(int i = 0 ;i < pos.Length ; i++)
-                {
-                    rigid.AddForceAtPosition(pos[i].up * upPower, pos[i].position);
-                }
                 quad8.roll = 0;
                 quad8.pitch = 0;
                 quad8.throttle = 0;
                 quad8.yaw = 0;
-                //trimPressed++;
             }
             Debug_tempBytes();
+
+            transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
         }
+    }
+
+    public override void Override_Test()
+    {
+        Debug.Log("sss");
     }
 }
