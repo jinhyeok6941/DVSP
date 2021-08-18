@@ -18,6 +18,8 @@ public class VRDroneCtrl_CJH : RobotConnector2
     Vector3 rotate_aix;
     Vector3 rotate_value;
 
+    //public RigidBody rb;
+
 
     public enum VISUAL_STATE
     {
@@ -64,7 +66,19 @@ public class VRDroneCtrl_CJH : RobotConnector2
         R_JoyStick();
         ViewingState();
         L_JoyStick();
-        transform.position = Set_Pos();
+        Angle_Move();
+    }
+
+    void Angle_Move()
+    {
+       // motion.angleRoll 좌우 기울기. x 축
+       // motion.anglePitch 전후 기울기. z 축
+       // motion.angleYaw 좌우 회전도. rotation
+       // 45도를 각도의 max치라고 가정한다.
+       dir = new Vector3(motion.angleRoll , 0 , motion.anglePitch) * 0.01f;
+       transform.Translate(dir * speed * Time.deltaTime, flymode);
+       ViewBody.rotation = Quaternion.Euler(new Vector3(0, motion.angleYaw, 0));
+       //transform.Rotate(0,1,0);
     }
 
     //string _L_, _R_ = "";

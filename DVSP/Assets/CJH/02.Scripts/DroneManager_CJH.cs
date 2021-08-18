@@ -72,8 +72,9 @@ public class DroneManager_CJH : RobotConnector2
                 quad8.yaw = 0;
             }
             Debug_tempBytes();
-
-            transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
+            
+            Angle_Move();
+            //transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
         }
     }
 
@@ -81,4 +82,20 @@ public class DroneManager_CJH : RobotConnector2
     {
         Debug.Log("sss");
     }
+    
+    Vector3 dir;
+
+    void Angle_Move()
+    {
+       // motion.angleRoll 좌우 기울기. x 축
+       // motion.anglePitch 전후 기울기. z 축
+       // motion.angleYaw 좌우 회전도. rotation
+       // 45도를 각도의 max치라고 가정한다.
+       dir = new Vector3(motion.angleRoll , 0 , motion.anglePitch) * 0.01f;
+       transform.Translate(dir * 10 * Time.deltaTime, Space.Self);
+       transform.rotation = Quaternion.Euler(new Vector3(0, motion.angleYaw, 0));
+       //transform.Rotate(0,1,0);
+    }
 }
+
+
