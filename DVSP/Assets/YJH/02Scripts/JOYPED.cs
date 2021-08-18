@@ -2,28 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JOYPED : RobotConnector2
+public class JOYPED : MonoBehaviour
 {
     public Transform joystickL;
     public Transform joystickR;
 
+    public MeshRenderer[] btn;
 
-    private void Awake()
+    public Material normal;
+    public Material click;
+
+    public enum BTN_STATE
     {
-        Connect_Manager();
+        NORMAL,
+        CLICK
     }
 
-    void Start()
+    private void Start()
     {
-        
+        for (int i = 0; i < btn.Length; i++)
+        {
+            btn[i].material = normal;
+        }
     }
 
-    void Update()
+    public void JOYSTICK_MOVE(float lx,float ly,float rx,float ry)
     {
-        Debug_tempBytes();//실시간 정보 받는 함수 업데이트문에 필수 
+        joystickL.localPosition = new Vector3(lx * 0.003f , ly * 0.003f, -1);
+        joystickR.localPosition = new Vector3(rx * 0.003f, ry * 0.003f, -1);        
+    }
 
-        joystickL.localPosition = new Vector3(L_x * 0.003f , L_y * 0.003f, -1);
-        joystickR.localPosition = new Vector3(R_x * 0.003f, R_y * 0.003f, -1);
+    public void ST_Click(BTN_STATE state , int btn_num) 
+    {
+        if (state == BTN_STATE.CLICK)
+        {
+            btn[btn_num].material = click;
+        }
+        else
+        {
+            btn[btn_num].material = normal;
+        }
     }
 
 
