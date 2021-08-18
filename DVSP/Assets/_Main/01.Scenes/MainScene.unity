@@ -1609,6 +1609,7 @@ GameObject:
   - component: {fileID: 543450653632637032}
   - component: {fileID: 919132149088154323}
   - component: {fileID: 919132149088154324}
+  - component: {fileID: 919132149088154325}
   m_Layer: 0
   m_Name: codrone_mini2
   m_TagString: Untagged
@@ -1683,7 +1684,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149088154322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7e811b59ed885d4a99e86a398044fcf, type: 3}
   m_Name: 
@@ -1734,6 +1735,19 @@ MonoBehaviour:
   L_y: 0
   pos: []
   rigid: {fileID: 0}
+--- !u!114 &919132149088154325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149088154322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa8d85bb8d33284c9815fcca2a00741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forCnt: {fileID: 0}
 --- !u!1 &925564063377416869
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,11 +14,22 @@ namespace DelegateTest
         class Move
         {
             public Vector3 Pos { get; set; }
+            public float curr { get; set; }
+            public Quaternion Rot { get; set; }
 
-            public Move(Vector3 pos)
+            public Move(Vector3 pos , float currtime , Quaternion rot)
             {
                 Pos = pos;
+                curr = currtime;
+                Rot = rot;
             }
+
+            public Move(Vector3 pos, float currtime)
+            {
+                Pos = pos;
+                curr = currtime;
+            }
+            public Move() { }
         }
 
         class ExeMove
@@ -30,6 +41,11 @@ namespace DelegateTest
             public int listCnt()
             {
                 return listOfMove.Count;
+            }
+
+            public void Reset_list()
+            {
+                listOfMove.Clear();
             }
 
             public Move ReturnMove(int index)
@@ -44,9 +60,10 @@ namespace DelegateTest
             public void OnMove(MoveProcess process)
             {
                 //무한 반복
+                i %= listOfMove.Count;
                 if (i == listOfMove.Count) return;
-                //i %= listOfMove.Count;
                 var item = listOfMove[i];
+                Debug.Log(listOfMove[i].Pos);
                 process(item);
                 i++;
             }
@@ -60,7 +77,8 @@ namespace DelegateTest
         }
 
         float currtime = 0;
-        float checktime = 1.5f;
+        float checktime = 0.5f;
+        Vector3 dir;
 
         private void Update()
         {
@@ -72,29 +90,35 @@ namespace DelegateTest
                     MoveExplorer();
                     currtime = 0;
                 }
+                transform.Translate(dir * 10 * Time.deltaTime, Space.Self);
             }
             //좌측 이동
             if (Input.GetKeyDown(KeyCode.A))
             {
-                moveExe.Add(new Move(Vector3.left));
+                moveExe.Add(new Move(Vector3.left , 1.5f));
             }
             //우측 이동
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                moveExe.Add(new Move(Vector3.right));
+                moveExe.Add(new Move(Vector3.right , 3f));
             }
             //상측 이동
             else if (Input.GetKeyDown(KeyCode.W))
             {
-                moveExe.Add(new Move(Vector3.up));
+                moveExe.Add(new Move(Vector3.up , 0.5f));
             }
             //하측 이동
             else if (Input.GetKeyDown(KeyCode.S))
             {
-                moveExe.Add(new Move(Vector3.down));
+                moveExe.Add(new Move(Vector3.down , 0.2f));
             }
             //함수 실행 키 Space bar
             else if (Input.GetKeyDown(KeyCode.X))
+            {
+                moveExe.Reset_list();
+                exe = false;
+            }
+            else if(Input.GetKeyDown(KeyCode.Space))
             {
                 exe = !exe;
             }
@@ -104,7 +128,9 @@ namespace DelegateTest
         {
             moveExe.OnMove((move) =>
                 {
-                    transform.position += move.Pos;
+                    //transform.position += move.Pos;
+                    dir = move.Pos;
+                    currtime = move.curr;
                 });
         }
         bool clickfor = true;
