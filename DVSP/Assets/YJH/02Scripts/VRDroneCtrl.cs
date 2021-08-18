@@ -179,6 +179,7 @@ public class VRDroneCtrl : RobotConnector2
 
     public void Co_START_STOP()
     {
+        print("¿€µø!");
         StopAllCoroutines();
         if (!isFlying)
         {
