@@ -1714,6 +1714,9 @@ public class RobotConnector2 : MonoBehaviour
 
     int speed_Level;
 
+    public bool isFlip;
+    public bool isSTbtn;
+
     public void Debug_tempBytes()
     {
         byte[] tempBytes = Read();
@@ -1782,18 +1785,46 @@ public class RobotConnector2 : MonoBehaviour
                                             case 128: // M2
                                               break;
                                             case 2:   // LED , FLIP
-                                              break;
+                                    switch (readBytes[8])
+                                    {
+                                        case 1:
+                                            isFlip = true;
+                                            break;
+                                        case 3:
+                                            isFlip = false;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    break;
                                             case 1:   // Speed , Start
-                                                if(takeoff_Check)
-                                                    Debug.Log("takeoff");
-                                                else if(readBytes[8] == 1)
-                                                {
-                                                    vr.speed = 10 * ++speed_Level;
-                                                    Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
-                                                    speed_Level %= 3;
-                                                    VRDroneCtrl.instance.Co_START_STOP();
-                                                }
-                                                break;
+                                    //if (takeoff_Check)
+                                    //    Debug.Log("takeoff");
+                                    //else if (readBytes[8] == 1)
+                                    //{
+                                    //    //vr.speed = 10 * ++speed_Level;
+                                    //    //Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
+                                    //    //speed_Level %= 3;
+                                    //    VRDroneCtrl.instance.Co_START_STOP();
+                                    //}
+                                    //else if (readBytes[8] == 3)
+                                    //{
+                                    //    // ¶¾´Ù. 
+                                    //}
+                                    switch (readBytes[8])
+                                    {
+                                        case 1:
+                                            isSTbtn = true;
+                                            break;
+                                        case 3:
+                                            isSTbtn = false;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                                    break;
                                         }
                                         break;
                                 case (byte)Protocol.DataType.Type.Altitude:
