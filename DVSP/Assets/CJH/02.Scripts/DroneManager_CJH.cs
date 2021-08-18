@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DroneManager_CJH : RobotConnector2
 {
-    // Awake ----------------------------------------------------------------------------------------------
+    public Transform[] pos;
+    public Rigidbody rigid;
+    float upPower = 10;
+    //Awake ----------------------------------------------------------------------------------------------
     void Awake()
     {
         Connect_Manager();
@@ -14,7 +17,7 @@ public class DroneManager_CJH : RobotConnector2
     void Update()
     {
         if (_opened == true)
-        {
+        { 
             if(Input.GetKey(KeyCode.W))             // ¾Õ
             {
                  quad8.pitch = 0x46;
@@ -55,14 +58,27 @@ public class DroneManager_CJH : RobotConnector2
             {
                 landingPressed++;
             }
+            else if(Input.GetKey(KeyCode.P))
+            {
+                byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x10, 0x80, 0x42, 0x1D, 0xAF };
+                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x01, 0x00, 0xCD, 0xB6 };
+                _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
+            }
             else
             {
                 quad8.roll = 0;
                 quad8.pitch = 0;
                 quad8.throttle = 0;
                 quad8.yaw = 0;
-                //trimPressed++;
             }
+            Debug_tempBytes();
+
+            transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
         }
+    }
+
+    public override void Override_Test()
+    {
+        Debug.Log("sss");
     }
 }

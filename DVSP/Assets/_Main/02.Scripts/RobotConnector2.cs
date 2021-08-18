@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -9,7 +9,7 @@ using System.Text;
 
 // ===========================================
 
-// ë¡œë´‡ ì»¨ë„¥í„° (ì½”ë“œë¡ 2 ì „ìš©) ì˜¤ì°½ì—°, ìµœíƒœí˜¸
+// ·Îº¿ ÄÁ³ØÅÍ (ÄÚµå·Ğ2 Àü¿ë) ¿ÀÃ¢¿¬, ÃÖÅÂÈ£
 
 // ===========================================
 
@@ -43,85 +43,85 @@ namespace Protocol
     {
         enum Type
         {
-            None                        = 0x00,     // ì—†ìŒ
-            Ping                        = 0x01,     // í†µì‹  í™•ì¸
-            Ack                         = 0x02,     // ë°ì´í„° ìˆ˜ì‹ ì— ëŒ€í•œ ì‘ë‹µ
-            Error                       = 0x03,     // ì˜¤ë¥˜(reserve, ë¹„íŠ¸ í”Œë˜ê·¸ëŠ” ì¶”í›„ì— ì§€ì •)
-            Request                     = 0x04,     // ì§€ì •í•œ íƒ€ì…ì˜ ë°ì´í„° ìš”ì²­
-            Message                     = 0x05,     // ë¬¸ìì—´ ë°ì´í„°
-            Address                     = 0x06,     // ì¥ì¹˜ ì£¼ì†Œ(MACì´ ìˆëŠ” ê²½ìš° MAC) í˜¹ì€ ê³ ìœ ë²ˆí˜¸(MACì´ ì—†ëŠ” ê²½ìš° UUID)
-            Information                 = 0x07,     // íŒì›¨ì–´ ë° ì¥ì¹˜ ì •ë³´
-            Update                      = 0x08,     // íŒì›¨ì–´ ì—…ë°ì´íŠ¸
-            UpdateLocation              = 0x09,     // íŒì›¨ì–´ ì—…ë°ì´íŠ¸ ìœ„ì¹˜ ì •ì •
-            Encrypt                     = 0x0A,     // íŒì›¨ì–´ ì•”í˜¸í™”
-            SystemCount                 = 0x0B,     // ì‹œìŠ¤í…œ ì¹´ìš´íŠ¸
-            SystemInformation           = 0x0C,     // ì‹œìŠ¤í…œ ì •ë³´
-            Registration                = 0x0D,     // ì œí’ˆ ë“±ë¡(ì•”í˜¸í™” ë°ì´í„° ë° ë“±ë¡ ë°ì´í„°ë¥¼ ë°ì´í„° ê¸¸ì´ë¡œ êµ¬ë¶„)
-            Administrator               = 0x0E,     // ê´€ë¦¬ì ê¶Œí•œ íšë“
-            Monitor                     = 0x0F,     // ë””ë²„ê¹…ìš© ê°’ ë°°ì—´ ì „ì†¡. ì²«ë²ˆì§¸ ë°”ì´íŠ¸ì— íƒ€ì…, ë‘ ë²ˆì§¸ ë°”ì´íŠ¸ì— í˜ì´ì§€ ì§€ì •(ìˆ˜ì‹  ë°›ëŠ” ë°ì´í„°ì˜ ì €ì¥ ê²½ë¡œ êµ¬ë¶„)
-            Control                     = 0x10,     // ì¡°ì¢…
+            None                        = 0x00,     // ¾øÀ½
+            Ping                        = 0x01,     // Åë½Å È®ÀÎ
+            Ack                         = 0x02,     // µ¥ÀÌÅÍ ¼ö½Å¿¡ ´ëÇÑ ÀÀ´ä
+            Error                       = 0x03,     // ¿À·ù(reserve, ºñÆ® ÇÃ·¡±×´Â ÃßÈÄ¿¡ ÁöÁ¤)
+            Request                     = 0x04,     // ÁöÁ¤ÇÑ Å¸ÀÔÀÇ µ¥ÀÌÅÍ ¿äÃ»
+            Message                     = 0x05,     // ¹®ÀÚ¿­ µ¥ÀÌÅÍ
+            Address                     = 0x06,     // ÀåÄ¡ ÁÖ¼Ò(MACÀÌ ÀÖ´Â °æ¿ì MAC) È¤Àº °íÀ¯¹øÈ£(MACÀÌ ¾ø´Â °æ¿ì UUID)
+            Information                 = 0x07,     // Æß¿ş¾î ¹× ÀåÄ¡ Á¤º¸
+            Update                      = 0x08,     // Æß¿ş¾î ¾÷µ¥ÀÌÆ®
+            UpdateLocation              = 0x09,     // Æß¿ş¾î ¾÷µ¥ÀÌÆ® À§Ä¡ Á¤Á¤
+            Encrypt                     = 0x0A,     // Æß¿ş¾î ¾ÏÈ£È­
+            SystemCount                 = 0x0B,     // ½Ã½ºÅÛ Ä«¿îÆ®
+            SystemInformation           = 0x0C,     // ½Ã½ºÅÛ Á¤º¸
+            Registration                = 0x0D,     // Á¦Ç° µî·Ï(¾ÏÈ£È­ µ¥ÀÌÅÍ ¹× µî·Ï µ¥ÀÌÅÍ¸¦ µ¥ÀÌÅÍ ±æÀÌ·Î ±¸ºĞ)
+            Administrator               = 0x0E,     // °ü¸®ÀÚ ±ÇÇÑ È¹µæ
+            Monitor                     = 0x0F,     // µğ¹ö±ë¿ë °ª ¹è¿­ Àü¼Û. Ã¹¹øÂ° ¹ÙÀÌÆ®¿¡ Å¸ÀÔ, µÎ ¹øÂ° ¹ÙÀÌÆ®¿¡ ÆäÀÌÁö ÁöÁ¤(¼ö½Å ¹Ş´Â µ¥ÀÌÅÍÀÇ ÀúÀå °æ·Î ±¸ºĞ)
+            Control                     = 0x10,     // Á¶Á¾
 
-            Command                     = 0x11,     // ëª…ë ¹
-            Pairing                     = 0x12,     // í˜ì–´ë§
+            Command                     = 0x11,     // ¸í·É
+            Pairing                     = 0x12,     // Æä¾î¸µ
             Rssi                        = 0x13,     // RSSI
 
             // Light
-            LightManual                 = 0x20,     // LED ìˆ˜ë™ ì œì–´
-            LightMode                   = 0x21,     // LED ëª¨ë“œ
-            LightEvent                  = 0x22,     // LED ëª¨ë“œ, ì»¤ë§¨ë“œ
-            LightDefault                = 0x23,     // LED ëª¨ë“œ 3ìƒ‰
+            LightManual                 = 0x20,     // LED ¼öµ¿ Á¦¾î
+            LightMode                   = 0x21,     // LED ¸ğµå
+            LightEvent                  = 0x22,     // LED ¸ğµå, Ä¿¸Çµå
+            LightDefault                = 0x23,     // LED ¸ğµå 3»ö
 
             RawMotion                   = 0x30,
             RawFlow,
 
-            // ìƒíƒœ, ì„¼ì„œ
-            State                       = 0x40,     // ìƒíƒœ
-            Attitude,                               // ìì„¸
+            // »óÅÂ, ¼¾¼­
+            State                       = 0x40,     // »óÅÂ
+            Attitude,                               // ÀÚ¼¼
             Position,
-            Altitude,                               // ê³ ë„
-            Motion,                                 // Motion ì„¼ì„œ ë°ì´í„°(IMU)
-            Range,                                   // ìœ„ì¹˜
+            Altitude,                               // °íµµ
+            Motion,                                 // Motion ¼¾¼­ µ¥ÀÌÅÍ(IMU)
+            Range,                                  // À§Ä¡
 
-            // ì„¤ì •
-            Count                       = 0x50,     // ì¹´ìš´íŠ¸
-            Bias,                                   // ì—‘ì…€, ìì´ë¡œ ë°”ì´ì–´ìŠ¤ ê°’
-            Trim,                                   // íŠ¸ë¦¼
-            Weight,                                 // ë¬´ê²Œ
-            LostConnection,                         // ì—°ê²°ì´ ëŠê¸´ í›„ ë°˜ì‘ ì‹œê°„ ì„¤ì •
+            // ¼³Á¤
+            Count                       = 0x50,     // Ä«¿îÆ®
+            Bias,                                   // ¿¢¼¿, ÀÚÀÌ·Î ¹ÙÀÌ¾î½º °ª
+            Trim,                                   // Æ®¸²
+            Weight,                                 // ¹«°Ô
+            LostConnection,                         // ¿¬°áÀÌ ²÷±ä ÈÄ ¹İÀÀ ½Ã°£ ¼³Á¤
 
             // Devices
-            Motor                       = 0x60,     // ëª¨í„° ì œì–´ ë° í˜„ì¬ ì œì–´ê°’ í™•ì¸
-            MotorSingle,                            // í•œ ê°œì˜ ëª¨í„° ì œì–´
-            Buzzer,                                 // ë¶€ì € ì œì–´
-            Vibrator,                               // ì§„ë™ ì œì–´
+            Motor                       = 0x60,     // ¸ğÅÍ Á¦¾î ¹× ÇöÀç Á¦¾î°ª È®ÀÎ
+            MotorSingle,                            // ÇÑ °³ÀÇ ¸ğÅÍ Á¦¾î
+            Buzzer,                                 // ºÎÀú Á¦¾î
+            Vibrator,                               // Áøµ¿ Á¦¾î
 
             // Input
-            Button                      = 0x70,     // ë²„íŠ¼ ì…ë ¥
-            Joystick,                               // ì¡°ì´ìŠ¤í‹± ì…ë ¥
+            Button                      = 0x70,     // ¹öÆ° ÀÔ·Â
+            Joystick,                               // Á¶ÀÌ½ºÆ½ ÀÔ·Â
 
             // Display
-            DisplayClear                = 0x80,     // í™”ë©´ ì§€ìš°ê¸°
-            DisplayInvert,                          // í™”ë©´ ë°˜ì „
-            DisplayDrawPoint,                       // ì  ê·¸ë¦¬ê¸°
-            DisplayDrawLine,                        // ì„  ê·¸ë¦¬ê¸°
-            DisplayDrawRect,                        // ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
-            DisplayDrawCircle,                      // ì› ê·¸ë¦¬ê¸°
-            DisplayDrawString,                      // ë¬¸ìì—´ ì“°ê¸°
-            DisplayDrawStringAlign,                 // ë¬¸ìì—´ ì •ë ¬í•˜ì—¬ ì“°ê¸°
-            DisplayDrawImage,                       // ê·¸ë¦¼ ê·¸ë¦¬ê¸°
+            DisplayClear                = 0x80,     // È­¸é Áö¿ì±â
+            DisplayInvert,                          // È­¸é ¹İÀü
+            DisplayDrawPoint,                       // Á¡ ±×¸®±â
+            DisplayDrawLine,                        // ¼± ±×¸®±â
+            DisplayDrawRect,                        // »ç°¢Çü ±×¸®±â
+            DisplayDrawCircle,                      // ¿ø ±×¸®±â
+            DisplayDrawString,                      // ¹®ÀÚ¿­ ¾²±â
+            DisplayDrawStringAlign,                 // ¹®ÀÚ¿­ Á¤·ÄÇÏ¿© ¾²±â
+            DisplayDrawImage,                       // ±×¸² ±×¸®±â
 
             // Information Assembled
-            InformationAssembledForController       = 0xA0,     // ìì£¼ ê°±ì‹ ë˜ëŠ” ë°ì´í„° ëª¨ìŒ(ì¡°ì¢…ê¸°)
-            InformationAssembledForEntry            = 0xA1,     // ìì£¼ ê°±ì‹ ë˜ëŠ” ë°ì´í„° ëª¨ìŒ(ë“œë¡ )
+            InformationAssembledForController       = 0xA0,     // ÀÚÁÖ °»½ÅµÇ´Â µ¥ÀÌÅÍ ¸ğÀ½(Á¶Á¾±â)
+            InformationAssembledForEntry            = 0xA1,     // ÀÚÁÖ °»½ÅµÇ´Â µ¥ÀÌÅÍ ¸ğÀ½(µå·Ğ)
 
-            NavigationTarget                        = 0xD0,     // ë„¤ë¹„ê²Œì´ì…˜ ëª©í‘œì 
-            NavigationLocation                      = 0xD1,     // ë„¤ë¹„ê²Œì´ì…˜ ê°€ìƒ ìœ„ì¹˜
+            NavigationTarget                        = 0xD0,     // ³×ºñ°ÔÀÌ¼Ç ¸ñÇ¥Á¡
+            NavigationLocation                      = 0xD1,     // ³×ºñ°ÔÀÌ¼Ç °¡»ó À§Ä¡
             NavigationMonitor                       = 0xD2,
             NavigationHeading                       = 0xD3,
             NavigationCounter                       = 0xD4,
 
-            GpsRtkNavigationState                   = 0xDA,     // RTK RAW ë°ì´í„° ì „ì†¡
-            GpsRtkExtendedRawMeasurementData        = 0xDB,     // RTK RAW ë°ì´í„° ì „ì†¡
+            GpsRtkNavigationState                   = 0xDA,     // RTK RAW µ¥ÀÌÅÍ Àü¼Û
+            GpsRtkExtendedRawMeasurementData        = 0xDB,     // RTK RAW µ¥ÀÌÅÍ Àü¼Û
 
             EndOfType
         };
@@ -131,20 +131,20 @@ namespace Protocol
     {
         enum Type
         {
-            None                        = 0x00,     // ì´ë²¤íŠ¸ ì—†ìŒ
+            None                        = 0x00,     // ÀÌº¥Æ® ¾øÀ½
 
-            Stop                        = 0x01,     // ì •ì§€
+            Stop                        = 0x01,     // Á¤Áö
 
-            ModeControlFlight           = 0x02,     // ë¹„í–‰ ì œì–´ ëª¨ë“œ ì„¤ì •
-            Headless                    = 0x03,     // í—¤ë“œë¦¬ìŠ¤ ëª¨ë“œ ì„¤ì •
-            Trim                        = 0x04,     // íŠ¸ë¦¼ ë³€ê²½
+            ModeControlFlight           = 0x02,     // ºñÇà Á¦¾î ¸ğµå ¼³Á¤
+            Headless                    = 0x03,     // Çìµå¸®½º ¸ğµå ¼³Á¤
+            Trim                        = 0x04,     // Æ®¸² º¯°æ
 
-            ClearBias                   = 0x05,     // ìì´ë¡œ/ì—‘ì…€ ë°”ì´ì–´ìŠ¤ ë¦¬ì…‹(íŠ¸ë¦¼ë„ ê°™ì´ ì´ˆê¸°í™” ë¨)
-            ClearTrim                   = 0x06,     // íŠ¸ë¦¼ ì´ˆê¸°í™”
+            ClearBias                   = 0x05,     // ÀÚÀÌ·Î/¿¢¼¿ ¹ÙÀÌ¾î½º ¸®¼Â(Æ®¸²µµ °°ÀÌ ÃÊ±âÈ­ µÊ)
+            ClearTrim                   = 0x06,     // Æ®¸² ÃÊ±âÈ­
 
-            FlightEvent                 = 0x07,     // ë¹„í–‰ ì´ë²¤íŠ¸ ì‹¤í–‰
+            FlightEvent                 = 0x07,     // ºñÇà ÀÌº¥Æ® ½ÇÇà
 
-            SetDefault                  = 0x08,     // ê¸°ë³¸ ì„¤ì •ìœ¼ë¡œ ì´ˆê¸°í™”
+            SetDefault                  = 0x08,     // ±âº» ¼³Á¤À¸·Î ÃÊ±âÈ­
 
             EndOfType
         };
@@ -168,8 +168,8 @@ namespace Protocol
     {
         public struct Command
         {
-            public byte   commandType;   // ëª…ë ¹ íƒ€ì…
-            public byte   option;        // ëª…ë ¹ì— ëŒ€í•œ ì˜µì…˜
+            public byte   commandType;   // ¸í·É Å¸ÀÔ
+            public byte   option;        // ¸í·É¿¡ ´ëÇÑ ¿É¼Ç
         };
 
         public struct LightEvent
@@ -200,21 +200,21 @@ namespace Protocol
         {
             None = 0,
 
-            Drone       = 0x10,     // ë“œë¡ (Server)
+            Drone       = 0x10,     // µå·Ğ(Server)
 
-            Controller  = 0x20,     // ì¡°ì¢…ê¸°(Client)
+            Controller  = 0x20,     // Á¶Á¾±â(Client)
 
-            Link        = 0x30,     // ë§í¬ ëª¨ë“ˆ(Client)
-            LinkServer  = 0x31,     // ë§í¬ ëª¨ë“ˆ(Server, ë§í¬ ëª¨ë“ˆì´ ì„œë²„ë¡œ ë™ì‘í•˜ëŠ” ê²½ìš°ì—ë§Œ í†µì‹  íƒ€ì…ì„ ì ì‹œ ë°”ê¿ˆ)
+            Link        = 0x30,     // ¸µÅ© ¸ğµâ(Client)
+            LinkServer  = 0x31,     // ¸µÅ© ¸ğµâ(Server, ¸µÅ© ¸ğµâÀÌ ¼­¹ö·Î µ¿ÀÛÇÏ´Â °æ¿ì¿¡¸¸ Åë½Å Å¸ÀÔÀ» Àá½Ã ¹Ù²Ş)
 
-            ByScratch   = 0x80,     // ë°”ì´ìŠ¤í¬ë˜ì¹˜
-            Scratch     = 0x81,     // ìŠ¤í¬ë˜ì¹˜
-            Entry       = 0x82,     // ë„¤ì´ë²„ ì—”íŠ¸ë¦¬
+            ByScratch   = 0x80,     // ¹ÙÀÌ½ºÅ©·¡Ä¡
+            Scratch     = 0x81,     // ½ºÅ©·¡Ä¡
+            Entry       = 0x82,     // ³×ÀÌ¹ö ¿£Æ®¸®
 
-            Tester      = 0xA0,     // í…ŒìŠ¤í„°
-            Monitor     = 0xA1,     // ëª¨ë‹ˆí„°
-            Updater     = 0xA2,     // íŒì›¨ì–´ ì—…ë°ì´íŠ¸ ë„êµ¬
-            Encrypter   = 0xA3,     // ì•”í˜¸í™” ë„êµ¬
+            Tester      = 0xA0,     // Å×½ºÅÍ
+            Monitor     = 0xA1,     // ¸ğ´ÏÅÍ
+            Updater     = 0xA2,     // Æß¿ş¾î ¾÷µ¥ÀÌÆ® µµ±¸
+            Encrypter   = 0xA3,     // ¾ÏÈ£È­ µµ±¸
 
             EndOfType,
 
@@ -234,14 +234,14 @@ namespace Protocol
 
         public struct Manual
         {
-            public ushort  flags;         // Flags ì—´ê±°í˜•ì„ ì¡°í•©í•œ ê°’
-            public byte  brightness;    // ë°ê¸°
+            public ushort  flags;         // Flags ¿­°ÅÇüÀ» Á¶ÇÕÇÑ °ª
+            public byte  brightness;    // ¹à±â
         };
 
         public struct Mode
         {
-            public byte  mode;       // LED ëª¨ë“œ
-            public ushort  interval;   // LED ëª¨ë“œì˜ ê°±ì‹  ì£¼ê¸°
+            public byte  mode;       // LED ¸ğµå
+            public ushort  interval;   // LED ¸ğµåÀÇ °»½Å ÁÖ±â
         };
 
         public struct ModeColor
@@ -258,9 +258,9 @@ namespace Protocol
 
         public struct Event
         {
-            public byte  evnt;      // LED ì´ë²¤íŠ¸
-            public ushort  interval;   // LED ì´ë²¤íŠ¸ ê°±ì‹  ì£¼ê¸°
-            public byte  repeat;     // LED ì´ë²¤íŠ¸ ë°˜ë³µ íšŸìˆ˜
+            public byte  evnt;      // LED ÀÌº¥Æ®
+            public ushort  interval;   // LED ÀÌº¥Æ® °»½Å ÁÖ±â
+            public byte  repeat;     // LED ÀÌº¥Æ® ¹İº¹ È½¼ö
         };
 
         public struct EventColor
@@ -369,48 +369,48 @@ namespace Protocol
 
     public struct Header
     {
-        public byte   dataType;       // ë°ì´í„°ì˜ í˜•ì‹(sbyte : s8)
-        public byte   length;         // ë°ì´í„°ì˜ ê¸¸ì´
-        public byte   from;           // ë°ì´í„°ë¥¼ ì „ì†¡í•˜ëŠ” ì¥ì¹˜ì˜ DeviceType
-        public byte   to;             // ë°ì´í„°ë¥¼ ìˆ˜ì‹ í•˜ëŠ” ì¥ì¹˜ì˜ DeviceType
+        public byte   dataType;       // µ¥ÀÌÅÍÀÇ Çü½Ä(sbyte : s8)
+        public byte   length;         // µ¥ÀÌÅÍÀÇ ±æÀÌ
+        public byte   from;           // µ¥ÀÌÅÍ¸¦ Àü¼ÛÇÏ´Â ÀåÄ¡ÀÇ DeviceType
+        public byte   to;             // µ¥ÀÌÅÍ¸¦ ¼ö½ÅÇÏ´Â ÀåÄ¡ÀÇ DeviceType
     };
 
     public struct Ping
     {
-        public ulong   systemTime;   // Pingì„ ì „ì†¡í•˜ëŠ” ì¥ì¹˜ì˜ ì‹œê°(ulong: u64)
+        public ulong   systemTime;   // PingÀ» Àü¼ÛÇÏ´Â ÀåÄ¡ÀÇ ½Ã°¢(ulong: u64)
     };
 
     public struct Ack
     {
-        public ulong   systemTime;     // ìˆ˜ì‹  ë°›ì€ ì‹œê°„
-        public byte   dataType;       // ìˆ˜ì‹  ë°›ì€ ë°ì´í„° íƒ€ì…
-        public ushort  crc16;          // ìˆ˜ì‹  ë°›ì€ ë°ì´í„°ì˜ crc16(ushort : u16)
+        public ulong   systemTime;     // ¼ö½Å ¹ŞÀº ½Ã°£
+        public byte   dataType;       // ¼ö½Å ¹ŞÀº µ¥ÀÌÅÍ Å¸ÀÔ
+        public ushort  crc16;          // ¼ö½Å ¹ŞÀº µ¥ÀÌÅÍÀÇ crc16(ushort : u16)
     };
 
     public struct Error
     {
-        public ulong   systemTime;             // ì—ëŸ¬ ë©”ì„¸ì§€ ì†¡ì‹  ì‹œê°
-        public uint    errorFlagsForSensor;    // ì„¼ì„œ ì˜¤ë¥˜ í”Œë˜ê·¸
-        public uint    errorFlagsForState;     // ìƒíƒœ ì˜¤ë¥˜ í”Œë˜ê·¸ (uint:u32)
+        public ulong   systemTime;             // ¿¡·¯ ¸Ş¼¼Áö ¼Û½Å ½Ã°¢
+        public uint    errorFlagsForSensor;    // ¼¾¼­ ¿À·ù ÇÃ·¡±×
+        public uint    errorFlagsForState;     // »óÅÂ ¿À·ù ÇÃ·¡±× (uint:u32)
     };
 
     public struct Request
     {
-        public byte   dataType;          // ìš”ì²­í•  ë°ì´í„° íƒ€ì…
+        public byte   dataType;          // ¿äÃ»ÇÒ µ¥ÀÌÅÍ Å¸ÀÔ
     };
 
     public struct Information
     {
-        public byte   modeUpdate;     // í˜„ì¬ ì—…ë°ì´íŠ¸ ëª¨ë“œ
+        public byte   modeUpdate;     // ÇöÀç ¾÷µ¥ÀÌÆ® ¸ğµå
 
-        public uint    modelNumber;    // ëª¨ë¸ ë²ˆí˜¸
-        public int    version_build;   // í˜„ì¬ íŒì›¨ì–´ì˜ ë¹Œë“œ ë²„ì ¼
-        public int    version_minor;   // í˜„ì¬ íŒì›¨ì–´ì˜ ë§ˆì´ë„ˆ ë²„ì ¼
-        public int    version_major;   // í˜„ì¬ íŒì›¨ì–´ì˜ ë©”ì´ì ¸ ë²„ì ¼
+        public uint    modelNumber;    // ¸ğµ¨ ¹øÈ£
+        public int    version_build;   // ÇöÀç Æß¿ş¾îÀÇ ºôµå ¹öÁ¯
+        public int    version_minor;   // ÇöÀç Æß¿ş¾îÀÇ ¸¶ÀÌ³Ê ¹öÁ¯
+        public int    version_major;   // ÇöÀç Æß¿ş¾îÀÇ ¸ŞÀÌÁ® ¹öÁ¯
 
-        public ushort  year;           // ë¹Œë“œ ë…„
-        public byte   month;          // ë¹Œë“œ ì›”
-        public byte   day;            // ë¹Œë“œ ì¼
+        public ushort  year;           // ºôµå ³â
+        public byte   month;          // ºôµå ¿ù
+        public byte   day;            // ºôµå ÀÏ
     };
 
     public struct Version
@@ -433,15 +433,15 @@ namespace Protocol
 
     public struct State
     {
-        public byte  modeSystem;         // ì‹œìŠ¤í…œ ëª¨ë“œ
-        public byte  modeFlight;         // ë¹„í–‰ ëª¨ë“œ
+        public byte  modeSystem;         // ½Ã½ºÅÛ ¸ğµå
+        public byte  modeFlight;         // ºñÇà ¸ğµå
 
-        public byte  modeControlFlight;  // ë¹„í–‰ ì œì–´ ëª¨ë“œ
-        public byte  modeMovement;       // ì´ë™ ìƒíƒœ
-        public byte  headless;           // í—¤ë“œë¦¬ìŠ¤ ëª¨ë“œ
-        public byte  controlSpeed;       // ì¡°ì¢… ì†ë„
-        public byte  sensorOrientation;  // ì„¼ì„œ ë°©í–¥
-        public byte  battery;            // ë°°í„°ë¦¬ëŸ‰(0 ~ 10%)
+        public byte  modeControlFlight;  // ºñÇà Á¦¾î ¸ğµå
+        public byte  modeMovement;       // ÀÌµ¿ »óÅÂ
+        public byte  headless;           // Çìµå¸®½º ¸ğµå
+        public byte  controlSpeed;       // Á¶Á¾ ¼Óµµ
+        public byte  sensorOrientation;  // ¼¾¼­ ¹æÇâ
+        public byte  battery;            // ¹èÅÍ¸®·®(0 ~ 10%)
     };
 
     public struct Attitude
@@ -492,19 +492,19 @@ namespace Protocol
 
     public struct LostConnection
     {
-        public ushort   timeNeutral;        // ì¡°ì¢… ì¤‘ë¦½
-        public ushort   timeLanding;        // ì°©ë¥™
-        public uint     timeStop;           // ì •ì§€
+        public ushort   timeNeutral;        // Á¶Á¾ Áß¸³
+        public ushort   timeLanding;        // Âø·ú
+        public uint     timeStop;           // Á¤Áö
     };
 
     public struct Count
     {
-        public uint  timeSystem;             // ì‹œìŠ¤í…œ ë™ì‘ ì‹œê°„
-        public uint  timeFlight;             // ë¹„í–‰ ì‹œê°„
+        public uint  timeSystem;             // ½Ã½ºÅÛ µ¿ÀÛ ½Ã°£
+        public uint  timeFlight;             // ºñÇà ½Ã°£
 
-        public ushort  countTakeOff;           // ì´ë¥™ íšŸìˆ˜
-        public ushort  countLanding;           // ì°©ë¥™ íšŸìˆ˜
-        public ushort  countAccident;          // ì¶©ëŒ íšŸìˆ˜
+        public ushort  countTakeOff;           // ÀÌ·ú È½¼ö
+        public ushort  countLanding;           // Âø·ú È½¼ö
+        public ushort  countAccident;          // Ãæµ¹ È½¼ö
     };
 
     public struct Motion
@@ -573,17 +573,17 @@ namespace Protocol
 
     public struct Buzzer
     {
-        public byte    mode;       // ë²„ì € ì‘ë™ ëª¨ë“œ
-        public ushort  value;    // Scale ë˜ëŠ” hz
-        public ushort  time;   // ì—°ì£¼ ì‹œê°„(ms)
+        public byte    mode;       // ¹öÀú ÀÛµ¿ ¸ğµå
+        public ushort  value;    // Scale ¶Ç´Â hz
+        public ushort  time;   // ¿¬ÁÖ ½Ã°£(ms)
     };
 
     public struct Vibrator
     {
-        public byte    mode;   // ëª¨ë“œ(0ì€ set, 1ì€ reserve)
-        public ushort  on;     // ì§„ë™ì„ ì¼  ì‹œê°„(ms)
-        public ushort  off;    // ì§„ë™ì„ ëˆ ì‹œê°„(ms)
-        public ushort  total;  // ì „ì²´ ì§„í–‰ ì‹œê°„(ms)
+        public byte    mode;   // ¸ğµå(0Àº set, 1Àº reserve)
+        public ushort  on;     // Áøµ¿À» ÄÒ ½Ã°£(ms)
+        public ushort  off;    // Áøµ¿À» ²ö ½Ã°£(ms)
+        public ushort  total;  // ÀüÃ¼ ÁøÇà ½Ã°£(ms)
     };
 
     public struct Pairing
@@ -619,9 +619,9 @@ namespace Protocol
 
     public struct InformationAssembledForController
     {
-        public sbyte  angleRoll;              // ìì„¸ Roll
-        public sbyte  anglePitch;             // ìì„¸ Pitch
-        public short  angleYaw;               // ìì„¸ Yaw
+        public sbyte  angleRoll;              // ÀÚ¼¼ Roll
+        public sbyte  anglePitch;             // ÀÚ¼¼ Pitch
+        public short  angleYaw;               // ÀÚ¼¼ Yaw
 
         public ushort  rpm;                    // RPM
 
@@ -666,39 +666,39 @@ namespace Light_Byrobot
                 None,
 
                 RearNone = 0x10,
-                RearManual,             // ìˆ˜ë™ ì œì–´
-                RearHold,               // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                RearFlicker,            // ê¹œë¹¡ì„
-                RearFlickerDouble,      // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                RearDimming,            // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                RearManual,             // ¼öµ¿ Á¦¾î
+                RearHold,               // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                RearFlicker,            // ±ôºıÀÓ
+                RearFlickerDouble,      // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                RearDimming,            // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 BodyNone = 0x20,
-                BodyManual,             // ìˆ˜ë™ ì œì–´
-                BodyHold,               // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                BodyFlicker,            // ê¹œë¹¡ì„
-                BodyFlickerDouble,      // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                BodyDimming,            // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                BodyManual,             // ¼öµ¿ Á¦¾î
+                BodyHold,               // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                BodyFlicker,            // ±ôºıÀÓ
+                BodyFlickerDouble,      // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                BodyDimming,            // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 ANone = 0x30,
-                AManual,                // ìˆ˜ë™ ì œì–´
-                AHold,                  // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                AFlicker,               // ê¹œë¹¡ì„
-                AFlickerDouble,         // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                ADimming,               // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                AManual,                // ¼öµ¿ Á¦¾î
+                AHold,                  // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                AFlicker,               // ±ôºıÀÓ
+                AFlickerDouble,         // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                ADimming,               // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 BNone = 0x40,
-                BManual,                // ìˆ˜ë™ ì œì–´
-                BHold,                  // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                BFlicker,               // ê¹œë¹¡ì„
-                BFlickerDouble,         // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                BDimming,               // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                BManual,                // ¼öµ¿ Á¦¾î
+                BHold,                  // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                BFlicker,               // ±ôºıÀÓ
+                BFlickerDouble,         // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                BDimming,               // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 CNone = 0x50,
-                CManual,                // ìˆ˜ë™ ì œì–´
-                CHold,                  // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                CFlicker,               // ê¹œë¹¡ì„
-                CFlickerDouble,         // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                CDimming,               // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                CManual,                // ¼öµ¿ Á¦¾î
+                CHold,                  // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                CFlicker,               // ±ôºıÀÓ
+                CFlickerDouble,         // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                CDimming,               // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 EndOfType
             };
@@ -734,11 +734,11 @@ namespace Light_Byrobot
 
                 // Body
                 BodyNone = 0x10,
-                BodyManual,         // ìˆ˜ë™ ì œì–´
-                BodyHold,           // ì§€ì •í•œ ìƒ‰ìƒì„ ê³„ì† ì¼¬
-                BodyFlicker,        // ê¹œë¹¡ì„
-                BodyFlickerDouble,  // ê¹œë¹¡ì„(ë‘ ë²ˆ ê¹œë¹¡ì´ê³  ê¹œë¹¡ì¸ ì‹œê°„ë§Œí¼ êº¼ì§)
-                BodyDimming,        // ë°ê¸° ì œì–´í•˜ì—¬ ì²œì²œíˆ ê¹œë¹¡ì„
+                BodyManual,         // ¼öµ¿ Á¦¾î
+                BodyHold,           // ÁöÁ¤ÇÑ »ö»óÀ» °è¼Ó ÄÔ
+                BodyFlicker,        // ±ôºıÀÓ
+                BodyFlickerDouble,  // ±ôºıÀÓ(µÎ ¹ø ±ôºıÀÌ°í ±ôºıÀÎ ½Ã°£¸¸Å­ ²¨Áü)
+                BodyDimming,        // ¹à±â Á¦¾îÇÏ¿© ÃµÃµÈ÷ ±ôºıÀÓ
 
                 EndOfType
             };
@@ -1036,23 +1036,23 @@ namespace ErrorFlagsForSensor
     {
         None                        = 0x00000000,
 
-        Motion_NoAnswer             = 0x00000001,   // Motion ì„¼ì„œ ì‘ë‹µ ì—†ìŒ
+        Motion_NoAnswer             = 0x00000001,   // Motion ¼¾¼­ ÀÀ´ä ¾øÀ½
         Motion_WrongValue           = 0x00000002,
-        Motion_NotCalibrated        = 0x00000004,   // Gyro Bias ë³´ì •ì´ ì™„ë£Œë˜ì§€ ì•ŠìŒ
-        Motion_Calibrating          = 0x00000008,   // Gyro Bias ë³´ì • ì¤‘
+        Motion_NotCalibrated        = 0x00000004,   // Gyro Bias º¸Á¤ÀÌ ¿Ï·áµÇÁö ¾ÊÀ½
+        Motion_Calibrating          = 0x00000008,   // Gyro Bias º¸Á¤ Áß
 
-        Pressure_NoAnswer           = 0x00000010,   // ì••ë ¥ì„¼ì„œ ì‘ë‹µ ì—†ìŒ
+        Pressure_NoAnswer           = 0x00000010,   // ¾Ğ·Â¼¾¼­ ÀÀ´ä ¾øÀ½
         Pressure_WrongValue         = 0x00000020,
 
-        RangeGround_NoAnswer        = 0x00000100,   // ë°”ë‹¥ ê±°ë¦¬ì„¼ì„œ ì‘ë‹µ ì—†ìŒ
+        RangeGround_NoAnswer        = 0x00000100,   // ¹Ù´Ú °Å¸®¼¾¼­ ÀÀ´ä ¾øÀ½
         RangeGround_WrongValue      = 0x00000200,
 
-        Flow_NoAnswer               = 0x00001000,   // Flow ì„¼ì„œ ì‘ë‹µ ì—†ìŒ
+        Flow_NoAnswer               = 0x00001000,   // Flow ¼¾¼­ ÀÀ´ä ¾øÀ½
         Flow_WrongValue             = 0x00002000,
 
-        Battery_NoAnswer            = 0x00010000,   // ë°°í„°ë¦¬ ì‘ë‹µ ì—†ìŒ
+        Battery_NoAnswer            = 0x00010000,   // ¹èÅÍ¸® ÀÀ´ä ¾øÀ½
         Battery_WrongValue          = 0x00020000,
-        Battery_NotCalibrated       = 0x00040000,   // ë°°í„°ë¦¬ ì…ë ¥ê°’ ë³´ì •ì´ ì™„ë£Œë˜ì§€ ì•ŠìŒ
+        Battery_NotCalibrated       = 0x00040000,   // ¹èÅÍ¸® ÀÔ·Â°ª º¸Á¤ÀÌ ¿Ï·áµÇÁö ¾ÊÀ½
     };
 }// ErrorFlagsForSensor #########################################################################################################################################
 
@@ -1064,12 +1064,12 @@ namespace ErrorFlagsForState
     {
         None                                    = 0x00000000,
 
-        NotRegistered                           = 0x00000001,   // ì¥ì¹˜ ë“±ë¡ì´ ì•ˆë¨
-        FlashReadLock_UnLocked                  = 0x00000002,   // í”Œë˜ì‹œ ë©”ëª¨ë¦¬ ì½ê¸° Lockì´ ì•ˆ ê±¸ë¦¼
-        BootloaderWriteLock_UnLocked            = 0x00000004,   // ë¶€íŠ¸ë¡œë” ì˜ì—­ ì“°ê¸° Lockì´ ì•ˆ ê±¸ë¦¼
+        NotRegistered                           = 0x00000001,   // ÀåÄ¡ µî·ÏÀÌ ¾ÈµÊ
+        FlashReadLock_UnLocked                  = 0x00000002,   // ÇÃ·¡½Ã ¸Ş¸ğ¸® ÀĞ±â LockÀÌ ¾È °É¸²
+        BootloaderWriteLock_UnLocked            = 0x00000004,   // ºÎÆ®·Î´õ ¿µ¿ª ¾²±â LockÀÌ ¾È °É¸²
 
-        TakeoffFailure_CheckPropellerAndMotor   = 0x00000010,   // ì´ë¥™ ì‹¤íŒ¨
-        CheckPropellerVibration                 = 0x00000020,   // í”„ë¡œí ëŸ¬ ì§„ë™ë°œìƒ
+        TakeoffFailure_CheckPropellerAndMotor   = 0x00000010,   // ÀÌ·ú ½ÇÆĞ
+        CheckPropellerVibration                 = 0x00000020,   // ÇÁ·ÎÆç·¯ Áøµ¿¹ß»ı
     };
 }// ErrorFlagsForState #########################################################################################################################################
 
@@ -1085,9 +1085,9 @@ namespace Mode
             {
                 None = 0,
 
-                Attitude    = 0x10, // ìì„¸ - X,YëŠ” ê°ë„(deg)ë¡œ ì…ë ¥ë°›ìŒ, Z,YawëŠ” ì†ë„(m/s)ë¡œ ì…ë ¥ ë°›ìŒ
-                Position    = 0x11, // ìœ„ì¹˜ - X,Y,Z,YawëŠ” ì†ë„(m/s)ë¡œ ì…ë ¥ ë°›ìŒ
-                Function    = 0x12, // ê¸°ëŠ¥ - X,Y,Z,YawëŠ” ì†ë„(m/s)ë¡œ ì…ë ¥ ë°›ìŒ
+                Attitude    = 0x10, // ÀÚ¼¼ - X,Y´Â °¢µµ(deg)·Î ÀÔ·Â¹ŞÀ½, Z,Yaw´Â ¼Óµµ(m/s)·Î ÀÔ·Â ¹ŞÀ½
+                Position    = 0x11, // À§Ä¡ - X,Y,Z,Yaw´Â ¼Óµµ(m/s)·Î ÀÔ·Â ¹ŞÀ½
+                Function    = 0x12, // ±â´É - X,Y,Z,Yaw´Â ¼Óµµ(m/s)·Î ÀÔ·Â ¹ŞÀ½
 
                 EndOfType
             };
@@ -1100,11 +1100,11 @@ namespace Mode
         {
             None = 0,
 
-            Boot,               // ë¶€íŒ…
-            Start,              // ì‹œì‘ ì½”ë“œ ì‹¤í–‰
-            Running,            // ë©”ì¸ ì½”ë“œ ë™ì‘
-            ReadyToReset,       // ë¦¬ì…‹ ëŒ€ê¸°(1ì´ˆ ë’¤ ë¦¬ì…‹)
-            Error,              // ì˜¤ë¥˜
+            Boot,               // ºÎÆÃ
+            Start,              // ½ÃÀÛ ÄÚµå ½ÇÇà
+            Running,            // ¸ŞÀÎ ÄÚµå µ¿ÀÛ
+            ReadyToReset,       // ¸®¼Â ´ë±â(1ÃÊ µÚ ¸®¼Â)
+            Error,              // ¿À·ù
 
             EndOfType
         };
@@ -1116,21 +1116,21 @@ namespace Mode
         {
             None = 0,
 
-            Ready = 0x10,       // ì¤€ë¹„
+            Ready = 0x10,       // ÁØºñ
 
-            Start,              // ì´ë¥™ ì¤€ë¹„
-            TakeOff,            // ì´ë¥™ (Flightë¡œ ìë™ì „í™˜)
-            Flight,             // ë¹„í–‰
-            Landing,            // ì°©ë¥™
-            Flip,               // íšŒì „
-            Reverse,            // ë’¤ì§‘ê¸°
+            Start,              // ÀÌ·ú ÁØºñ
+            TakeOff,            // ÀÌ·ú (Flight·Î ÀÚµ¿ÀüÈ¯)
+            Flight,             // ºñÇà
+            Landing,            // Âø·ú
+            Flip,               // È¸Àü
+            Reverse,            // µÚÁı±â
 
-            Stop = 0x20,        // ê°•ì œ ì •ì§€
+            Stop = 0x20,        // °­Á¦ Á¤Áö
 
-            Accident = 0x30,    // ì‚¬ê³  (Readyë¡œ ìë™ì „í™˜)
-            Error,              // ì˜¤ë¥˜
+            Accident = 0x30,    // »ç°í (Ready·Î ÀÚµ¿ÀüÈ¯)
+            Error,              // ¿À·ù
 
-            Test = 0x40,        // í…ŒìŠ¤íŠ¸ ëª¨ë“œ
+            Test = 0x40,        // Å×½ºÆ® ¸ğµå
 
             EndOfType
         };
@@ -1142,15 +1142,15 @@ namespace Mode
         {
             None,
 
-            Ready,              // ì—…ë°ì´íŠ¸ ê°€ëŠ¥ ìƒíƒœ
-            Update,             // ì—…ë°ì´íŠ¸ ì¤‘
-            Complete,           // ì—…ë°ì´íŠ¸ ì™„ë£Œ
+            Ready,              // ¾÷µ¥ÀÌÆ® °¡´É »óÅÂ
+            Update,             // ¾÷µ¥ÀÌÆ® Áß
+            Complete,           // ¾÷µ¥ÀÌÆ® ¿Ï·á
 
-            Faild,              // ì—…ë°ì´íŠ¸ ì‹¤íŒ¨(ì—…ë°ì´íŠ¸ ì™„ë£Œê¹Œì§€ ê°”ìœ¼ë‚˜ bodyì˜ CRC16ì´ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš° ë“±)
+            Faild,              // ¾÷µ¥ÀÌÆ® ½ÇÆĞ(¾÷µ¥ÀÌÆ® ¿Ï·á±îÁö °¬À¸³ª bodyÀÇ CRC16ÀÌ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì µî)
 
-            NotAvailable,       // ì—…ë°ì´íŠ¸ ë¶ˆê°€ëŠ¥ ìƒíƒœ(Debug ëª¨ë“œ ë“±)
-            RunApplication,     // ì–´í”Œë¦¬ì¼€ì´ì…˜ ë™ì‘ ì¤‘
-            NotRegistered,      // ë“±ë¡ë˜ì§€ ì•Šì€ ì¥ì¹˜
+            NotAvailable,       // ¾÷µ¥ÀÌÆ® ºÒ°¡´É »óÅÂ(//Debug ¸ğµå µî)
+            RunApplication,     // ¾îÇÃ¸®ÄÉÀÌ¼Ç µ¿ÀÛ Áß
+            NotRegistered,      // µî·ÏµÇÁö ¾ÊÀº ÀåÄ¡
 
             EndOfType
         };
@@ -1161,8 +1161,8 @@ namespace Mode
         enum Type
         {
             None        = 0x00,
-            Hovering    = 0x01,     // í˜¸ë²„ë§
-            Moving      = 0x02      // ì´ë™ ì¤‘
+            Hovering    = 0x01,     // È£¹ö¸µ
+            Moving      = 0x02      // ÀÌµ¿ Áß
         };
     }
 }// Mode #########################################################################################################################################
@@ -1175,9 +1175,9 @@ namespace SensorOrientation_2
     {
         None = 0,
 
-        Normal,             // ì •ìƒ
-        ReverseStart,       // ë’¤ì§‘íˆê¸° ì‹œì‘
-        Reversed,           // ë’¤ì§‘í˜
+        Normal,             // Á¤»ó
+        ReverseStart,       // µÚÁıÈ÷±â ½ÃÀÛ
+        Reversed,           // µÚÁıÈû
 
         EndOfType
     };
@@ -1213,8 +1213,8 @@ namespace Headless
     {
         None = 0,
 
-        Headless,   // ì‚¬ìš©ì ì¤‘ì‹¬ ì¢Œí‘œ
-        Normal,     // ë“œë¡  ì¤‘ì‹¬ ì¢Œí‘œ
+        Headless,   // »ç¿ëÀÚ Áß½É ÁÂÇ¥
+        Normal,     // µå·Ğ Áß½É ÁÂÇ¥
 
         EndOfType
     };
@@ -1228,16 +1228,16 @@ namespace Trim_2
     {
         None = 0,
 
-        RollIncrease,       // Roll ì¦ê°€
-        RollDecrease,       // Roll ê°ì†Œ
-        PitchIncrease,      // Pitch ì¦ê°€
-        PitchDecrease,      // Pitch ê°ì†Œ
-        YawIncrease,        // Yaw ì¦ê°€
-        YawDecrease,        // Yaw ê°ì†Œ
-        ThrottleIncrease,   // Throttle ì¦ê°€
-        ThrottleDecrease,   // Throttle ê°ì†Œ
+        RollIncrease,       // Roll Áõ°¡
+        RollDecrease,       // Roll °¨¼Ò
+        PitchIncrease,      // Pitch Áõ°¡
+        PitchDecrease,      // Pitch °¨¼Ò
+        YawIncrease,        // Yaw Áõ°¡
+        YawDecrease,        // Yaw °¨¼Ò
+        ThrottleIncrease,   // Throttle Áõ°¡
+        ThrottleDecrease,   // Throttle °¨¼Ò
 
-        Reset,              // ì „ì²´ íŠ¸ë¦¼ ë¦¬ì…‹
+        Reset,              // ÀüÃ¼ Æ®¸² ¸®¼Â
 
         EndOfType
     };
@@ -1251,8 +1251,8 @@ namespace Rotation
     {
         None = 0,
 
-        Clockwise,              // ì‹œê³„ ë°©í–¥
-        Counterclockwise,       // ë°˜ì‹œê³„ ë°©í–¥
+        Clockwise,              // ½Ã°è ¹æÇâ
+        Counterclockwise,       // ¹İ½Ã°è ¹æÇâ
 
         EndOfType
     };
@@ -1284,22 +1284,22 @@ namespace FlightEvent_2
 {
     enum Type
     {
-        None = 0,               // ì—†ìŒ
+        None = 0,               // ¾øÀ½
 
-        Stop = 0x10,            // ì •ì§€
-        TakeOff,                // ì´ë¥™
-        Landing,                // ì°©ë¥™
+        Stop = 0x10,            // Á¤Áö
+        TakeOff,                // ÀÌ·ú
+        Landing,                // Âø·ú
 
-        Reverse,                // ë’¤ì§‘ê¸°
+        Reverse,                // µÚÁı±â
 
-        FlipFront,              // íšŒì „
-        FlipRear,               // íšŒì „
-        FlipLeft,               // íšŒì „
-        FlipRight,              // íšŒì „
+        FlipFront,              // È¸Àü
+        FlipRear,               // È¸Àü
+        FlipLeft,               // È¸Àü
+        FlipRight,              // È¸Àü
 
-        Return,                 // ì‹œì‘ ìœ„ì¹˜ë¡œ ëŒì•„ê°€ê¸°
+        Return,                 // ½ÃÀÛ À§Ä¡·Î µ¹¾Æ°¡±â
 
-        ResetHeading = 0xA0,    // í—¤ë”© ë¦¬ì…‹(ì•±ì†”ë£¨íŠ¸ ëª¨ë“œ ì¼ ë•Œ í˜„ì¬ headingì„ 0ë„ë¡œ ë³€ê²½)
+        ResetHeading = 0xA0,    // Çìµù ¸®¼Â(¾Û¼Ö·çÆ® ¸ğµå ÀÏ ¶§ ÇöÀç headingÀ» 0µµ·Î º¯°æ)
 
         EndOfType
     };
@@ -1309,20 +1309,20 @@ namespace FlightEvent_2
 // Joystick #########################################################################################################################################
 namespace Joystick
 {
-    // ì¡°ì´ìŠ¤í‹± ë°©í–¥
+    // Á¶ÀÌ½ºÆ½ ¹æÇâ
     namespace Direction
     {
         enum Type
         {
-            None    = 0,        // ì •ì˜í•˜ì§€ ì•Šì€ ì˜ì—­(ë¬´ì‹œí•¨)
+            None    = 0,        // Á¤ÀÇÇÏÁö ¾ÊÀº ¿µ¿ª(¹«½ÃÇÔ)
 
-            VT      = 0x10,     //   ìœ„(ì„¸ë¡œ)
-            VM      = 0x20,     // ì¤‘ì•™(ì„¸ë¡œ)
-            VB      = 0x40,     // ì•„ë˜(ì„¸ë¡œ)
+            VT      = 0x10,     //   À§(¼¼·Î)
+            VM      = 0x20,     // Áß¾Ó(¼¼·Î)
+            VB      = 0x40,     // ¾Æ·¡(¼¼·Î)
 
-            HL      = 0x01,     //   ì™¼ìª½(ê°€ë¡œ)
-            HM      = 0x02,     //   ì¤‘ì•™(ê°€ë¡œ)
-            HR      = 0x04,     // ì˜¤ë¥¸ìª½(ê°€ë¡œ)
+            HL      = 0x01,     //   ¿ŞÂÊ(°¡·Î)
+            HM      = 0x02,     //   Áß¾Ó(°¡·Î)
+            HR      = 0x04,     // ¿À¸¥ÂÊ(°¡·Î)
 
             TL = 0x11,  TM = 0x12,  TR = 0x14,
             ML = 0x21,  CN = 0x22,  MR = 0x24,
@@ -1334,11 +1334,11 @@ namespace Joystick
     {
         enum Type
         {
-            None    = 0,        // ì´ë²¤íŠ¸ ì—†ìŒ
+            None    = 0,        // ÀÌº¥Æ® ¾øÀ½
 
-            In,                 // íŠ¹ì • ì˜ì—­ì— ì§„ì…
-            Stay,               // íŠ¹ì • ì˜ì—­ì—ì„œ ìƒíƒœ ìœ ì§€
-            Out,                // íŠ¹ì • ì˜ì—­ì—ì„œ ë²—ì–´ë‚¨
+            In,                 // Æ¯Á¤ ¿µ¿ª¿¡ ÁøÀÔ
+            Stay,               // Æ¯Á¤ ¿µ¿ª¿¡¼­ »óÅÂ À¯Áö
+            Out,                // Æ¯Á¤ ¿µ¿ª¿¡¼­ ¹ş¾î³²
 
             EndOfType
         };
@@ -1355,7 +1355,7 @@ namespace Button_2
             {
                 None        = 0x0000,
 
-                // ë²„íŠ¼
+                // ¹öÆ°
                 Reset       = 0x0001
             };
         }
@@ -1369,7 +1369,7 @@ namespace Button_2
             {
                 None                = 0x0000,
 
-                // ë²„íŠ¼
+                // ¹öÆ°
                 FrontLeftTop        = 0x0001,
                 FrontLeftBottom     = 0x0002,
                 FrontRightTop       = 0x0004,
@@ -1395,11 +1395,11 @@ namespace Button_2
         {
             None,
 
-        y,               // ëˆ„ë¥´ê¸° ì‹œì‘
-            Press,              // ëˆ„ë¥´ëŠ” ì¤‘
-            Up,                 // ë—Œ
+        y,               // ´©¸£±â ½ÃÀÛ
+            Press,              // ´©¸£´Â Áß
+            Up,                 // ¶À
 
-            EndContinuePress    // ì—°ì† ì…ë ¥ ì¢…ë£Œ
+            EndContinuePress    // ¿¬¼Ó ÀÔ·Â Á¾·á
         };
     }
 }
@@ -1412,16 +1412,16 @@ namespace Buzzer
     {
         enum Type
         {
-            Stop                = 0,    // ì •ì§€(Modeì—ì„œì˜ Stopì€ í†µì‹ ì—ì„œ ë°›ì•˜ì„ ë•Œ Buzzerë¥¼ ë„ëŠ” ìš©ë„ë¡œ ì‚¬ìš©, setìœ¼ë¡œë§Œ í˜¸ì¶œ)
+            Stop                = 0,    // Á¤Áö(Mode¿¡¼­ÀÇ StopÀº Åë½Å¿¡¼­ ¹Ş¾ÒÀ» ¶§ Buzzer¸¦ ²ô´Â ¿ëµµ·Î »ç¿ë, setÀ¸·Î¸¸ È£Ãâ)
 
-            MuteInstantally     = 1,    // ë¬µìŒ ì¦‰ì‹œ ì ìš©
-            MuteContinually     = 2,    // ë¬µìŒ ì˜ˆì•½
+            MuteInstantally     = 1,    // ¹¬À½ Áï½Ã Àû¿ë
+            MuteContinually     = 2,    // ¹¬À½ ¿¹¾à
 
-            ScaleInstantally    = 3,    // ìŒê³„ ì¦‰ì‹œ ì ìš©
-            ScaleContinually    = 4,    // ìŒê³„ ì˜ˆì•½
+            ScaleInstantally    = 3,    // À½°è Áï½Ã Àû¿ë
+            ScaleContinually    = 4,    // À½°è ¿¹¾à
 
-            HzInstantally       = 5,    // ì£¼íŒŒìˆ˜ ì¦‰ì‹œ ì ìš©
-            HzContinually       = 6,    // ì£¼íŒŒìˆ˜ ì˜ˆì•½
+            HzInstantally       = 5,    // ÁÖÆÄ¼ö Áï½Ã Àû¿ë
+            HzContinually       = 6,    // ÁÖÆÄ¼ö ¿¹¾à
 
             EndOfType
         };
@@ -1443,8 +1443,8 @@ namespace Buzzer
 
             EndOfType,
 
-            Mute    = 0xEE,     // ë¬µìŒ
-            Fin     = 0xFF      // ì•…ë³´ì˜ ë
+            Mute    = 0xEE,     // ¹¬À½
+            Fin     = 0xFF      // ¾Çº¸ÀÇ ³¡
         };
     }
 }// Buzzer #########################################################################################################################################
@@ -1457,10 +1457,10 @@ namespace Vibrator
     {
         enum Type
         {
-            Stop            = 0,    // ì •ì§€
+            Stop            = 0,    // Á¤Áö
 
-            Instantally     = 1,    // ì¦‰ì‹œ ì ìš©
-            Continually     = 2,    // ì˜ˆì•½
+            Instantally     = 1,    // Áï½Ã Àû¿ë
+            Continually     = 2,    // ¿¹¾à
 
             EndOfType
         };
@@ -1486,9 +1486,6 @@ namespace Vibrator
 
 
 
-
-
-
 // RobotConnector =============================================================================================================================================================
 public class RobotConnector2 : MonoBehaviour
 {
@@ -1496,8 +1493,8 @@ public class RobotConnector2 : MonoBehaviour
 
     public int baudrate = 57600;
     public SerialPort _serialPort;
-    public List<string> portNames = new List<string>(); // íƒìƒ‰í•œ í¬íŠ¸ë“¤
-    public string portName; // ì—°ê²°í•  í¬íŠ¸ëª…
+    public List<string> portNames = new List<string>(); // Å½»öÇÑ Æ÷Æ®µé
+    public string portName; // ¿¬°áÇÒ Æ÷Æ®¸í
 
     public EventHandler OnConnected;
     public EventHandler OnConnectionFailed;
@@ -1530,30 +1527,30 @@ public class RobotConnector2 : MonoBehaviour
 //    public int  mode_linkPressed = 0;
 //    public int  mode_controlPressed = 0;
 
-    public int  _nSendCount_VerRC = 0; // ì¡°ì¢…ê¸° ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡íšŸìˆ˜
-    public int  _nSendCount_VerRFModule = 0; // RFëª¨ë“ˆ ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡íšŸìˆ˜
-    public int  _nSendCount_VerDrone = 0; // ë“œë¡  ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡íšŸìˆ˜
+    public int  _nSendCount_VerRC = 0; // Á¶Á¾±â ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼ÛÈ½¼ö
+    public int  _nSendCount_VerRFModule = 0; // RF¸ğµâ ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼ÛÈ½¼ö
+    public int  _nSendCount_VerDrone = 0; // µå·Ğ ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼ÛÈ½¼ö
 
 
 
-    // Information (íŒì›¨ì–´ ë²„ì ¼)-----------------------------------------------------------------------------------------
-    public uint _nModelNumber = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+    // Information (Æß¿ş¾î ¹öÁ¯)-----------------------------------------------------------------------------------------
+    public uint _nModelNumber = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
 
-    ushort _usVersion_Build = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+    ushort _usVersion_Build = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
     byte _byVersion_Minor = 0x00;
     byte _byVersion_Major = 0x00;
 
-    ushort _usDate_Year = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+    ushort _usDate_Year = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
     byte _byDate_Month = 0x00;
     byte _byDate_Day = 0x00;
 
 
-    public ushort _nC_Version_build = 0;  // UI í‘œì‹œìš© - ì»¨íŠ¸ë¡¤ëŸ¬ ë¹Œë“œ ë²„ì „
-    public byte _nC_Version_major = 0; // UI í‘œì‹œìš© - ì»¨íŠ¸ë¡¤ëŸ¬ ì£¼ ë²„ì „
-    public byte _nC_Version_minor = 0; // UI í‘œì‹œìš© - ì»¨íŠ¸ë¡¤ëŸ¬ ë¶€ ë²„ì „
-    public ushort _nD_Version_build = 0;  // UI í‘œì‹œìš© - ë“œë¡  ë¹Œë“œ ë²„ì „
-    public byte _nD_Version_major = 0; // UI í‘œì‹œìš© - ë“œë¡  ì£¼ ë²„ì „
-    public byte _nD_Version_minor = 0; // UI í‘œì‹œìš© - ë“œë¡  ë¶€ ë²„ì „
+    public ushort _nC_Version_build = 0;  // UI Ç¥½Ã¿ë - ÄÁÆ®·Ñ·¯ ºôµå ¹öÀü
+    public byte _nC_Version_major = 0; // UI Ç¥½Ã¿ë - ÄÁÆ®·Ñ·¯ ÁÖ ¹öÀü
+    public byte _nC_Version_minor = 0; // UI Ç¥½Ã¿ë - ÄÁÆ®·Ñ·¯ ºÎ ¹öÀü
+    public ushort _nD_Version_build = 0;  // UI Ç¥½Ã¿ë - µå·Ğ ºôµå ¹öÀü
+    public byte _nD_Version_major = 0; // UI Ç¥½Ã¿ë - µå·Ğ ÁÖ ¹öÀü
+    public byte _nD_Version_minor = 0; // UI Ç¥½Ã¿ë - µå·Ğ ºÎ ¹öÀü
 
 
 
@@ -1568,31 +1565,31 @@ public class RobotConnector2 : MonoBehaviour
     public byte  lightBlue = 0;
     public int   lightSend = 0;
 
-    public int Flip_Front = 0; // í”Œë¦½ ì•
-    public int Flip_Back = 0; // í”Œë¦½ ë’¤
-    public int Flip_Left = 0; // í”Œë¦½ ì™¼ìª½
-    public int Flip_Right = 0; // í”Œë¦½ ì˜¤ë¥¸ìª½
+    public int Flip_Front = 0; // ÇÃ¸³ ¾Õ
+    public int Flip_Back = 0; // ÇÃ¸³ µÚ
+    public int Flip_Left = 0; // ÇÃ¸³ ¿ŞÂÊ
+    public int Flip_Right = 0; // ÇÃ¸³ ¿À¸¥ÂÊ
 
-    public int Count = 0; // ë¹„í–‰ ê´€ë ¨ ì¹´ìš´íŠ¸ ê°’ (ì´ì°©ë¥™ ì¶©ëŒ íšŸìˆ˜)
+    public int Count = 0; // ºñÇà °ü·Ã Ä«¿îÆ® °ª (ÀÌÂø·ú Ãæµ¹ È½¼ö)
 
 
 
-    public bool  _opened = false; // í¬íŠ¸ ì—´ë¦¼
-    public bool  _connected = false; // ì‹¤ì œ ë“œë¡  ì ‘ì†
+    public bool  _opened = false; // Æ÷Æ® ¿­¸²
+    public bool  _connected = false; // ½ÇÁ¦ µå·Ğ Á¢¼Ó
     private int _sendCounter = 0;
     //private ulong _gCounter = 0;
 
-    float _fSendInterval = 0.005f; // packetSendingHandler() í•¨ìˆ˜ ì¸ë³´í¬ ì¬ì‹¤í–‰ ê°„ê²©
+    float _fSendInterval = 0.005f; // packetSendingHandler() ÇÔ¼ö ÀÎº¸Å© Àç½ÇÇà °£°İ
 
 
 
-    // ê° ì„¼ì„œ ì •ë°€ê°’ í™œì„± (RobotConnector2ìš©)
+    // °¢ ¼¾¼­ Á¤¹Ğ°ª È°¼º (RobotConnector2¿ë)
     public bool _bIsDetailImageFlow = false;
     public bool _bIsDetailRange = false;
     public bool _bIsDetailAxis = false;
     public bool _bIsDetailSensor = false;
 
-    public bool _bIsAllSensor = true; // ëª¨ë“  ì„¼ì„œ ê· ì¼í•˜ê²Œ ì‘ë™
+    public bool _bIsAllSensor = true; // ¸ğµç ¼¾¼­ ±ÕÀÏÇÏ°Ô ÀÛµ¿
 
 
 
@@ -1619,6 +1616,7 @@ public class RobotConnector2 : MonoBehaviour
 
     public void Connect_Manager()
     {
+        vr = new VRDroneCtrl();
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
         _serialPort.RtsEnable = false;
@@ -1630,9 +1628,6 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
-        //portNames.AddRange(SerialPort.GetPortNames());
-        //portName = portNames[0];
-        //Connect();
 
         Invoke("packetSendingHandler", 0.02f);
     }
@@ -1646,16 +1641,16 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-    // ë²„ì „ ë°›ê¸° ì‹œì‘ ----------------------------------------------------------------------------------------------------------------
+    // ¹öÀü ¹Ş±â ½ÃÀÛ ----------------------------------------------------------------------------------------------------------------
     void GetVersion_Start()
     {
         _nSendCount_VerRC = 10;
         _nSendCount_VerRFModule = 10;
         _nSendCount_VerDrone = 10;
 
-        if ((_nC_Version_major != 0) && (_nD_Version_major != 0)) // ì¡°ì¢…ê¸°, ë“œë¡  ë²„ì „ì„ ëª¨ë‘ ë°›ì•˜ë‹¤ë©´
+        if ((_nC_Version_major != 0) && (_nD_Version_major != 0)) // Á¶Á¾±â, µå·Ğ ¹öÀüÀ» ¸ğµÎ ¹Ş¾Ò´Ù¸é
         {
-            Debug.Log("Got Version");
+            ////Debug.Log("Got Version");
             CancelInvoke("GetVersion_Start");
         }
         else
@@ -1665,36 +1660,36 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-    // ë²„ì ¼ ë°›ê¸° -------------------------------------------------------------------------------------------------------------------
+    // ¹öÁ¯ ¹Ş±â -------------------------------------------------------------------------------------------------------------------
     void GetVersion(uint p_Model, byte p_Major, byte p_Minor, ushort p_Build)
     {
         string serController = "";
 
-        if ((p_Model >= 270338) && (p_Model <= 270350)) // ì½”ë“œë¡  II ì¡°ì¢…ê¸°
+        if ((p_Model >= 270338) && (p_Model <= 270350)) // ÄÚµå·Ğ II Á¶Á¾±â
         {
             _nC_Version_build = p_Build;
             _nC_Version_major = p_Major;
             _nC_Version_minor = p_Minor;
         }
-        else if ((p_Model >= 204803) && (p_Model <= 204810)) // ì½”ë“œë¡  ë¯¸ë‹ˆ ì¡°ì¢…ê¸°
+        else if ((p_Model >= 204803) && (p_Model <= 204810)) // ÄÚµå·Ğ ¹Ì´Ï Á¶Á¾±â
         {
             _nC_Version_build = p_Build;
             _nC_Version_major = p_Major;
             _nC_Version_minor = p_Minor;
         }
-        else if ((p_Model >= 208896) && (p_Model <= 208910)) // RF ëª¨ë“ˆ
+        else if ((p_Model >= 208896) && (p_Model <= 208910)) // RF ¸ğµâ
         {
             _nC_Version_build = p_Build;
             _nC_Version_major = p_Major;
             _nC_Version_minor = p_Minor;
         }
-        else if ((p_Model >= 266245) && (p_Model <= 266260)) // ì½”ë“œë¡  II
+        else if ((p_Model >= 266245) && (p_Model <= 266260)) // ÄÚµå·Ğ II
         {
             _nD_Version_build = p_Build;
             _nD_Version_major = p_Major;
             _nD_Version_minor = p_Minor;
         }
-        else // ì½”ë“œë¡  ë¯¸ë‹ˆ
+        else // ÄÚµå·Ğ ¹Ì´Ï
         {
             _nD_Version_build = p_Build;
             _nD_Version_major = p_Major;
@@ -1707,81 +1702,176 @@ public class RobotConnector2 : MonoBehaviour
 
         }
     }
+    
+    // ÀÚ½Ä Å¬·¡½º¸í
+    VRDroneCtrl vr;
+    // Á¶ÀÌ½ºÆ½ °¨µµ ÃøÁ¤ º¯¼ö
+    public float R_x , R_y;
+    public float L_x , L_y;
+    // ½ÅÈ£ Ã¼Å©¿ë
+    bool takeoff_Check;
+    bool stop_Check;
+
+    int speed_Level;
+
+    public void Debug_tempBytes()
+    {
+        byte[] tempBytes = Read();
+        
+            if (tempBytes != null)
+            {
+                            // if(tempBytes[2] != 0x71)
+                            // {
+                               //Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                                //    " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                                //    " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                            //       " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                            //        " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                            //       " [6]: " + Convert.ToString(tempBytes[6], 16) +
+                            //       " [7]: " + Convert.ToString(tempBytes[7], 16) +
+                            //       " [8]: " + Convert.ToString(tempBytes[8], 16) +
+                            //        " [9]: " + Convert.ToString(tempBytes[9], 16) +
+                            //        " [10]: " + Convert.ToString(tempBytes[10], 16) +
+                            //        " [11]: " + Convert.ToString(tempBytes[11], 16) +
+                            //        " [12]: " + Convert.ToString(tempBytes[12], 16) +
+                            //        " [13]: " + Convert.ToString(tempBytes[13], 16));
+                            // }
+            
+
+                    if ((tempBytes[0] == 0x0A)&&(tempBytes[1] == 0x55))
+                    {
+                        int packetLength = tempBytes[3] + 8;
+                        byte[] readBytes = new byte[packetLength];
+                        Array.Copy(tempBytes, 0, readBytes, 0, packetLength);
 
 
+                        byte crcL, crcH;
+                        //byte[] testBytes = {0x0A, 0x55, 0x04, 0x01, 0xA0, 0x10, 0x40, 0x99, 0x09};
+                        ushort crc = crc16_ccitt(readBytes, 2, readBytes.Length - 4);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
+                        crcL = (byte)(crc & 0xFF);
+                        crcH = (byte)((crc & 0xFF00) >> 8);
 
+                        //Debug.Log( "crcL : " + Convert.ToString(crcL, 16) + "       crcH : " + Convert.ToString(crcH, 16) + "       crc : " + Convert.ToString(crc, 16));
 
+                        if((crcL == readBytes[readBytes.Length - 2])&&(crcH == readBytes[readBytes.Length - 1]))
+                        {   
+                            // DataType
+                            switch(readBytes[2])  
+                            {
+                                case (byte)Protocol.DataType.Type.Joystick:
+                                         R_x = Get_Sense(readBytes[10]);
+                                         R_y = Get_Sense(readBytes[11]);
+                                         L_x = Get_Sense(readBytes[6]);                                        
+                                         L_y = Get_Sense(readBytes[7]);
+                                         takeoff_Check = L_x > 0 && L_y < 0;
+                                         stop_Check = L_x == 0 && L_y < 0;
+                                         //Debug.Log(takeoff_Check + "  ,  " + stop_Check);
+                                         break;    
+                                case (byte)Protocol.DataType.Type.Button:         
+                                        switch(readBytes[6] - readBytes[7])
+                                        {
+                                            case -1:  // HEADLESS OFF
+                                              vr.flymode = Space.World;
+                                              break;
+                                            case 16:  // HEADLESS ON
+                                              Override_Test();
+                                              break;
+                                            case 32:  // M1
+                                              break;
+                                            case 128: // M2
+                                              break;
+                                            case 2:   // LED , FLIP
+                                              break;
+                                            case 1:   // Speed , Start
+                                                if(takeoff_Check)
+                                                    Debug.Log("takeoff");
+                                                else if(readBytes[8] == 1)
+                                                {
+                                                    vr.speed = 10 * ++speed_Level;
+                                                    Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
+                                                    speed_Level %= 3;
+                                                }
+                                                break;
+                                        }
+                                        break;
+                                case (byte)Protocol.DataType.Type.Altitude:
+                                        //Debug_Log_readBytes(6 , 13 , readBytes);
+                                        break;
+                                case (byte)Protocol.DataType.Type.Motion:
+                                         //Debug_Log_readBytes(6 , 18 , readBytes);
+                                         motion.accX = BitConverter.ToInt16(readBytes, 6);
+                                         motion.accY = BitConverter.ToInt16(readBytes, 8);
+                                         motion.accZ = BitConverter.ToInt16(readBytes, 10);
+                                         motion.gyroRoll = BitConverter.ToInt16(readBytes, 12);
+                                         motion.gyroPitch = BitConverter.ToInt16(readBytes, 14);
+                                         motion.gyroYaw = BitConverter.ToInt16(readBytes, 16);
+                                         motion.angleRoll = BitConverter.ToInt16(readBytes, 18);
+                                         motion.anglePitch = BitConverter.ToInt16(readBytes, 20);
+                                         motion.angleYaw = BitConverter.ToInt16(readBytes, 22);
+                                         Debug.Log("x : " + motion.accX + "  y : " + motion.accY + "  z : " + motion.accZ +
+                                            "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw);
+                                        break;                                             
+                            } 
+                        }
+                    }
+                }
+    }
 
+    int Get_Sense(byte readbyte)
+    {
+        return readbyte > 100 ? -(100 - readbyte % 156) : readbyte;
+    }
+
+    string str;
+    void Debug_Log_readBytes(int i , int n , byte [] readBytes)
+    {
+        str = "";
+        for(int k = i ; k < i + n ; k++)
+        {
+            str += k + "  :  " + readBytes[k] + "    ";
+        }
+        Debug.Log(str);
+    }
+
+    public Vector3 Set_Pos()
+    {
+        return new Vector3(motion.accX, motion.accY, motion.accZ);
+    }
+    
+    // override ¿ë ÇÔ¼öµé 
+    public virtual void Override_Test(){}
 
 
 
 
     // Update ------------------------------------------------------------------------------------------------------------
-    void Update()
-    {
-        ï»¿if (_opened == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                //ì´ë¥™
-                print("ss");
-                _sendCounter++;
-                landingPressed++;
-                //byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };  // ì´ë¥™
-                //_serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-
-            }
-            // packetSendingHandler();
-
-
-            //byte[] tempBytes = Read();
-
-
-
-            ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
-
-            //if (tempBytes != null)
-            //{
-            //    //                for (int i = 0; i < tempBytes.Length; i++)
-            //    //                {
-            //    //                    Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-            //    //                }
-
-
-            //    //                Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-            //    //                    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-            //    //                    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-            //    //                    " [3]: " + Convert.ToString(tempBytes[3], 16) +
-            //    //                    " [4]: " + Convert.ToString(tempBytes[4], 16) +
-            //    //                    " [5]: " + Convert.ToString(tempBytes[5], 16));
-
-
-            //}
-        }
-            //Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
+    // void Update()
+    // {
+            // ////Debug.Log(tempBytes[0] + "  |  " + tempBytes[1] + "  |  " + tempBytes[2] + "  |  " + tempBytes[3] + "  |  " + tempBytes[4]);
 
             // if (tempBytes != null)
             // {
-                            //    for (int i = 0; i < tempBytes.Length; i++)
-                            //    {
-                            //        Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
-                            //    }
+            //                    for (int i = 0; i < tempBytes.Length; i++)
+            //                    {
+            //                        ////Debug.Log("[" + i + "] " + Convert.ToString(tempBytes[i], 16));
+            //                    }
                 
                 
-                            //    Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                            //        " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                            //        " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                            //        " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                            //        " [5]: " + Convert.ToString(tempBytes[5], 16));
-            //}
-    }
+            //                    ////Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+            //                        " [1]: " + Convert.ToString(tempBytes[1], 16) +
+            //                        " [2]: " + Convert.ToString(tempBytes[2], 16) +
+            //                        " [3]: " + Convert.ToString(tempBytes[3], 16) +
+            //                        " [4]: " + Convert.ToString(tempBytes[4], 16) +
+            //                        " [5]: " + Convert.ToString(tempBytes[5], 16));
+            // }
+    //}
 
 
     // packetSendingHandler ----------------------------------------------------------------------------------------------------------
     private void packetSendingHandler()
     {
-        print("packetSendingHandle");
+        //print("packetSendingHandle");
         if (_opened == true)
         {
             _sendCounter++;
@@ -1791,12 +1881,12 @@ public class RobotConnector2 : MonoBehaviour
 
             if (_sendCounter == 0) // state -------------------------------------------------------------------
             {
-                //Debug.Log("state");
+                //////Debug.Log("state");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x40, 0x5F, 0x8F };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.state"); 
+                    //////Debug.Log("---------- Type.state"); 
                     //term.state = 0;
                 }
                 catch (Exception)
@@ -1807,12 +1897,12 @@ public class RobotConnector2 : MonoBehaviour
             // position ---------------------------------------------------------------------------------------------------------------
             else if (_sendCounter == 1)
             {
-                //Debug.Log("position");
+                //////Debug.Log("position");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x42, 0x1D, 0xAF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.position"); 
+                    //////Debug.Log("---------- Type.position"); 
                 }
                 catch (Exception)
                 {
@@ -1821,12 +1911,12 @@ public class RobotConnector2 : MonoBehaviour
             }
 //            else if (_sendCounter == 1) // attitude -----------------------------------------------------------
 //            {
-//                //Debug.Log("attitude");
+//                //////Debug.Log("attitude");
 //                try
 //                {
 //                    byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x41, 0x7E, 0x9F };
 //                    _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                    //Debug.Log("---------- Type.attitude");
+//                    //////Debug.Log("---------- Type.attitude");
 //                    //term.attitude = 0;
 //                }
 //                catch (Exception)
@@ -1838,13 +1928,13 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 3)) ||
                        ((!_bIsAllSensor) && (_bIsDetailSensor) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("altitude");
+                //////Debug.Log("altitude");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x43, 0x3C, 0xBF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
                     //term.altitude = 0;
-                    //Debug.Log("---------- Type.altitude");
+                    //////Debug.Log("---------- Type.altitude");
                 }
                 catch (Exception)
                 {
@@ -1855,12 +1945,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 5)) ||
                        ((!_bIsAllSensor) && (_bIsDetailAxis) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("motion");
+                //////Debug.Log("motion");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x44, 0xDB, 0xCF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.motion"); 
+                    //////Debug.Log("---------- Type.motion"); 
                 }
                 catch (Exception)
                 {
@@ -1871,12 +1961,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 7)) ||
                        ((!_bIsAllSensor) && (_bIsDetailImageFlow) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("flow");
+                //////Debug.Log("flow");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x31, 0xE9, 0xE1 };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.flow"); 
+                    //////Debug.Log("---------- Type.flow"); 
                 }
                 catch (Exception)
                 {
@@ -1887,12 +1977,12 @@ public class RobotConnector2 : MonoBehaviour
             else if (  ((_bIsAllSensor) && (_sendCounter == 9)) ||
                        ((!_bIsAllSensor) && (_bIsDetailRange) && ((_sendCounter == 3)||(_sendCounter == 5)||(_sendCounter == 7)||(_sendCounter == 9)))   )
             {
-                //Debug.Log("range");
+                //////Debug.Log("range");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x45, 0xFA, 0xDF };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.range"); 
+                    //////Debug.Log("---------- Type.range"); 
                 }
                 catch (Exception)
                 {
@@ -1902,29 +1992,29 @@ public class RobotConnector2 : MonoBehaviour
             // trim ---------------------------------------------------------------------------------------------------------------
             else if (_sendCounter == 11)
             {
-                //Debug.Log("trim");
+                //////Debug.Log("trim");
                 try
                 {
                     byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x52, 0x2C, 0xBD };
                     _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                    //Debug.Log("---------- Type.trim"); 
+                    //////Debug.Log("---------- Type.trim"); 
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("exceptipn : failed to sending trim Packet");
                 }
             }
-            else // control ë° ê¸°íƒ€ ì ì‹œ ë³´ë‚´ëŠ” ì‹ í˜¸ë“¤ -------------------------------------------------------------------------------------
+            else // control ¹× ±âÅ¸ Àá½Ã º¸³»´Â ½ÅÈ£µé -------------------------------------------------------------------------------------
             {
-                // ì¡°ì¢…ê¸° ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡-----------------------------
+                // Á¶Á¾±â ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼Û-----------------------------
                 if (_nSendCount_VerRC > 0)
                 {
-                    //Debug.Log("VerRC");
+                    //////Debug.Log("VerRC");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x20, 0x07, 0xE9, 0xB2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerRC"); 
+                        //////Debug.Log("---------- Type.VerRC"); 
                         _nSendCount_VerRC--;
                     }
                     catch (Exception)
@@ -1933,15 +2023,15 @@ public class RobotConnector2 : MonoBehaviour
                     }
                 }
 
-                // RFëª¨ë“ˆ ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡-----------------------------
+                // RF¸ğµâ ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼Û-----------------------------
                 else if (_nSendCount_VerRFModule > 0)
                 {
-                    //Debug.Log("VerRFModule");
+                    //////Debug.Log("VerRFModule");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x70, 0x30, 0x07, 0xC8, 0x52 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerRFModule"); 
+                        //////Debug.Log("---------- Type.VerRFModule"); 
                         _nSendCount_VerRFModule--;
                     }
                     catch (Exception)
@@ -1950,15 +2040,15 @@ public class RobotConnector2 : MonoBehaviour
                     }
                 }
 
-                // ë“œë¡  ë²„ì „ ìš”ì²­ ì—°ì† ì „ì†¡-----------------------------
+                // µå·Ğ ¹öÀü ¿äÃ» ¿¬¼Ó Àü¼Û-----------------------------
                 else if (_nSendCount_VerDrone > 0)
                 {
-                    //Debug.Log("VerDrone");
+                    //////Debug.Log("VerDrone");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x07, 0x7C, 0xB7 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.VerDrone"); 
+                        //////Debug.Log("---------- Type.VerDrone"); 
                         _nSendCount_VerDrone--;
                     }
                     catch (Exception)
@@ -1966,14 +2056,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to VerDrone Packet");
                     }
                 }
-                else if (stopPressed > 0) // ê°•ì œì •ì§€ì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (stopPressed > 0) // °­Á¦Á¤Áö½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("stop");
+                    //////Debug.Log("stop");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x01, 0x00, 0xCD, 0xB6 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.stop"); 
+                        //////Debug.Log("---------- Type.stop"); 
                         stopPressed--;
                     }
                     catch (Exception)
@@ -1981,14 +2071,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to stop Packet");
                     }
                 }
-                else if (landingPressed > 0) // ì°©ë¥™ì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (landingPressed > 0) // Âø·ú½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("landing");
+                    //////Debug.Log("landing");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x12, 0x18, 0x2E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.landing"); 
+                        // ////Debug.Log("---------- Type.landing"); 
                         landingPressed--;
                     }
                     catch (Exception)
@@ -1996,15 +2086,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to landing Packet");
                     }
                 }
-                else if (takeoffPressed > 0) // ì´ë¥™ì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (takeoffPressed > 0) // ÀÌ·ú½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    Debug.Log("takeoff");
-                    Debug.Log("takeoff  , " + _sendCounter);
+                    ////Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.takeoff");
+                        // ////Debug.Log("---------- Type.takeoff");
                         takeoffPressed--;
                     }
                     catch (Exception)
@@ -2012,9 +2101,9 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to takeoff Packet");
                     }
                 }
-                else if (trimPressed > 0) // íŠ¸ë¦¼ì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (trimPressed > 0) // Æ®¸²½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("trim");
+                    //////Debug.Log("trim");
                     byte[] Roll = BitConverter.GetBytes(trimRoll);
                     byte[] Pitch = BitConverter.GetBytes(trimPitch);
                     byte[] Yaw = BitConverter.GetBytes(trimYaw);
@@ -2022,7 +2111,7 @@ public class RobotConnector2 : MonoBehaviour
 
                     byte[] tempBuff2 = { 0x52, 0x08, 0x80, 0x10, Roll[0], Roll[1], Pitch[0], Pitch[1], Yaw[0], Yaw[1], Throttle[0], Throttle[1] };
                     byte crcL2, crcH2;
-                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ëŠ” ì œì™¸í•¨
+                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
                     crcL2 = (byte)(crc2 & 0xFF);
                     crcH2 = (byte)((crc2 & 0xFF00) >> 8);
 
@@ -2030,7 +2119,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x52, 0x08, 0x80, 0x10, Roll[0], Roll[1], Pitch[0], Pitch[1], Yaw[0], Yaw[1], Throttle[0], Throttle[1], crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.trim");
+                        //////Debug.Log("---------- Type.trim");
                         trimPressed--;
                     }
                     catch (Exception)
@@ -2038,13 +2127,13 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to trim Packet");
                     }
                 }
-                else if (clearbiasPressed > 0) // ë¦¬ì…‹ ë°”ì´ì–´ìŠ¤ ì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (clearbiasPressed > 0) // ¸®¼Â ¹ÙÀÌ¾î½º ½ÅÈ£ ---------------------------------------------------------------------------
                 {
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x05, 0x00, 0x09, 0x7A };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- clear bias");
+                        // ////Debug.Log("---------- clear bias");
                         clearbiasPressed--;
                     }
                     catch (Exception)
@@ -2052,11 +2141,11 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to clearbias Packet");
                     }
                 }
-                else if (SpeedPressed > 0) // ìŠ¤í”¼ë“œ ë³€ê²½ ì‹ í˜¸ --------------------------------------------------------------------------------
+                else if (SpeedPressed > 0) // ½ºÇÇµå º¯°æ ½ÅÈ£ --------------------------------------------------------------------------------
                 {
                     byte[] tempBuff2 = { 0x11, 0x02, 0x80, 0x10, 0x04, (byte)_nSpeed };
                     byte crcL2, crcH2;
-                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ëŠ” ì œì™¸í•¨
+                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
                     crcL2 = (byte)(crc2 & 0xFF);
                     crcH2 = (byte)((crc2 & 0xFF00) >> 8);
 
@@ -2064,7 +2153,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x04, (byte)_nSpeed, crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.Speed");
+                        //////Debug.Log("---------- Type.Speed");
                         SpeedPressed--;
                     }
                     catch (Exception)
@@ -2072,13 +2161,13 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to Speed Packet");
                     }
                 }
-//                else if (mode_linkPressed > 0) // ëª¨ë“œ ë§í¬ ì‹ í˜¸ ---------------------------------------------------------------------------
+//                else if (mode_linkPressed > 0) // ¸ğµå ¸µÅ© ½ÅÈ£ ---------------------------------------------------------------------------
 //                {
 //                    try
 //                    {
 //                        byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x70, 0x20, 0x0A, 0x80, 0x57, 0xA1, 0xFF };
 //                        _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                        // Debug.Log("---------- mode link");
+//                        // ////Debug.Log("---------- mode link");
 //                        mode_linkPressed--;
 //                    }
 //                    catch (Exception)
@@ -2086,13 +2175,13 @@ public class RobotConnector2 : MonoBehaviour
 //                        Console.WriteLine("exceptipn : failed to mode_link Packet");
 //                    }
 //                }
-//                else if (mode_controlPressed > 0) // ëª¨ë“œ ì»¨íŠ¸ë¡¤ ì‹ í˜¸ ---------------------------------------------------------------------------
+//                else if (mode_controlPressed > 0) // ¸ğµå ÄÁÆ®·Ñ ½ÅÈ£ ---------------------------------------------------------------------------
 //                {
 //                    try
 //                    {
 //                        byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x70, 0x20, 0x0A, 0x10, 0xEE, 0x22, 0xFF };
 //                        _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-//                        // Debug.Log("---------- mode control");
+//                        // ////Debug.Log("---------- mode control");
 //                        mode_controlPressed--;
 //                    }
 //                    catch (Exception)
@@ -2100,12 +2189,12 @@ public class RobotConnector2 : MonoBehaviour
 //                        Console.WriteLine("exceptipn : failed to mode_control Packet");
 //                    }
 //                }
-                else if (lightSend > 0) // LEDì‹ í˜¸ ---------------------------------------------------------------------------
+                else if (lightSend > 0) // LED½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    //Debug.Log("light"); //0x21 -> 0x23
+                    //////Debug.Log("light"); //0x21 -> 0x23
                     byte[] tempBuff2 = { 0x23, 0x06, 0x80, 0x10, 0x22, 0xFF, 0x00, lightRed, lightGreen, lightBlue };
                     byte crcL2, crcH2;
-                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ëŠ” ì œì™¸í•¨
+                    ushort crc2 = crc16_ccitt(tempBuff2, 0, tempBuff2.Length);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
                     crcL2 = (byte)(crc2 & 0xFF);
                     crcH2 = (byte)((crc2 & 0xFF00) >> 8);
 
@@ -2113,7 +2202,7 @@ public class RobotConnector2 : MonoBehaviour
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x23, 0x06, 0x80, 0x10, 0x22, 0xFF, 0x00, lightRed, lightGreen, lightBlue, crcL2, crcH2 };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.Light");
+                        //////Debug.Log("---------- Type.Light");
                         lightSend--;
                     }
                     catch (Exception)
@@ -2121,14 +2210,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to LED Packet");
                     }
                 }
-                else if (Flip_Front > 0) // í”Œë¦½ ì• ----------------------------------------------------------------------------
+                else if (Flip_Front > 0) // ÇÃ¸³ ¾Õ ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_front");
+                    //////Debug.Log("flip_front");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x14, 0xDE, 0x4E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.Flip_Front"); 
+                        // ////Debug.Log("---------- Type.Flip_Front"); 
                         Flip_Front--;
                     }
                     catch (Exception)
@@ -2136,14 +2225,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to flip_front Packet");
                     }
                 }
-                else if (Flip_Back > 0) // í”Œë¦½ ë’¤ ----------------------------------------------------------------------------
+                else if (Flip_Back > 0) // ÇÃ¸³ µÚ ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_back");
+                    //////Debug.Log("flip_back");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x15, 0xFF, 0x5E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_back"); 
+                        // ////Debug.Log("---------- Type.flip_back"); 
                         Flip_Back--;
                     }
                     catch (Exception)
@@ -2151,14 +2240,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to flip_back Packet");
                     }
                 }
-                else if (Flip_Left > 0) // í”Œë¦½ ì¢Œ ----------------------------------------------------------------------------
+                else if (Flip_Left > 0) // ÇÃ¸³ ÁÂ ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_left");
+                    //////Debug.Log("flip_left");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x16, 0x9C, 0x6E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_left"); 
+                        // ////Debug.Log("---------- Type.flip_left"); 
                         Flip_Left--;
                     }
                     catch (Exception)
@@ -2166,14 +2255,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to flip_left Packet");
                     }
                 }
-                else if (Flip_Right > 0) // í”Œë¦½ ìš° ----------------------------------------------------------------------------
+                else if (Flip_Right > 0) // ÇÃ¸³ ¿ì ----------------------------------------------------------------------------
                 {
-                    //Debug.Log("flip_right");
+                    //////Debug.Log("flip_right");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x17, 0xBD, 0x7E };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.flip_right"); 
+                        // ////Debug.Log("---------- Type.flip_right"); 
                         Flip_Right--;
                     }
                     catch (Exception)
@@ -2181,14 +2270,14 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to flip_right Packet");
                     }
                 }
-                else if (Count > 0) // ë¹„í–‰ ê´€ë ¨ ë°ì´í„° ì¹´ìš´íŠ¸ -------------------------------------------------------------------------
+                else if (Count > 0) // ºñÇà °ü·Ã µ¥ÀÌÅÍ Ä«¿îÆ® -------------------------------------------------------------------------
                 {
-                    //Debug.Log("Count");
+                    //////Debug.Log("Count");
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x04, 0x01, 0x80, 0x10, 0x50, 0x6E, 0x9D };
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        // Debug.Log("---------- Type.Count"); 
+                        // ////Debug.Log("---------- Type.Count"); 
                         Count--;
                     }
                     catch (Exception)
@@ -2196,21 +2285,21 @@ public class RobotConnector2 : MonoBehaviour
                         Console.WriteLine("exceptipn : failed to Count Packet");
                     }
                 }
-                else // ì‹¤ ì¡°ì¢…ì‹ í˜¸ ì „ì†¡ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                else // ½Ç Á¶Á¾½ÅÈ£ Àü¼Û !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
-                    //Debug.Log("control");
+                    //////Debug.Log("control");
                     byte[] tempBuff = { 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle };
                     byte crcL, crcH;
-                    ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc ëŠ” ì œì™¸í•¨
+                    ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
                     crcL = (byte)(crc & 0xFF);
                     crcH = (byte)((crc & 0xFF00) >> 8);
 
                     try
                     {
-                        Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
+                        //////Debug.Log((byte)quad8.roll + "  ,  " +  (byte)quad8.pitch + "  ,  " +  (byte)quad8.yaw + "  ,  " +  (byte)quad8.throttle);
                         byte[] packetBuffer = { 0x0A, 0x55, 0x10, 0x04, 0x80, 0x10, (byte)quad8.roll, (byte)quad8.pitch, (byte)quad8.yaw, (byte)quad8.throttle, crcL, crcH };  //control::quad8 struct
                         _serialPort.Write(packetBuffer, 0, packetBuffer.Length);
-                        //Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
+                        //////Debug.Log("---------- Type.control" + (byte)quad8.roll + "   " + (byte)quad8.pitch + "   " + (byte)quad8.yaw + "   " + (byte)quad8.throttle);
                     }
                     catch (Exception)
                     {
@@ -2240,43 +2329,38 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-//    void Start ()
-//    {
-//        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
-//        byte crcL, crcH;
-//        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc ëŠ” ì œì™¸í•¨
-//        crcL = (byte)(crc & 0xFF);
-//        crcH = (byte)((crc & 0xFF00) >> 8);
-//
-//        Debug.Log(crcL + "     " + crcH);
-//    }
+    //    void Start ()
+    //    {
+    //        byte[] tempBuff = { 0x40, 0x08, 0x10, 0x70, 0x03, 0x10, 0x10, 0x01, 0x02, 0x02, 0x01, 0x64 };
+    //        byte crcL, crcH;
+    //        ushort crc = crc16_ccitt(tempBuff, 0, tempBuff.Length);    //0A 55 crc crc ´Â Á¦¿ÜÇÔ
+    //        crcL = (byte)(crc & 0xFF);
+    //        crcH = (byte)((crc & 0xFF00) >> 8);
+    //
+    //        ////Debug.Log(crcL + "     " + crcH);
+    //    }
+
+    //ÁöÇı 
+
+    public void Change_fSendInterval(float fSendInterval)
+    {
+        _fSendInterval = fSendInterval;
+    }
 
 
 
+    // ÇöÀç ¾È¾¸ ##########################################################################################
 
-
-
-
-
-
-
-
-
-
-
-
-    // í˜„ì¬ ì•ˆì”€ ##########################################################################################
-
-    // í¬íŠ¸ ì„œì¹˜ ----------------------------------------------------------------------------------------------------------
+    // Æ÷Æ® ¼­Ä¡ ----------------------------------------------------------------------------------------------------------
     public void PortSearch()
     {
-        Debug.Log("PortSearch()");
+        ////Debug.Log("PortSearch()");
 
         portNames.Clear();
 
-        switch (Application.platform) // ê¸°ê¸°ë³„ë¡œ í¬íŠ¸ ì„œì¹˜
+        switch (Application.platform) // ±â±âº°·Î Æ÷Æ® ¼­Ä¡
         {
-            case RuntimePlatform.OSXPlayer: // ------------------------- ì• í”Œ ë§¥ -----------------------------
+            case RuntimePlatform.OSXPlayer: // ------------------------- ¾ÖÇÃ ¸Æ -----------------------------
             case RuntimePlatform.OSXEditor:
             case RuntimePlatform.LinuxPlayer:
                 string[] strPortNames;
@@ -2303,7 +2387,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 break;
 
-            default: // ---------------------------------------------- ìœˆë„ìš° --------------------------------
+            default: // ---------------------------------------------- À©µµ¿ì --------------------------------
                 portNames.AddRange(SerialPort.GetPortNames());
                 portName = portNames[0];
                 break;
@@ -2314,14 +2398,14 @@ public class RobotConnector2 : MonoBehaviour
     } // PortSearch
 
 
-    // ì„ íƒí•œ í¬íŠ¸ë¡œ ì—°ê²° --------------------------------------------------------------------------------------------------------------
+    // ¼±ÅÃÇÑ Æ÷Æ®·Î ¿¬°á --------------------------------------------------------------------------------------------------------------
     public void Connect()
     {
-        Debug.Log("Connect() " + portName);
+        ////Debug.Log("Connect() " + portName);
 
-        _opened = false; // í¬íŠ¸ ì—´ë¦¼ ì´ˆê¸°í™”
-        _connected = false; // ì‹¤ì œ ë“œë¡  ì ‘ì† ì´ˆê¸°í™”
-        //Debug.Log("_opened = false");
+        _opened = false; // Æ÷Æ® ¿­¸² ÃÊ±âÈ­
+        _connected = false; // ½ÇÁ¦ µå·Ğ Á¢¼Ó ÃÊ±âÈ­
+        //////Debug.Log("_opened = false");
 
         try
         {
@@ -2331,8 +2415,8 @@ public class RobotConnector2 : MonoBehaviour
             if (_serialPort.IsOpen == true)
             {
                 _opened = true;
-                //Debug.Log("_opened = True");
-                GetVersion_Start(); // ë²„ì „ ë°›ê¸° ì‹œì‘
+                //////Debug.Log("_opened = True");
+                GetVersion_Start(); // ¹öÀü ¹Ş±â ½ÃÀÛ
 
                 if (OnConnected != null)
                     OnConnected(this, null);
@@ -2386,7 +2470,7 @@ public class RobotConnector2 : MonoBehaviour
         bool state = _connected;
         _connected = false;
         _opened = false;
-        Debug.Log("_opened = false");
+        ////Debug.Log("_opened = false");
 
         try
         {
@@ -2450,26 +2534,26 @@ public class RobotConnector2 : MonoBehaviour
 
 
 
-    // ë°ì´í„° ì´ˆê¸°í™” ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // µ¥ÀÌÅÍ ÃÊ±âÈ­ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void ResetData()
     {
-        // Information (íŒì›¨ì–´ ë²„ì ¼)-----------------------------------------------------------------------------------------
-        _nModelNumber = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+        // Information (Æß¿ş¾î ¹öÁ¯)-----------------------------------------------------------------------------------------
+        _nModelNumber = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
 
-        _usVersion_Build = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+        _usVersion_Build = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
         _byVersion_Minor = 0x00;
         _byVersion_Major = 0x00;
 
-        _usDate_Year = 0; // ë°›ì•„ì˜¨ ë°ì´í„°
+        _usDate_Year = 0; // ¹Ş¾Æ¿Â µ¥ÀÌÅÍ
         _byDate_Month = 0x00;
         _byDate_Day = 0x00;
 
-        _nC_Version_build = 0;  // ì»¨íŠ¸ë¡¤ëŸ¬ ë¹Œë“œ ë²„ì „
-        _nC_Version_major = 0; // ì»¨íŠ¸ë¡¤ëŸ¬ ì£¼ ë²„ì „
-        _nC_Version_minor = 0; // ì»¨íŠ¸ë¡¤ëŸ¬ ë¶€ ë²„ì „
-        _nD_Version_build = 0;  // ë“œë¡  ë¹Œë“œ ë²„ì „
-        _nD_Version_major = 0; // ë“œë¡  ì£¼ ë²„ì „
-        _nD_Version_minor = 0; // ë“œë¡  ë¶€ ë²„ì „
+        _nC_Version_build = 0;  // ÄÁÆ®·Ñ·¯ ºôµå ¹öÀü
+        _nC_Version_major = 0; // ÄÁÆ®·Ñ·¯ ÁÖ ¹öÀü
+        _nC_Version_minor = 0; // ÄÁÆ®·Ñ·¯ ºÎ ¹öÀü
+        _nD_Version_build = 0;  // µå·Ğ ºôµå ¹öÀü
+        _nD_Version_major = 0; // µå·Ğ ÁÖ ¹öÀü
+        _nD_Version_minor = 0; // µå·Ğ ºÎ ¹öÀü
     }
 
 
