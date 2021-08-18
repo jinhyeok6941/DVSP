@@ -1791,6 +1791,7 @@ public class RobotConnector2 : MonoBehaviour
                                                     vr.speed = 10 * ++speed_Level;
                                                     Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
                                                     speed_Level %= 3;
+                                                    VRDroneCtrl.instance.Co_START_STOP();
                                                 }
                                                 break;
                                         }
