@@ -73,7 +73,7 @@ public class DroneManager_CJH : RobotConnector2
             }
             Debug_tempBytes();
             
-            //Angle_Move();
+            Angle_Move();
             //transform.position = new Vector3(motion.accX , motion.accY , motion.accZ);
         }
     }
