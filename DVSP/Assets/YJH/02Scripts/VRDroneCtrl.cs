@@ -209,12 +209,13 @@ public class VRDroneCtrl : RobotConnector2
         }
     }
 
-    IEnumerator Flip_H()// 수평방향 움직임 
+    IEnumerator Flip_H()// 수평방향 움직임 & 움직이는 방향 회전 
     {
         //isFlip = true;
         float currtime = 0;
         Vector3 flip_dir = new Vector3(R_x, 0, R_y);
         flip_dir.Normalize();
+        ViewBody.rotation = transform.rotation;//일단 보여지는 몸체 초기화
 
         Vector3 rotaix = Vector3.Cross(flip_dir, Vector3.up);
         while (currtime <= 2.0f)
@@ -242,6 +243,7 @@ public class VRDroneCtrl : RobotConnector2
             //yield return new WaitForSeconds(0.3f);
         }
 
+        ViewBody.rotation = transform.rotation;
         //isFlip = false;
     }
 
