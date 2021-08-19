@@ -17,4 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/KSH/01.Scenes/Examples/04.Tutorial_Scene_KSH.unity
     guid: e0f5e1a65e9f3ba4781e4ffb5e657619
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 695b42e5a54face4eb4b128fab2f8825, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cae53b5a4819aea449d9252fb35ad6f4, type: 2}
