@@ -4,10 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/YJH/01Scenes/DroneMoving_YU VR.unity
-    guid: f549fdcf401e5c14d985b02b2bb175f3
-  m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 695b42e5a54face4eb4b128fab2f8825, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: cae53b5a4819aea449d9252fb35ad6f4, type: 2}
+  m_Scenes: []
+  m_configObjects: {}
