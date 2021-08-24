@@ -132,13 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 70493893}
+  - component: {fileID: 70493894}
   m_Layer: 0
   m_Name: YJH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &70493893
 Transform:
   m_ObjectHideFlags: 0
@@ -153,6 +154,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70493894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70493892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e38a778c72747847a8ffbac56fd95b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baudrate: 57600
+  portNames: []
+  portName: 
+  takeoffPressed: 0
+  landingPressed: 0
+  stopPressed: 0
+  trimPressed: 0
+  clearbiasPressed: 0
+  SpeedPressed: 0
+  _nSpeed: 1
+  _nSendCount_VerRC: 0
+  _nSendCount_VerRFModule: 0
+  _nSendCount_VerDrone: 0
+  _nModelNumber: 0
+  _nC_Version_build: 0
+  _nC_Version_major: 0
+  _nC_Version_minor: 0
+  _nD_Version_build: 0
+  _nD_Version_major: 0
+  _nD_Version_minor: 0
+  trimRoll: 0
+  trimPitch: 0
+  trimYaw: 0
+  trimThrottle: 0
+  lightRed: 0
+  lightGreen: 0
+  lightBlue: 0
+  lightSend: 0
+  Flip_Front: 0
+  Flip_Back: 0
+  Flip_Left: 0
+  Flip_Right: 0
+  Count: 0
+  _opened: 0
+  _connected: 0
+  _bIsDetailImageFlow: 0
+  _bIsDetailRange: 0
+  _bIsDetailAxis: 0
+  _bIsDetailSensor: 0
+  _bIsAllSensor: 1
+  R_x: 0
+  R_y: 0
+  L_x: 0
+  L_y: 0
+  isFlip: 0
+  isSTbtn: 0
+  pos: []
+  rigid: {fileID: 0}
 --- !u!1 &76897448
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &669015578
 Transform:
   m_ObjectHideFlags: 0
@@ -1458,7 +1519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1361618143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1918,6 +1979,8 @@ MonoBehaviour:
   L_y: 0
   isFlip: 0
   isSTbtn: 0
+  pos: []
+  rigid: {fileID: 0}
 --- !u!4 &1845080093
 Transform:
   m_ObjectHideFlags: 0

@@ -27,8 +27,8 @@ public class VRDroneCtrl : RobotConnector2
     Vector3 rotate_aix;
     Vector3 rotate_value;
 
-    public Transform joystickL;
-    public Transform joystickR;
+   // public Transform joystickL;
+   // public Transform joystickR;
 
     public GameObject joypad_Obj;
     JOYPED joypad;

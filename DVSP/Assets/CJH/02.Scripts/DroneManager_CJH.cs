@@ -16,6 +16,8 @@ public class DroneManager_CJH : RobotConnector2
     // Update is called once per frame
     void Update()
     {
+        //print(_opened.ToString());
+
         if (_opened == true)
         { 
             if(Input.GetKey(KeyCode.W))             // ¾Õ
@@ -52,6 +54,7 @@ public class DroneManager_CJH : RobotConnector2
             }
             else if(Input.GetKeyDown(KeyCode.Space))    // take Off
             {
+                print("space");
                 takeoffPressed++;
             }
             else if(Input.GetKeyDown(KeyCode.L))         // ·£µù
