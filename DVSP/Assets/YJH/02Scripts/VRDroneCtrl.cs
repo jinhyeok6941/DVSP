@@ -27,8 +27,8 @@ public class VRDroneCtrl : RobotConnector2
     Vector3 rotate_aix;
     Vector3 rotate_value;
 
-    public Transform joystickL;
-    public Transform joystickR;
+   // public Transform joystickL;
+   // public Transform joystickR;
 
     public GameObject joypad_Obj;
     JOYPED joypad;
@@ -122,9 +122,6 @@ public class VRDroneCtrl : RobotConnector2
 
             stbtntime = 0;
         }
-
-
-        
     }
 
     IEnumerator StartFly()
@@ -253,8 +250,7 @@ public class VRDroneCtrl : RobotConnector2
         //if (isFlip) return;
 
         transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
-        transform.Rotate((Vector3.up * L_x).normalized , 0.03f * L_x);
-        Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
+        transform.Rotate(Vector3.up , 0.03f * L_x);
     }
     void R_JoyStick()
     {

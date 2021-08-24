@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8632652633286819300}
   - component: {fileID: 8632652633286819299}
   - component: {fileID: 8632652633286819298}
-  - component: {fileID: 8632652633286819297}
+  - component: {fileID: 514694829}
   m_Layer: 0
-  m_Name: JOYPAD
+  m_Name: JOYPAD02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8632652633286819297
+--- !u!114 &514694829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

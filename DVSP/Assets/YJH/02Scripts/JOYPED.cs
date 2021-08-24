@@ -26,6 +26,10 @@ public class JOYPED : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        transform.position = Camera.main.transform.position + new Vector3(0, 0, 2);
+    }
     public void JOYSTICK_MOVE(float lx,float ly,float rx,float ry)
     {
         joystickL.localPosition = new Vector3(lx * 0.003f , ly * 0.003f, -1);

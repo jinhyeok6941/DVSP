@@ -123,6 +123,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &231458233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1223083783163258563, guid: db04a30d444d9524c8bb7de26442c3fc, type: 3}
+  m_PrefabInstance: {fileID: 373807975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &231458234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231458233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f95c2bb18217314b9a43b0b11547d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystickL: {fileID: 993948595}
+  joystickR: {fileID: 2054216544}
+  btn: []
+  normal: {fileID: 0}
+  click: {fileID: 0}
 --- !u!1 &266834201
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +935,7 @@ PrefabInstance:
       objectReference: {fileID: 2054216544}
     - target: {fileID: 6752854500429157687, guid: 5a5a9127064002346b775283cdadbd29, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a5a9127064002346b775283cdadbd29, type: 3}
@@ -929,7 +951,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705813761}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7e811b59ed885d4a99e86a398044fcf, type: 3}
   m_Name: 
@@ -978,6 +1000,8 @@ MonoBehaviour:
   R_y: 0
   L_x: 0
   L_y: 0
+  isFlip: 0
+  isSTbtn: 0
   pos: []
   rigid: {fileID: 0}
 --- !u!1 &908978487
