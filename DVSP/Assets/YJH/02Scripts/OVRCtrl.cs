@@ -12,7 +12,7 @@ public class OVRCtrl : MonoBehaviour
     int spCount = 0;
 
     public float rotSpeed = 10;
-    public float pedRange = 3;
+    public float pedRange = 0.3f;
 
     //public Slider stSlider;
     //public Slider flipSlider;
@@ -230,7 +230,7 @@ public class OVRCtrl : MonoBehaviour
         Vector2 pedR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         Vector3 dirR = new Vector3(pedR.x, 0, pedR.y);
 
-        print(pedR.x + "," + pedR.y);
+        //print(pedR.x + "," + pedR.y);
 
         transform.Translate(dirR * speed * Time.deltaTime); // 전후좌우 움직임
     }
