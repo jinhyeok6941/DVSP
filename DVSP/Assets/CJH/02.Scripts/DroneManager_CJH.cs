@@ -52,6 +52,7 @@ public class DroneManager_CJH : RobotConnector2
             }
             else if(Input.GetKeyDown(KeyCode.Space))    // take Off
             {
+                Debug.Log("Take off");
                 takeoffPressed++;
             }
             else if(Input.GetKeyDown(KeyCode.L))         // ·£µù

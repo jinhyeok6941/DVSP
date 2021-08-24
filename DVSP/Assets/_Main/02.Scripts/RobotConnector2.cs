@@ -1628,6 +1628,7 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
+        Debug.Log(_opened);
 
         Invoke("packetSendingHandler", 0.02f);
     }
@@ -1720,23 +1721,24 @@ public class RobotConnector2 : MonoBehaviour
         
             if (tempBytes != null)
             {
-                            // if(tempBytes[2] != 0x71)
-                            // {
-                               //Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
-                                //    " [1]: " + Convert.ToString(tempBytes[1], 16) +
-                                //    " [2]: " + Convert.ToString(tempBytes[2], 16) +
-                            //       " [3]: " + Convert.ToString(tempBytes[3], 16) +
-                            //        " [4]: " + Convert.ToString(tempBytes[4], 16) +
-                            //        " [5]: " + Convert.ToString(tempBytes[5], 16) +
-                            //       " [6]: " + Convert.ToString(tempBytes[6], 16) +
-                            //       " [7]: " + Convert.ToString(tempBytes[7], 16) +
-                            //       " [8]: " + Convert.ToString(tempBytes[8], 16) +
-                            //        " [9]: " + Convert.ToString(tempBytes[9], 16) +
-                            //        " [10]: " + Convert.ToString(tempBytes[10], 16) +
-                            //        " [11]: " + Convert.ToString(tempBytes[11], 16) +
-                            //        " [12]: " + Convert.ToString(tempBytes[12], 16) +
-                            //        " [13]: " + Convert.ToString(tempBytes[13], 16));
-                            // }
+                        //    if(tempBytes[2] == 0x71)
+                        //    {
+                        //        Debug.Log(" [0]: " + Convert.ToString(tempBytes[0], 16) +
+                        //            " [1]: " + Convert.ToString(tempBytes[1], 16) +
+                        //            " [2]: " + Convert.ToString(tempBytes[2], 16) +
+                        //           " [3]: " + Convert.ToString(tempBytes[3], 16) +
+                        //            " [4]: " + Convert.ToString(tempBytes[4], 16) +
+                        //            " [5]: " + Convert.ToString(tempBytes[5], 16) +
+                        //           " [6]: " + Convert.ToString(tempBytes[6], 16) +
+                        //           " [7]: " + Convert.ToString(tempBytes[7], 16) +
+                        //           " [8]: " + Convert.ToString(tempBytes[8], 16) +
+                        //            " [9]: " + Convert.ToString(tempBytes[9], 16) +
+                        //            " [10]: " + Convert.ToString(tempBytes[10], 16) +
+                        //            " [11]: " + Convert.ToString(tempBytes[11], 16) +
+                        //            " [12]: " + Convert.ToString(tempBytes[12], 16) +
+                        //            " [13]: " + Convert.ToString(tempBytes[13], 16));
+                        //    }
+                            
             
 
                     if ((tempBytes[0] == 0x0A)&&(tempBytes[1] == 0x55))
@@ -1764,6 +1766,8 @@ public class RobotConnector2 : MonoBehaviour
                                          R_y = Get_Sense(readBytes[11]);
                                          L_x = Get_Sense(readBytes[6]);                                        
                                          L_y = Get_Sense(readBytes[7]);
+                                         //Debug.Log(readBytes[6] + "  ,  " + readBytes[7] +
+                                         //"  ,  " + readBytes[10] + "  ,  " + readBytes[11]);
                                          takeoff_Check = L_x > 0 && L_y < 0;
                                          stop_Check = L_x == 0 && L_y < 0;
                                          //Debug.Log(takeoff_Check + "  ,  " + stop_Check);
