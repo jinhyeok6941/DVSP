@@ -14,9 +14,9 @@ public class OVRCtrl : MonoBehaviour
     public float rotSpeed = 10;
     public float pedRange = 3;
 
-    //public Slider stSlider;
-    //public Slider flipSlider;
- 
+    public Slider stSlider;
+    public Slider flipSlider;
+
     float currST;
     public float compST = 3;
     float currFlip;
@@ -69,7 +69,7 @@ public class OVRCtrl : MonoBehaviour
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             currST += Time.deltaTime;
-            //stSlider.value = currST / compST;
+            stSlider.value = currST / compST;
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
@@ -119,17 +119,17 @@ public class OVRCtrl : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
-            //flipSlider.gameObject.SetActive(true);
+            flipSlider.gameObject.SetActive(true);
             currFlip = 0;
         }
         else if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
             currFlip += Time.deltaTime;
-            //flipSlider.value = currFlip / compFlip ;
+            flipSlider.value = currFlip / compFlip ;
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
-            //flipSlider.gameObject.SetActive(false);
+            flipSlider.gameObject.SetActive(false);
             currFlip = 0;
         }
 
