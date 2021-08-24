@@ -2809,7 +2809,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149088154322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.039, y: 0, z: 0.103}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 76897449}
@@ -2931,6 +2931,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753fb985d23cb564e9f5effaff837ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joyped: {fileID: 1707133209}
+  wings:
+  - {fileID: 4961927135132568252}
+  - {fileID: 5366496809697263682}
+  - {fileID: 8978133410620287766}
+  - {fileID: 7441886381430965615}
   speed: 10
   rotSpeed: 3
   pedRange: 0.3
@@ -3145,7 +3151,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8739180246696506552}
-  m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.37053463, y: 0.37625307, z: 0.37081277}
   m_LocalScale: {x: 16.111599, y: 16.111599, z: 16.111599}
   m_Children: []

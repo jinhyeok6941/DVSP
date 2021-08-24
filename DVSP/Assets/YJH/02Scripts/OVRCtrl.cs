@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 public class OVRCtrl : MonoBehaviour
 {
+    public JOYPED joyped;
+
+    public Transform[] wings;
+
     Transform ViewBody;
     Rigidbody rb;
 
+    Vector2 pedL;
+    Vector2 pedR;
     public float speed = 10;
     int spCount = 0;
 
@@ -33,65 +39,74 @@ public class OVRCtrl : MonoBehaviour
     {
         ViewBody = transform.GetChild(0); // 가시적 효과를 줄 몸 설정 
         rb = GetComponent<Rigidbody>();
+        stSlider.gameObject.SetActive(false);
+        flipSlider.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        pedL = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
+        pedR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+        joyped.JOYSTICK_MOVE(pedL.x,pedL.y,pedR.x,pedR.y);//조이패드 움직임 함수
         StartStop_Speed();
 
+        Fliping(); //플립
         if (isFlying)//비행중일때만 조정된
         {
-            Fliping(); //플립
             if (currFlip == 0) // 플립버튼을 누르지않으면 움직여라
             {
-                L_MOVE();// 상하움직임 ,좌우회전
+                L_MOVE(); // 상하움직임 ,좌우회전
                 R_MOVE(); // 전우좌움 움직임
             }
             if (OVRInput.Get(OVRInput.Button.Any))
             {
-                Hovering(0.3f);//호버링 
+                Hovering(0.3f); //호버링 
             }
         }
         else
         {
-            Debug.LogWarning("비행중이 아님니다. ");
-            LedColor();//색바꾸기
+           // Debug.LogWarning("비행중이 아님니다. ");
+            LedColor(); //색바꾸기
         }
+        WingRote();// 비행중일떄 나는 모션
     }
 
     void StartStop_Speed()
     {
-        //if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
-        //{ 
-        //    currST = 0;
-        //}
-        //else 
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+        {//눌렀을떄
+            stSlider.gameObject.SetActive(true);
+            joyped.ST_Click(JOYPED.BTN_STATE.CLICK, 0);
+            currST = 0;
+        }
+        else if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             currST += Time.deltaTime;
             stSlider.value = currST / compST;
+
+            if (currST >= compST)
+            {
+                if (!isFlying)
+                {
+                    StartCoroutine(StartFly()); // 비행전에는 비행시작
+                }
+                else
+                {
+                    StartCoroutine(StopFly()); // 비행중에는 정지
+                }
+                currST = 0; //한번 눌렀으면 일단 0 만들기 ! 
+            }
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
-        {
-            if (isFlying && currST <= 1)//비행중이고 1이내로 누르고 있었으면 속도향상
+        {//뗄때
+            if (isFlying && currST <= 1) //비행중이고 1이내로 누르고 있었으면 속도향상
             {
                 spCount++;
                 speed *= (spCount % 3 + 1);
             }
             currST = 0;
-        }
-
-        if (currST >= compST)
-        {
-            if (!isFlying)
-            {
-                StartCoroutine(StartFly()); // 비행전에는 비행시작
-            }
-            else
-            {
-                StartCoroutine(StopFly()); // 비행중에는 정지
-            }
-            currST = 0;//한번 눌렀으면 일단 0 만들기 ! 
+            joyped.ST_Click(JOYPED.BTN_STATE.NORMAL, 0);
+            stSlider.gameObject.SetActive(false);
         }
     }
     IEnumerator StartFly()
@@ -103,7 +118,7 @@ public class OVRCtrl : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         isFlying = true;
-    }//시작하는 동작 
+    }//이륙하는 동작 
     IEnumerator StopFly()
     {
         isFlying = false;
@@ -113,12 +128,13 @@ public class OVRCtrl : MonoBehaviour
             transform.position -= Vector3.up * 0.01f;
             yield return new WaitForEndOfFrame();
         }
-    }//멈추는 동작 
+    } //착륙한는 동작 
 
     void Fliping()
     {
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
+            joyped.ST_Click(JOYPED.BTN_STATE.CLICK, 1);
             flipSlider.gameObject.SetActive(true);
             currFlip = 0;
         }
@@ -126,18 +142,21 @@ public class OVRCtrl : MonoBehaviour
         {
             currFlip += Time.deltaTime;
             flipSlider.value = currFlip / compFlip ;
+            //Debug.LogWarning(currFlip +","+ flipSlider.value);
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
+            joyped.ST_Click(JOYPED.BTN_STATE.NORMAL, 1);
             flipSlider.gameObject.SetActive(false);
             currFlip = 0;
         }
 
-        if (currFlip >= compFlip)
+        if (currFlip >= compFlip && isFlying)
         {
             StartCoroutine(Flip_V(1)); // 수직방향 움직임 
             StartCoroutine(Flip_H(1)); // 수평방향 움직임 (패드의 입력값을받아서 이동함. )
             currFlip = 0;
+            print("플립!");
         }
     }
     IEnumerator Flip_V(float fliptime)
@@ -161,8 +180,7 @@ public class OVRCtrl : MonoBehaviour
     }//수직방향 플립 움직임
     IEnumerator Flip_H(float fliptime)// 수평방향 플립 움직임 & 움직이는 방향 회전 
     {
-        Vector2 pedR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-        if (pedR == null)
+        if (pedR == new Vector2(0,0))
         {
             Debug.Log("조이패드를 움직이세요.");
         }
@@ -188,9 +206,8 @@ public class OVRCtrl : MonoBehaviour
                 transform.position += flip_dir * 0.01f;
             }
 
-            ViewBody.Rotate(rotaix, 180 * Time.deltaTime);
+            ViewBody.Rotate(rotaix, (360/ fliptime) * Time.deltaTime);
             yield return new WaitForEndOfFrame();
-            //yield return new WaitForSeconds(0.3f);
         }
 
         ViewBody.rotation = transform.rotation;//보여지는 몸체부분 초기화. 
@@ -198,8 +215,6 @@ public class OVRCtrl : MonoBehaviour
 
     void L_MOVE()
     {
-        Vector2 pedL = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
-
         print(pedL.x +","+pedL.y);
         
         if (hadeLess)//해드리스 모드에서는 회전 안먹힘. 
@@ -227,7 +242,6 @@ public class OVRCtrl : MonoBehaviour
     }
     void R_MOVE()
     {
-        Vector2 pedR = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
         Vector3 dirR = new Vector3(pedR.x, 0, pedR.y);
 
         //print(pedR.x + "," + pedR.y);
@@ -260,12 +274,24 @@ public class OVRCtrl : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch))
         {
-            GameObject led = ViewBody.GetChild(0).gameObject;
+            GameObject led = ViewBody.GetChild(6).gameObject;
             MeshRenderer mr = led.GetComponent<MeshRenderer>();
-            float r = Random.Range(0, 255);
-            float g = Random.Range(0, 255);
-            float b = Random.Range(0, 255);
+            float r = Random.Range(0.0f, 1.0f);
+            float g = Random.Range(0.0f, 1.0f);
+            float b = Random.Range(0.0f, 1.0f);
             mr.material.color = new Color(r, g, b);
+        }
+    }
+
+    void WingRote()
+    {
+        if (isFlying)
+        {
+            for (int i = 0; i < wings.Length; i++)
+            {
+                wings[i].transform.Rotate(wings[i].transform.up,20);
+            }
+            print("나는중");
         }
     }
 
