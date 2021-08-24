@@ -1628,6 +1628,7 @@ public class RobotConnector2 : MonoBehaviour
         PortSearch();
         Connect();
         ResetData();
+        Debug.Log(_opened);
 
         Invoke("packetSendingHandler", 0.02f);
     }
@@ -1841,9 +1842,9 @@ public class RobotConnector2 : MonoBehaviour
                                          motion.angleRoll = BitConverter.ToInt16(readBytes, 18);
                                          motion.anglePitch = BitConverter.ToInt16(readBytes, 20);
                                          motion.angleYaw = BitConverter.ToInt16(readBytes, 22);
-                                         Debug.Log("x : " + motion.accX + "  y : " + motion.accY + "  z : " + motion.accZ +
-                                            "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw +
-                                            "  angleRoll : " + motion.angleRoll + "  anglePitch : " + motion.anglePitch + "  angleYaw : " + motion.angleYaw);
+                                         //Debug.Log("x : " + motion.accX + "  y : " + motion.accY + "  z : " + motion.accZ +
+                                         //   "  roll : " + motion.gyroRoll + "  pitch : " + motion.gyroPitch + "  yaw : " + motion.gyroYaw +
+                                         //   "  angleRoll : " + motion.angleRoll + "  anglePitch : " + motion.anglePitch + "  angleYaw : " + motion.angleYaw);
                                         break;                                             
                             } 
                         }
@@ -2121,7 +2122,7 @@ public class RobotConnector2 : MonoBehaviour
                 }
                 else if (takeoffPressed > 0) // ÀÌ·ú½ÅÈ£ ---------------------------------------------------------------------------
                 {
-                    ////Debug.Log("takeoff  , " + _sendCounter);
+                    Debug.Log("takeoff  , " + _sendCounter);
                     try
                     {
                         byte[] packetBuffer = { 0x0A, 0x55, 0x11, 0x02, 0x80, 0x10, 0x07, 0x11, 0x7B, 0x1E };
