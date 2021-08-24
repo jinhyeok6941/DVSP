@@ -135,7 +135,6 @@ public class VRDroneCtrl : RobotConnector2
         print("stst");
         isFlying = true;
     }
-
     IEnumerator StopFly()
     {
         isFlying = false;
@@ -185,7 +184,6 @@ public class VRDroneCtrl : RobotConnector2
 
         
     }
-
     IEnumerator Flip_V()
     {
         float currtime = 0;
@@ -205,7 +203,6 @@ public class VRDroneCtrl : RobotConnector2
             yield return new WaitForEndOfFrame();
         }
     }
-
     IEnumerator Flip_H()// 수평방향 움직임 & 움직이는 방향 회전 
     {
         //isFlip = true;
