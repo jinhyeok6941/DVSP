@@ -9,16 +9,17 @@ public class StartUI : MonoBehaviour
     public Transform lHand;
     public Transform rHand;
     public Transform dot;
+    Image img;
 
     void Start()
     {
-        //lr = gameObject.GetComponentInChildren<LineRenderer>();
+        lr = gameObject.GetComponentInChildren<LineRenderer>();
     }
 
     void Update()
     {
-        pointer();
-        //DrawGuideLine();
+        //pointer();
+        DrawGuideLine();
     }
 
     void DrawGuideLine()
@@ -30,14 +31,25 @@ public class StartUI : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             //3. 부딪힌 지점까지 Line 을 그린다
-            lr.SetPosition(0, transform.position);
+            lr.SetPosition(0, rHand.transform.position);
             lr.SetPosition(1, hit.point);
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("UI"))
+            {
+                //그위치에 빨간점 생성
+                //dot.gameObject.SetActive(true);
+                //dot.position = hit.point;
+                img = hit.transform.GetComponent<Image>();
+                img.color = Color.green;
+            }
+
         }
         else
         {
+            img.color = Color.white;
             //4. 부딪힌 지점이 없으면 오른손위치에서 오른손 앞방향으로 몇미터까지 그려라
-            lr.SetPosition(0, transform.position);
-            lr.SetPosition(1, rHand.transform.position + rHand.transform.forward * 1);
+            lr.SetPosition(0, rHand.transform.position);
+            lr.SetPosition(1, rHand.transform.position + rHand.transform.forward * 3);
+     
         }
     }
     void pointer()
