@@ -251,7 +251,6 @@ public class VRDroneCtrl : RobotConnector2
 
         transform.Translate(Vector3.up * speed * L_y * 0.01f * Time.deltaTime);
         transform.Rotate(Vector3.up , 0.03f * L_x);
-        Debug.Log(L_x + "  ,  " + (Vector3.up * L_x).normalized);
     }
     void R_JoyStick()
     {
