@@ -122,9 +122,6 @@ public class VRDroneCtrl : RobotConnector2
 
             stbtntime = 0;
         }
-
-
-        
     }
 
     IEnumerator StartFly()
