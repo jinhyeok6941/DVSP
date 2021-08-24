@@ -22,7 +22,6 @@ public class OVRCtrl : MonoBehaviour
     float currFlip;
     public float compFlip = 3;
 
-    public Material[] ledColors;
 
     bool hadeLess = false;
     bool collSenser;
