@@ -32,6 +32,7 @@ public class OVRCtrl : MonoBehaviour
     bool hadeLess = false;
     bool collSenser;
     bool isFlying = false;
+    bool ani;
 
     bool hover;
 
@@ -88,6 +89,7 @@ public class OVRCtrl : MonoBehaviour
             {
                 if (!isFlying)
                 {
+                    ani = true;
                     StartCoroutine(StartFly()); // 비행전에는 비행시작
                 }
                 else
@@ -128,6 +130,7 @@ public class OVRCtrl : MonoBehaviour
             transform.position -= Vector3.up * 0.01f;
             yield return new WaitForEndOfFrame();
         }
+        ani = false;
     } //착륙한는 동작 
 
     void Fliping()
@@ -285,7 +288,7 @@ public class OVRCtrl : MonoBehaviour
 
     void WingRote()
     {
-        if (isFlying)
+        if (ani)
         {
             for (int i = 0; i < wings.Length; i++)
             {
