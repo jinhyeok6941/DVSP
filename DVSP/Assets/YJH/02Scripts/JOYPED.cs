@@ -12,6 +12,8 @@ public class JOYPED : MonoBehaviour
     public Material normal;
     public Material click;
 
+    //public int isStep { get; set; } // Unity 창에서는 안보이고 다른 대서 접근은 가능한 Public
+
     public enum BTN_STATE
     {
         NORMAL,
