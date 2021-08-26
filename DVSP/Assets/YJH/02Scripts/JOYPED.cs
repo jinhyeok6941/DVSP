@@ -60,4 +60,9 @@ public class JOYPED : MonoBehaviour
         }
     }
 
+    public void Guide_Joy(Vector3 localPos)
+    {
+        joystickL.localPosition = Vector3.Lerp(joystickL.position, localPos , 0.2f);
+    }
+
 }
