@@ -101,11 +101,11 @@ public class OVRCtrl : MonoBehaviour
         }
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {//뗄때
-            if (isFlying && currST <= 1) //비행중이고 1이내로 누르고 있었으면 속도향상
-            {
-                spCount++;
-                speed *= (spCount % 3 + 1);
-            }
+            //if (isFlying && currST <= 1) //비행중이고 1이내로 누르고 있었으면 속도향상
+            //{
+                //spCount++;
+                //speed *= (spCount % 3 + 1);
+            //}
             currST = 0;
             joyped.ST_Click(JOYPED.BTN_STATE.NORMAL, 0);
             stSlider.gameObject.SetActive(false);

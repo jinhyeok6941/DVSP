@@ -28,7 +28,7 @@ public class JOYPED : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Camera.main.transform.position + new Vector3(0, 0, 2);
+        //transform.position = Camera.main.transform.position + new Vector3(0, 0, 2);
     }
     public void JOYSTICK_MOVE(float lx,float ly,float rx,float ry)
     {
@@ -37,7 +37,7 @@ public class JOYPED : MonoBehaviour
     }
 
     /// <summary>
-    /// btn_num 은 0번은 ST버튼 , 1번은 Flip버튼 이다. 
+    /// btn_num 은 0번은 ST버튼 , 1번은 Flip버튼 , 2번은 L_joy , 3번은 R_joy이다. 
     /// </summary>
     /// <param 버튼클릭상태="state"></param
     public void ST_Click(BTN_STATE state , int btn_num) 
@@ -52,5 +52,17 @@ public class JOYPED : MonoBehaviour
         }
     }
 
+    public void Guide_Reset()
+    {
+        for (int i = 0; i < btn.Length; i++)
+        {
+            btn[i].material = normal;
+        }
+    }
+
+    public void Guide_Joy(Vector3 localPos)
+    {
+        joystickL.localPosition = Vector3.Lerp(joystickL.position, localPos , 0.2f);
+    }
 
 }
