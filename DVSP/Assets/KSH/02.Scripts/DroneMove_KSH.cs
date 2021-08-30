@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneMove_KSH : RobotConnector2
+public class DroneMove_KSH : MonoBehaviour
 {
     public float moveSpeed = 5;
     //상승 하강 속도
