@@ -22,7 +22,7 @@ public class iTweenManager : MonoBehaviour
 
     void Start()
     {
-        endtuto = false;
+        endtuto = true;
 
 
         if (!endtuto)
@@ -55,21 +55,41 @@ public class iTweenManager : MonoBehaviour
             StartTuto(GameStat.quit);
         }
     }
-
+    /*
+     hp
+     item random
+     
+     
+     
+     */
 
     public void StartTuto(GameStat stat)
     {
+        //더블클릭금지추가예정
         switch (stat)
         {
             case GameStat.tuto:
-            start.SetActive(false);
-            quit.SetActive(false);
+                start.SetActive(false);
+                quit.SetActive(false);
 
-            iTween.MoveBy(tuto,
-            iTween.Hash("x", -50,
-            "time", 1,
-            "easetype", iTween.EaseType.easeInBounce
-            ));
+                if (!endtuto)
+                {
+                    iTween.MoveBy(tuto,
+                    iTween.Hash("x", 50,
+                    "time", 1,
+                    "easetype", iTween.EaseType.easeInBounce
+                    ));
+                }
+                else
+                {
+                    iTween.MoveBy(tuto,
+                    iTween.Hash("x", 50,
+                    "time", 1,
+                    "easetype", iTween.EaseType.easeInBounce
+                    ));
+                }
+
+
                 break;
 
             case GameStat.start:
@@ -80,24 +100,18 @@ public class iTweenManager : MonoBehaviour
             case GameStat.quit:
                 start.SetActive(false);
                 tuto.SetActive(false);
-                break;
-        }
 
-        Image img = quit.GetComponent<Image>();
-        Text txt = quit.GetComponentInChildren<Text>();
-        img.color = new Color(255, 255, 255, 0);
-
-        iTween.MoveBy(quit,
+            iTween.MoveBy(quit,
             iTween.Hash("x", -50,
             "time", 1,
             "easetype", iTween.EaseType.easeInBounce
             ));
+                break;
+        }
 
-        iTween.MoveBy(tuto,
-           iTween.Hash("x", 50,
-           "time", 1,
-           "easetype", iTween.EaseType.easeInBounce
-           ));
+       /* Image img = quit.GetComponent<Image>();
+        Text txt = quit.GetComponentInChildren<Text>();
+        img.color = new Color(255, 255, 255, 0);*/
 
     }
     
