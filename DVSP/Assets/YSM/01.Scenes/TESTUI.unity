@@ -1060,6 +1060,7 @@ GameObject:
   - component: {fileID: 1309106712}
   - component: {fileID: 1309106711}
   - component: {fileID: 1309106715}
+  - component: {fileID: 1309106716}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1170,6 +1171,21 @@ MonoBehaviour:
     m_Bits: 4294967295
   pointer: {fileID: 0}
   sortOrder: 0
+--- !u!114 &1309106716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309106710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd8ac669f3dc514da79dd093b626923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tuto: {fileID: 2076285318}
+  start: {fileID: 1331429101}
+  quit: {fileID: 1891002356}
 --- !u!1 &1331429101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,7 +1205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1331429102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1595,7 +1611,6 @@ GameObject:
   - component: {fileID: 1891002359}
   - component: {fileID: 1891002358}
   - component: {fileID: 1891002361}
-  - component: {fileID: 1891002362}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1730,18 +1745,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 70, y: 300, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1891002362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891002356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483a925c1cab4764ca3fa422a1b8e578, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2076285318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,7 +1758,6 @@ GameObject:
   - component: {fileID: 2076285321}
   - component: {fileID: 2076285320}
   - component: {fileID: 2076285323}
-  - component: {fileID: 2076285324}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -1890,18 +1892,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 70, y: 300, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2076285324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076285318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483a925c1cab4764ca3fa422a1b8e578, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1054112103889604
 GameObject:
   m_ObjectHideFlags: 0
