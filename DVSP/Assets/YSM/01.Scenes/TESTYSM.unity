@@ -341,6 +341,12 @@ MonoBehaviour:
   _bIsDetailAxis: 0
   _bIsDetailSensor: 0
   _bIsAllSensor: 1
+  R_x: 0
+  R_y: 0
+  L_x: 0
+  L_y: 0
+  isFlip: 0
+  isSTbtn: 0
 --- !u!4 &564282753
 Transform:
   m_ObjectHideFlags: 0
