@@ -70,7 +70,7 @@ public class TutorialManager : MonoBehaviour
                 guide.text = "우측 조이스틱으로 전후좌우 드론을 움직여보세요! ";
                 StartCoroutine(PressBlink(3));
                 break;
-   ㄴ         case 5:
+            case 5:
                 guide.text = "완료! ";
                 break;
             //case 6:
