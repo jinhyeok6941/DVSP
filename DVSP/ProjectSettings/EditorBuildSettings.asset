@@ -4,7 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/YSM/01.Scenes/TESTUI.unity
+    guid: 9a1b679e32bfb044180c693ce3a5c9fa
+  - enabled: 1
+    path: Assets/YSM/01.Scenes/VRGameScene_YSM.unity
+    guid: 04d9638425af29b44bf500c91e330eba
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 695b42e5a54face4eb4b128fab2f8825, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c4282900d9deba040ada05d3fdc4d5cc, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 1714156e425840243b709a8c7850a51a, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: dd1131ea15a7ef547871f610a2d942f5, type: 2}

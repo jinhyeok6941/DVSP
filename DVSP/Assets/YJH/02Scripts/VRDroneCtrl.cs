@@ -8,8 +8,9 @@ public class VRDroneCtrl : RobotConnector2
 
     //드론 움직임 
     public float speed = 10; //  기본 드론 움직임
-    
-    public Space flymode = Space.World; //  드론 비행모드를 HeadLess OnOff ctrl
+    int spCount = 0; // 빠름 속도 조절 
+
+    public Space flymode = Space.Self; //  드론 비행모드를 HeadLess OnOff ctrl
     int countMode = 0; // flymode 컨트롤 값 bool 값 이용가능 하지만 일단 int로 
 
     bool isFlying = false; // 이*착륙을 위한 확인용 bool 값 
@@ -25,7 +26,6 @@ public class VRDroneCtrl : RobotConnector2
     Rigidbody rb;
 
     Vector3 rotate_aix;
-    Vector3 rotate_value;
 
    // public Transform joystickL;
    // public Transform joystickR;
@@ -65,10 +65,10 @@ public class VRDroneCtrl : RobotConnector2
         
         Co_START_STOP(); //  비행 전부터 실행가능 한 함수 시작 중지 
 
+        FLIP_Motion(); // 플립 여부 먼저 확인 
         //--------------------------------//
         if (isFlying == false) return; // 비행중일떄만 아래 조정 가능  
         
-        FLIP_Motion(); // 플립 여부 먼저 확인 
 
         if (isFlip == false) // 플립상태가 아닐떄만 할수 있음!  
         {
@@ -119,7 +119,12 @@ public class VRDroneCtrl : RobotConnector2
         else // 떼었을 때
         {
             isSTbtning = false;
-
+            if (isFlying && stbtntime <= 1) //비행중이고 1이내로 누르고 있었으면 속도향상
+            {
+                speed /= (spCount % 3 + 1); //원래 숫자로만들고 
+                spCount++;
+                speed *= (spCount % 3 + 1); //  하나 더한 값만큼 곱해주기 ! 
+            }
             stbtntime = 0;
         }
     }
@@ -166,7 +171,7 @@ public class VRDroneCtrl : RobotConnector2
         {
             flipTime += Time.deltaTime;
 
-            if (flipTime >= 3.0f) //  버튼을 꾸욱 누르고 있으면 플립 작동 ! 
+            if (flipTime >= 3.0f && isFlying) //  버튼을 꾸욱 누르고 있으면 플립 작동 ! 
             {
                 StopAllCoroutines();
                 StartCoroutine(Flip_H());
@@ -176,9 +181,16 @@ public class VRDroneCtrl : RobotConnector2
         }
         else
         {
-            // isFlip = false;
             isFliping = false;
-
+            if (flipTime < 1 && !isFlying) // 비행중아니고 1초 이하의 경우에만 작동 ! 
+            {/// 랜덤 색 변화 코딩 
+                GameObject led = ViewBody.GetChild(6).gameObject;
+                MeshRenderer mr = led.GetComponent<MeshRenderer>();
+                float r = Random.Range(0.0f, 1.0f);
+                float g = Random.Range(0.0f, 1.0f);
+                float b = Random.Range(0.0f, 1.0f);
+                mr.material.color = new Color(r, g, b);
+            }
             flipTime = 0;
         }
 
