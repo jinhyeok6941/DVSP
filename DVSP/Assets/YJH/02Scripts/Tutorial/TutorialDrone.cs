@@ -36,6 +36,7 @@ public class TutorialDrone : RobotConnector2
 
     void Update()
     {
+        rb.WakeUp(); // 리지드 바디 계 속 꺠워주기.  
         Debug_tempBytes();//실시간 정보 받는 함수 업데이트문에 필수 
         //단계 별로 나누기 
         Co_START_STOP();// 1단계에서는 떳다 가라앉아다가만 가능 하기! // 0,1,2 step
@@ -173,13 +174,14 @@ public class TutorialDrone : RobotConnector2
             isFliping = false;
             if (flipTime < 1 && step > 16  && !isFlying) // 비행중아니고 16스텝 이상부터 1초 이하의 경우에만 작동 ! 
             {/// 랜덤 색 변화 코딩 
-                GameObject led = ViewBody.GetChild(18).gameObject;
+                GameObject led = ViewBody.GetChild(0).gameObject;
                 MeshRenderer mr = led.GetComponent<MeshRenderer>();
                 float r = Random.Range(0.0f, 1.0f);
                 float g = Random.Range(0.0f, 1.0f);
                 float b = Random.Range(0.0f, 1.0f);
                 mr.material.color = new Color(r, g, b);
                 NextStep(17); // 17 클리에 메세지 보여주고 끝! !
+                print(led.name);
             }
             flipTime = 0;
         }
@@ -318,6 +320,7 @@ public class TutorialDrone : RobotConnector2
 
     private void OnCollisionExit(Collision collision)
     {
+        rb.isKinematic = false;
         collSenser = false;
         print("bye" + collision.gameObject.name);
     }

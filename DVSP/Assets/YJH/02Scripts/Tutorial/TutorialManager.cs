@@ -13,7 +13,8 @@ public class TutorialManager : MonoBehaviour
 
     int stepCount;
 
-    //public MeshRenderer Steps;
+    public MeshRenderer[] round;
+    public Material clear;
     void Start()
     {
         SeletStep();
@@ -63,6 +64,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 2:
                 guide.text = "완료! 다시 이륙해봐요! ";
+                ClearRound(0);
                 break;
             //case 3:
             //    break; // 3번은 의미 없음 한번만 하기 위해 그냥 있는 숫자 
@@ -72,6 +74,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 5:
                 guide.text = "완료! ";
+                ClearRound(1);
                 break;
             //case 6:
             //    break;
@@ -81,6 +84,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 8:
                 guide.text = "완료! ";
+                ClearRound(2);
                 break;
             //case 9:
             //    break;
@@ -90,6 +94,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 11:
                 guide.text = "완료! ";
+                ClearRound(3);
                 break;
             case 12:
                 guide.text = "뒤집기는  우측 상단의 버튼을 꾹 3초이상 눌르면서";
@@ -102,6 +107,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 14:
                 guide.text = "완료! ";
+                ClearRound(4);
                 break;
             case 15:
                 guide.text = "일단 바닥에 한번 착륙해봐요! ";
@@ -113,14 +119,18 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 17:
                 guide.text = "완료! ";
+                ClearRound(6);
                 break;
             default:
                 break;
         }
     }
 
-   
-    
+
+    void ClearRound(int roundNum)
+    {
+        round[roundNum].material = clear;
+    }
 
 
 
