@@ -56,6 +56,8 @@ public class StartUI : MonoBehaviour
         }
         else
         {
+            if (img == null) return;
+
             img.color = Color.white;
             //4. 부딪힌 지점이 없으면 오른손위치에서 오른손 앞방향으로 몇미터까지 그려라
             lr.SetPosition(0, rHand.transform.position);
