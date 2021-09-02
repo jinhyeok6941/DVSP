@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour
 {
 
-
-
     public void OnClickGameStartButton()
     {
         SceneManager.LoadScene(1);   
