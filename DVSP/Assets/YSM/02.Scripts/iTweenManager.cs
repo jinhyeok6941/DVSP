@@ -22,7 +22,7 @@ public class iTweenManager : MonoBehaviour
 
     void Start()
     {
-        endtuto = true;
+        endtuto = false;
 
 
         if (!endtuto)
@@ -74,6 +74,7 @@ public class iTweenManager : MonoBehaviour
 
                 if (!endtuto)
                 {
+                    tuto.GetComponent<Button>().enabled = false;
                     iTween.MoveBy(tuto,
                     iTween.Hash("x", 50,
                     "time", 1,
@@ -82,6 +83,7 @@ public class iTweenManager : MonoBehaviour
                 }
                 else
                 {
+                    tuto.GetComponent<Button>().enabled = false;
                     iTween.MoveBy(tuto,
                     iTween.Hash("x", 50,
                     "time", 1,
@@ -108,38 +110,26 @@ public class iTweenManager : MonoBehaviour
             ));
                 break;
         }
-
-       /* Image img = quit.GetComponent<Image>();
-        Text txt = quit.GetComponentInChildren<Text>();
-        img.color = new Color(255, 255, 255, 0);*/
-
     }
+   
 
-    IEnumerator fadeOut(GameObject go)
+    public void OnClickTuto()
     {
-        yield return new WaitForSeconds(2);
-        go.SetActive(false);
-
-    }
-    public void OnClickTuto(GameStat stat)
-    {
-        stat = GameStat.tuto;
-        StartTuto(stat);
+        StartTuto(GameStat.tuto);
         Debug.Log("tuto");
         //SceneManager.LoadScene("");
     }
-    public void OnClickStart(GameStat stat)
+    public void OnClickStart()
     {
-        stat = GameStat.start;
-        StartTuto(stat);
+        StartTuto(GameStat.start);
         Debug.Log("start");
         //SceneManager.LoadScene("");
     }
-    public void OnClickQuit(GameStat stat)
+    public void OnClickQuit()
     {
-        stat = GameStat.quit;
-        StartTuto(stat);
+        StartTuto(GameStat.quit);
         Debug.Log("quit");
         Application.Quit();
     }
+
 }

@@ -1271,8 +1271,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798097774}
-        m_TargetAssemblyTypeName: StartUI, Assembly-CSharp
+      - m_Target: {fileID: 1309106716}
+        m_TargetAssemblyTypeName: iTweenManager, Assembly-CSharp
         m_MethodName: OnClickStart
         m_Mode: 1
         m_Arguments:
@@ -1683,8 +1683,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798097774}
-        m_TargetAssemblyTypeName: StartUI, Assembly-CSharp
+      - m_Target: {fileID: 1309106716}
+        m_TargetAssemblyTypeName: iTweenManager, Assembly-CSharp
         m_MethodName: OnClickQuit
         m_Mode: 1
         m_Arguments:
@@ -1830,9 +1830,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798197710}
-        m_TargetAssemblyTypeName: StartUI, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1309106716}
+        m_TargetAssemblyTypeName: iTweenManager, Assembly-CSharp
+        m_MethodName: OnClickTuto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
