@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class iTweenManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class iTweenManager : MonoBehaviour
 
     void Start()
     {
-        endtuto = false;
+        endtuto = true;
 
 
         if (!endtuto)
@@ -83,18 +84,20 @@ public class iTweenManager : MonoBehaviour
                 else
                 {
                     iTween.MoveBy(tuto,
-                    iTween.Hash("x", 50,
+                    iTween.Hash("x", 100,
                     "time", 1,
                     "easetype", iTween.EaseType.easeInBounce
                     ));
                 }
-
+                
+                StartCoroutine(LoadScene("Tutorial_ysmtest"));
 
                 break;
 
             case GameStat.start:
                 tuto.SetActive(false);
                 quit.SetActive(false);
+                StartCoroutine(LoadScene("VRGameScene_YSM1"));
                 break;
 
             case GameStat.quit:
@@ -130,6 +133,14 @@ public class iTweenManager : MonoBehaviour
         StartTuto(GameStat.quit);
         Debug.Log("quit");
         Application.Quit();
+    }
+
+
+    IEnumerator LoadScene(string txt)
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(txt);
+
     }
 
 }
