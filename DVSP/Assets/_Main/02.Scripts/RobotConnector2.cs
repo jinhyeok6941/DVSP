@@ -1616,7 +1616,7 @@ public class RobotConnector2 : MonoBehaviour
 
     public void Connect_Manager()
     {
-        vr = new VRDroneCtrl();
+        //vr = new VRDroneCtrl();
         _serialPort = new SerialPort();
         _serialPort.DtrEnable = false;
         _serialPort.RtsEnable = false;
@@ -1704,8 +1704,6 @@ public class RobotConnector2 : MonoBehaviour
         }
     }
     
-    // 자식 클래스명
-    VRDroneCtrl vr;
     // 조이스틱 감도 측정 변수
     public float R_x , R_y;
     public float L_x , L_y;
@@ -1776,7 +1774,7 @@ public class RobotConnector2 : MonoBehaviour
                                         switch(readBytes[6] - readBytes[7])
                                         {
                                             case -1:  // HEADLESS OFF
-                                              vr.flymode = Space.World;
+                                              //vr.flymode = Space.World;
                                               break;
                                             case 16:  // HEADLESS ON
                                               Override_Test();
@@ -1800,19 +1798,6 @@ public class RobotConnector2 : MonoBehaviour
 
                                     break;
                                             case 1:   // Speed , Start
-                                    //if (takeoff_Check)
-                                    //    Debug.Log("takeoff");
-                                    //else if (readBytes[8] == 1)
-                                    //{
-                                    //    //vr.speed = 10 * ++speed_Level;
-                                    //    //Debug.Log("Speed , Start" + "  ,  " + speed_Level + "  ,  " + vr.speed);
-                                    //    //speed_Level %= 3;
-                                    //    VRDroneCtrl.instance.Co_START_STOP();
-                                    //}
-                                    //else if (readBytes[8] == 3)
-                                    //{
-                                    //    // 뗀다. 
-                                    //}
                                     switch (readBytes[8])
                                     {
                                         case 1:
