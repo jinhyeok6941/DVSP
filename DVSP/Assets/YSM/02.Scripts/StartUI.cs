@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartUI : iTweenManager
+public class StartUI : MonoBehaviour
 {
     LineRenderer lr;
     public Transform lHand;
@@ -104,28 +104,6 @@ public class StartUI : iTweenManager
                 }
             }
         }
-    }
-
-    public void OnClickTuto(GameStat stat) 
-    {
-        stat = GameStat.tuto;
-        StartTuto(stat);
-        Debug.Log("tuto");
-        //SceneManager.LoadScene("");
-    }
-    public void OnClickStart(GameStat stat)
-    {
-        stat = GameStat.start;
-        StartTuto(stat);
-        Debug.Log("start");
-        //SceneManager.LoadScene("");
-    }
-    public void OnClickQuit(GameStat stat)
-    {
-        stat = GameStat.quit;
-        StartTuto(stat);
-        Debug.Log("quit");
-        Application.Quit();
     }
    
 

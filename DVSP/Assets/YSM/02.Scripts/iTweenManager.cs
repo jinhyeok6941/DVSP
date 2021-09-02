@@ -114,7 +114,6 @@ public class iTweenManager : MonoBehaviour
         img.color = new Color(255, 255, 255, 0);*/
 
     }
-    
 
     IEnumerator fadeOut(GameObject go)
     {
@@ -122,5 +121,25 @@ public class iTweenManager : MonoBehaviour
         go.SetActive(false);
 
     }
-
+    public void OnClickTuto(GameStat stat)
+    {
+        stat = GameStat.tuto;
+        StartTuto(stat);
+        Debug.Log("tuto");
+        //SceneManager.LoadScene("");
+    }
+    public void OnClickStart(GameStat stat)
+    {
+        stat = GameStat.start;
+        StartTuto(stat);
+        Debug.Log("start");
+        //SceneManager.LoadScene("");
+    }
+    public void OnClickQuit(GameStat stat)
+    {
+        stat = GameStat.quit;
+        StartTuto(stat);
+        Debug.Log("quit");
+        Application.Quit();
+    }
 }

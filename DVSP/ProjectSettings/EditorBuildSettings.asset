@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/YSM/01.Scenes/TESTUI.unity
     guid: 9a1b679e32bfb044180c693ce3a5c9fa
-  - enabled: 1
+  - enabled: 0
     path: Assets/YSM/01.Scenes/VRGameScene_YSM.unity
     guid: 04d9638425af29b44bf500c91e330eba
+  - enabled: 1
+    path: Assets/YJH/01Scenes/Tutorial.unity
+    guid: 6cafe5c6e2a86c241990370b99582aee
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 695b42e5a54face4eb4b128fab2f8825, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 1714156e425840243b709a8c7850a51a, type: 2}
