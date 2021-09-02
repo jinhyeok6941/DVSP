@@ -234,7 +234,7 @@ public class OVRCtrl : MonoBehaviour
             }
             else
             {
-                transform.Translate(Vector3.up * pedL.y * Time.deltaTime); //상하 움직임 //y받고
+                transform.Translate(Vector3.up * pedL.y * 15 *Time.deltaTime); //상하 움직임 //y받고
                 if (Mathf.Abs(pedL.x) >= pedRange)// x값은 범위 이상일떄만 가동
                 {
                     transform.Rotate(Vector3.up * pedL.x, rotSpeed);//좌우전환
