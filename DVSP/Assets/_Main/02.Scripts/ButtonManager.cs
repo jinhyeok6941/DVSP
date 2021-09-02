@@ -7,19 +7,23 @@ using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour
 {
 
-    public void OnClickGameStartButton()
+    public void OnClickPlayGame()
     {
-        SceneManager.LoadScene(1);   
+        SceneManager.LoadScene("ChooseMap");   
     }
 
-    public void OnClickPracticeButton()
+    public void OnClickTutorial()
     {
-        SceneManager.LoadScene(2);   
+        SceneManager.LoadScene("Tutorial_yu");   
     }
 
-    public void OnClickTutorialButton()
+    public void OnClickMap1()
     {
-        SceneManager.LoadScene(3);   
+        SceneManager.LoadScene("07.FPV_PracticeScene_KSH 1");
+    }
+    public void OnClickMap2()
+    {
+        SceneManager.LoadScene("VRGameScene_YSM");
     }
 
 }
