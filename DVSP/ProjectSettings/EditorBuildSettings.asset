@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/YSM/01.Scenes/TESTUI.unity
     guid: 9a1b679e32bfb044180c693ce3a5c9fa
   - enabled: 0
-    path: Assets/YSM/01.Scenes/VRGameScene_YSM.unity
+    path: Assets/_Main/01.Scenes/VRGameScene_YSM.unity
     guid: 04d9638425af29b44bf500c91e330eba
   - enabled: 1
     path: Assets/YJH/01Scenes/Tutorial.unity
