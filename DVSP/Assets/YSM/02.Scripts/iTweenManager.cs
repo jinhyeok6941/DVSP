@@ -74,7 +74,6 @@ public class iTweenManager : MonoBehaviour
 
                 if (!endtuto)
                 {
-                    tuto.GetComponent<Button>().enabled = false;
                     iTween.MoveBy(tuto,
                     iTween.Hash("x", 50,
                     "time", 1,
@@ -83,7 +82,6 @@ public class iTweenManager : MonoBehaviour
                 }
                 else
                 {
-                    tuto.GetComponent<Button>().enabled = false;
                     iTween.MoveBy(tuto,
                     iTween.Hash("x", 50,
                     "time", 1,
@@ -103,15 +101,17 @@ public class iTweenManager : MonoBehaviour
                 start.SetActive(false);
                 tuto.SetActive(false);
 
+
             iTween.MoveBy(quit,
             iTween.Hash("x", -50,
             "time", 1,
             "easetype", iTween.EaseType.easeInBounce
+
             ));
                 break;
         }
     }
-   
+
 
     public void OnClickTuto()
     {

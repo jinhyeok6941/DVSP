@@ -96,12 +96,14 @@ public class StartUI : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
             {
-                //btn 스크립트 가져온다
-                Button btn = hit.transform.GetComponent<Button>();
-                if (btn != null)
+                //boxcollider 스크립트 가져온다
+                BoxCollider bx = hit.transform.GetComponent<BoxCollider>();
+                bx.isTrigger = false;
+                /*if (btn != null)
                 {
                     btn.onClick.Invoke();
-                }
+                    btn.enabled = false;
+                }*/
             }
         }
     }
